@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-select.min.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/color.css') }}">
 
@@ -33,12 +34,14 @@
     </div>
 
     <script src="{{ asset('/js/jquery-1.11.1.min.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('/js/bootstrap-slider.min.js') }}"></script>
     <script src="{{ asset('/js/bootstrap-select.min.js') }}"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="{{ asset('/js/isotope.js') }}"></script>
     <script src="{{ asset('/js/script.js') }}"></script>
 </body>
 </html>
