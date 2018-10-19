@@ -92,6 +92,4 @@
         <!-- gallery-item end-->
     </div>
     <!-- portfolio end -->
-    <a href="listing.html" class="btn    color-bg">Explore All Cities<i class="fas fa-caret-right"></i></a>
-
 </section>
