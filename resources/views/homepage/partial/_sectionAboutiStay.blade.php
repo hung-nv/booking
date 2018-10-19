@@ -1,4 +1,4 @@
-<section id="sec2">
+<section id="sec2" class="section-istay">
     <div class="container">
         <div class="section-title">
             <div class="section-title-separator">

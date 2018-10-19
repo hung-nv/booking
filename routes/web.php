@@ -7,16 +7,8 @@ Route::get('/administrator', function () {
 Route::group(['namespace' => 'Frontend'], function () {
     // route homepage.
     Route::get('/', ['as' => 'homepage', 'uses' => 'HomepageController@index']);
-    // route post details.
-    Route::get('post/{slug}', ['as' => 'post.details', 'uses' => 'PostController@details']);
     // route list posts.
-    Route::get('category/{slug}', ['as' => 'post.list', 'uses' => 'PostController@index']);
-    // route page details.
-    Route::get('page/{slug}', ['as' => 'post.page', 'uses' => 'PostController@page']);
-    // route list product.
-    Route::get('{slug}', ['as' => 'product.list', 'uses' => 'ProductController@listProduct']);
-    // route product details.
-    Route::get('product/{slug}', ['as' => 'product.show', 'uses' => 'ProductController@showProduct']);
+    Route::get('category', ['as' => 'post.list', 'uses' => 'PostController@index']);
 });
 
 Route::group(['prefix' => 'administrator', 'namespace' => 'Backend'], function () {

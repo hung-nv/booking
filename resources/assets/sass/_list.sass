@@ -1,0 +1,2187 @@
+.mob-bg,
+.mobile-list-controls
+  display: none
+
+/*------listing------------------------------------------------
+
+.grey-blue-bg
+  background: #ECF6F8
+
+.col-list-wrap
+  position: relative
+  width: 900px
+  float: left
+  background: #ECF6F8
+  min-height: 100vh
+  z-index: 50
+  left: 0
+  box-shadow: 0px 0px 90px 0px rgba(0, 0, 0, 0.17)
+  transition: all .2s ease-in-out
+  padding-bottom: 40px
+
+.fw-col-list-wrap
+  width: 100% !important
+  box-shadow: 0px 0px 0 0px rgba(0, 0, 0, 0.27)
+  background: none
+  padding-bottom: 0
+  .list-main-wrap-opt
+    padding: 0 8px
+    margin-top: 0
+
+.fh-col-list-wrap, .center-col-list-wrap
+  width: 100%
+
+.filter-sidebar
+  padding: 25px 30px
+  border-radius: 10px
+  background: #fff
+  border: 1px solid #eee
+  z-index: 120
+  .col-list-search-input-item
+    margin-bottom: 25px
+    &:last-child
+      margin-bottom: 0
+    label
+      margin-bottom: 15px
+    .filter-tags label
+      margin-bottom: 0
+    .header-search-button
+      top: 0
+      left: 0
+
+.list-wrap-search
+  padding: 25px 0
+  background: #fff
+  z-index: 60
+  margin-bottom: 10px
+  &.lisfw
+    margin-bottom: 50px
+    border-radius: 10px
+
+.search-opt-wrap
+  margin-top: 20px
+
+.range-slider-wrap
+  margin-top: 6px
+
+.search-opt-container .filter-tags li
+  float: left
+  width: 100%
+  margin-bottom: 10px
+  text-align: left
+  font-size: 11px
+
+.filter-tags .listing-rating i
+  padding-right: 3px
+  font-size: 10px
+
+.four-star-rating .listing-rating i:nth-child(5)
+  color: #ccc
+
+.three-star-rating .listing-rating i
+  &:nth-child(4), &:nth-child(5)
+    color: #ccc
+
+.filter-tags .listing-rating span
+  color: #999
+  padding-left: 6px
+
+.leave-rating-title
+  margin-right: 10px
+  font-weight: 500
+  font-size: 14px
+  color: #666
+  position: relative
+  top: -3px
+
+.leave-rating
+  input[type="radio"]
+    display: none
+  label
+    font-size: 12px
+    float: right
+    letter-spacing: 4px
+    color: #FACC39
+    cursor: pointer
+    transition: 0.3s
+
+.leave-rating-holder .leave-rating
+  float: left
+  margin-top: 6px
+
+.leave-rating
+  label
+    &:hover:before, &.selected:before, &.min-star:before
+      font-weight: bold
+  &:hover input[type="radio"]:checked ~ label:before, input[type="radio"]:checked ~ label:before, label:hover ~ label:before
+    font-weight: bold
+
+.hidden-listing-filter
+  padding: 25px 20px 0
+  margin-top: 25px
+  border-top: 1px solid #eee
+  display: none
+
+.hidden-listing-filter-vis
+  opacity: 1
+
+.hidden-listing-filter h4
+  float: left
+  width: 100%
+  text-align: left
+  margin-bottom: 15px
+  color: #878C9F
+  font-size: 10px
+  font-weight: 600
+  text-transform: uppercase
+
+.show-more-filters
+  position: absolute
+  right: 0
+  bottom: -53px
+  text-align: left
+  cursor: pointer
+  padding: 8px 17px
+  color: #fff
+  border-bottom-left-radius: 4px
+  border-bottom-right-radius: 4px
+  font-size: 11px
+  font-weight: 600
+  z-index: 20
+  transition: all .2s ease-in-out
+  i
+    padding-right: 10px
+    font-size: 9px
+    position: relative
+    top: 0
+    font-weight: 600
+  &.active-hidden-opt-btn i
+    padding-right: 10px
+    top: 3px
+    color: #fff
+    -webkit-transform: rotate(45deg)
+    transform: rotate(45deg)
+
+.list-main-wrap-title
+  padding: 20px 0
+  margin-top: 10px
+  border-bottom: 1px solid #e3e3e3
+  &.single-main-wrap-title
+    margin-top: 0
+    padding-top: 0
+    margin-bottom: 40px
+    border-bottom: 1px solid #eee
+
+.fw-col-list-wrap .list-main-wrap-opt .list-main-wrap-title
+  padding: 0 0 10px 0
+  margin-top: 0
+  margin-bottom: 10px
+
+.list-main-wrap-title h2
+  text-align: left
+  font-weight: 500
+  font-size: 18px
+  float: left
+  font-family: 'Montserrat', sans-serif
+  color: #888DA0
+
+.list-main-wrap-opt
+  margin-top: 20px
+
+.fw-col-list-wrap .list-main-wrap-opt .list-main-wrap-title.col-title
+  margin-bottom: 20px
+
+.list-main-wrap-opt-sb
+  margin-top: 0
+
+.half-tags
+  width: 50%
+
+.price-opt
+  float: left
+  ul
+    float: left
+
+.price-opt-title
+  float: left
+
+.price-opt
+  ul li
+    float: left
+  position: relative
+  top: 10px
+
+.price-opt-title
+  color: #666
+  font-size: 11px
+  text-transform: uppercase
+  font-weight: 700
+  float: left
+
+.price-opt .listsearch-input-item
+  float: left
+  margin-left: 20px
+  position: relative
+  top: -15px
+  width: 200px
+  .nice-select
+    background: #fff
+    width: 100%
+
+.grid-opt
+  float: right
+  li
+    float: left
+    margin-left: 10px
+    span
+      float: left
+      font-size: 14px
+      font-weight: 900
+      color: #ccc
+      background: #fff
+      width: 36px
+      height: 36px
+      border-radius: 100%
+      border: 1px solid #eee
+      line-height: 36px
+      cursor: pointer
+
+.listing-item-container
+  margin-top: 20px
+  overflow: hidden
+
+.listing-item
+  float: left
+  width: 50%
+  padding: 0 8px 0 0
+  margin-bottom: 12px
+  position: relative
+  &:nth-child(even)
+    padding: 0 0 0 8px
+
+.three-columns-grid .listing-item
+  width: 33.3%
+  padding: 0 8px !important
+
+.listing-item.has_one_column, .slick-slide-item .listing-item
+  width: 100%
+
+.listing-item.has_one_column
+  padding: 0 !important
+  .geodir-category-listing
+    padding-left: 13px !important
+  .geodir-category-img
+    width: 40%
+    border-radius: 10px
+    top: 12px
+  .hotel-card .geodir-category-img
+    width: 100%
+    border-radius: 10px
+    top: 0
+
+.three-columns-grid .listing-item.has_one_column
+  .geodir-category-listing
+    padding-left: 0 !important
+  .geodir-category-img
+    top: 0px
+
+.listing-item.has_one_column .geodir-category-content
+  width: 60%
+
+.slick-slide-item .listing-item
+  padding: 0 10px
+  margin-bottom: 0
+
+.geodir-category-listing
+  border-radius: 10px
+  background: #fff
+  border: 1px solid #eee
+
+.geodir-category-content
+  padding: 20px
+  z-index: 2
+
+.geodir-category-img
+  float: left
+  width: 100%
+  position: relative
+  overflow: hidden
+  z-index: 1
+  border-radius: 10px 10px 0 0
+  .listing-counter
+    top: 20px
+    left: 20px
+    strong
+      padding-left: 4px
+  img
+    width: 100%
+    height: auto
+    -webkit-transition: all 2000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms
+    -webkit-transform: translateZ(0)
+    transform: translateZ(0)
+    transition: all 2000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms
+
+.gallery-item img
+  width: 100%
+  height: auto
+  -webkit-transition: all 2000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms
+  -webkit-transform: translateZ(0)
+  transform: translateZ(0)
+  transition: all 2000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms
+
+.geodir-category-img:hover img, .gallery-item:hover img
+  -webkit-transform: scale(1.15)
+  -moz-transform: scale(1.15)
+  transform: scale(1.15)
+
+.listing-avatar
+  position: absolute
+  top: 20px
+  left: 20px
+  z-index: 4
+  img
+    width: 34px
+    height: 34px
+    border-radius: 100%
+    box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.2)
+
+.avatar-tooltip
+  position: absolute
+  top: 2px
+  margin-top: 20px
+  opacity: 0
+  left: 100%
+  margin-left: 20px
+  min-width: 150px
+  visibility: hidden
+  padding: 9px 0
+  border-radius: 4px
+  background: #18458B
+  color: #fff
+  font-size: 11px
+  font-weight: 600
+  transition: all .2s ease-in-out
+  box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.2)
+
+.listing-avatar:hover .avatar-tooltip
+  margin-top: 0
+  opacity: 1
+  visibility: visible
+
+.geodir-category-content
+  p
+    text-align: left
+    font-size: 12px
+    color: #999
+  h3
+    float: left
+    text-align: left
+    font-weight: 600
+    font-size: 16px
+    margin-bottom: 10px
+
+.cart-details_text .geodir-category-content-title-item h3
+  float: left
+  text-align: left
+  font-weight: 600
+  font-size: 16px
+  margin-bottom: 10px
+
+.geodir-category-content h3 a
+  color: #46A5DC
+
+.geodir-category-content-tags
+  margin-top: 10px
+
+.category-name
+  float: left
+  margin-right: 10px
+  position: relative
+  color: #999
+  top: -2px
+  border-radius: 2px
+  background: #eee
+  padding: 4px 14px
+
+.geodir-category-opt
+  position: absolute
+  bottom: 0
+  left: 0
+  width: 100%
+  z-index: 3
+  padding: 10px 20px
+  cursor: pointer
+  h4
+    float: left
+    width: 100%
+    text-align: left
+    font-size: 16px
+    font-weight: 600
+    margin-bottom: 1px
+    a
+      color: #fff
+  .listing-rating
+    float: left
+    position: relative
+    top: 10px
+    i
+      font-size: 10px
+      margin-right: 4px
+  .rate-class-name
+    float: right
+    position: relative
+    top: -6px
+    .score
+      float: left
+      color: #fff
+      margin-right: 10px
+      font-size: 11px
+      strong
+        display: block
+        text-align: right
+        margin: 5px 0 2px
+        font-style: normal
+        color: #fff
+        font-size: 13px
+        font-family: 'Montserrat', sans-serif
+        font-weight: 500
+    span
+      background: #18458B
+      color: #fff
+      float: left
+      font-weight: 600
+      border-radius: 5px 5px 5px 0
+      padding: 12px
+      box-shadow: 0px 0px 0px 3px rgba(255, 255, 255, 0.2)
+
+.geodir-category-content-title
+  padding-bottom: 20px
+  margin-bottom: 10px
+  border-bottom: 1px dotted #ccc
+  &:before
+    font-family: Font Awesome\ 5 Pro
+    content: "\f59f"
+    position: absolute
+    color: #ccc
+    top: 0
+    right: 0
+    font-size: 25px
+    font-weight: 500
+    z-index: -1
+    opacity: 0.5
+
+.geodir-category-content-title-item
+  float: left
+  width: 100%
+  position: relative
+  z-index: 1
+
+.facilities-list
+  margin: 12px 0 12px
+  list-style: none
+  li
+    float: left
+    margin-right: 14px
+    cursor: pointer
+    position: relative
+    i
+      color: #ADC7DD
+      font-size: 16px
+    span
+      position: absolute
+      opacity: 0
+      left: -20px
+      top: -34px
+      height: 26px
+      line-height: 26px
+      min-width: 90px
+      color: #fff
+      font-size: 11px
+      visibility: hidden
+      border-radius: 4px
+      background: #18458B
+    &:hover span
+      visibility: visible
+      opacity: 1
+
+.geodir-category-footer
+  margin: 4px 0 0 0
+  padding: 18px 130px 0 0
+  border-top: 1px dotted #ccc
+
+.geodir-category-price
+  float: left
+  font-size: 11px
+  color: #999
+  font-weight: 600
+  background: #F7F9FB
+  padding: 9px 12px
+  border-radius: 4px
+  border: 1px   dotted #e4e4e4
+  text-transform: uppercase
+  span
+    font-weight: 600
+    margin-top: 6px
+    font-size: 13px
+    color: #5ECFB1
+
+.geodir-category-location a
+  float: left
+  text-align: left
+  color: #999
+  font-weight: 600
+  text-transform: uppercase
+  font-size: 11px
+  i
+    padding-right: 6px
+
+.geodir-opt-list
+  position: absolute
+  right: 0
+  width: 130px
+  top: 16px
+  a
+    float: right
+    width: 36px
+    height: 36px
+    margin-left: 5px
+    background: #ECF6F8
+    line-height: 40px
+    position: relative
+    color: #999
+    border-radius: 4px
+    font-size: 15px
+    &:hover i
+      transition: all .2s ease-in-out
+      animation: bounce 1s
+      color: #fff
+
+.show-search-button:hover i
+  transition: all .2s ease-in-out
+  animation: bounce 1s
+  color: #fff
+
+@keyframes bounce
+  0%, 20%, 60%, 100%
+    -webkit-transform: translateY(0)
+    transform: translateY(0)
+
+  40%
+    -webkit-transform: translateY(-10px)
+    transform: translateY(-10px)
+
+  80%
+    -webkit-transform: translateY(-5px)
+    transform: translateY(-5px)
+
+
+.geodir-opt-link
+  padding-right: 6px
+  a
+    float: left
+    height: 36px
+    line-height: 36px
+    color: #fff
+    background: #ECF6F8
+    width: 100%
+    font-weight: 500
+    border-radius: 4px
+    text-align: left
+    padding-left: 20px
+    &:hover
+      background: #18458B
+    i
+      position: absolute
+      right: 0
+      width: 40px
+      height: 36px
+      line-height: 36px
+      top: 0
+      font-size: 8px
+      border-left: 1px solid rgba(255, 255, 255, 0.21)
+      text-align: center
+    &:hover
+      color: #fff
+
+.geodir-opt-tooltip
+  position: absolute
+  opacity: 0
+  right: 0
+  top: -40px
+  height: 30px
+  line-height: 30px
+  min-width: 100px
+  margin-left: -75px
+  color: #fff
+  font-size: 11px
+  visibility: hidden
+  border-radius: 4px
+  strong
+    color: #fff
+    padding-left: 6px
+
+.geodir-opt-list a:hover .geodir-opt-tooltip
+  opacity: 1
+  visibility: visible
+
+.sale-window
+  position: absolute
+  right: 20px
+  top: 20px
+  z-index: 3
+  background: #5ECFB1
+  padding: 8px 18px
+  border-top-right-radius: 4px
+  border-bottom-right-radius: 4px
+  font-size: 11px
+  color: #fff
+  -webkit-transform: translate3d(0, 0, 0)
+  &:before
+    content: ''
+    position: absolute
+    width: 0
+    height: 0
+    left: 0
+  &:after
+    content: ''
+    position: absolute
+    width: 0
+    height: 0
+    left: 0
+    border-bottom: 14px solid #5ECFB1
+    border-left: 16px solid transparent
+    margin-left: -16px
+    margin-top: 6px
+  &:before
+    border-top: 14px solid #5ECFB1
+    border-left: 16px solid transparent
+    margin-left: -16px
+    margin-top: -8px
+  &.big-sale
+    &:after
+      border-bottom: 14px solid #3AACED
+    &:before
+      border-top: 14px solid #3AACED
+    background: #3AACED
+
+.map-popup-wrap
+  display: block
+  width: 300px !important
+  position: relative
+
+.map-popup
+  display: block
+  width: 100%
+  position: relative
+  overflow: hidden
+  border-radius: 10px
+  background: #fff
+  box-shadow: 0 9px 16px rgba(58, 87, 135, 0.15)
+
+.map-popup-wrap:before
+  top: 100%
+  left: 50%
+  border: solid transparent
+  content: " "
+  height: 0
+  width: 0
+  position: absolute
+  pointer-events: none
+  margin-top: -1px
+  z-index: 20
+  border-color: transparent
+  border-top-color: #fff
+  border-width: 15px
+  margin-left: -15px
+
+.map-popup img
+  width: 100%
+  height: auto
+
+.listing-content
+  background: #fff
+  padding: 20px 20px
+  z-index: 20
+  border-bottom-left-radius: 10px
+  border-bottom-right-radius: 10px
+  &:before
+    font-family: Font Awesome\ 5 Pro
+    content: "\f35d"
+    position: absolute
+    color: #ccc
+    top: 20px
+    right: 20px
+    font-size: 25px
+    font-weight: 500
+    z-index: -1
+    opacity: 0.5
+
+.listing-title h4
+  font-size: 16px
+  text-align: left
+  font-weight: 500
+
+.map-popup-location-price
+  position: absolute
+  left: 20px
+  top: 24px
+  padding: 6px 7px
+  font-size: 12px
+  z-index: 20
+  font-weight: 700
+  border-radius: 4px
+  overflow: hidden
+  strong
+    color: #fff
+    float: left
+    width: 100%
+    margin-bottom: 4px
+    font-size: 11px
+    font-weight: 400
+
+.map-popup-location-info
+  float: left
+  width: 100%
+  margin-top: 10px
+  color: #878C9F
+  font-weight: 500
+  font-size: 12px
+  text-align: left
+  i
+    padding-right: 6px
+
+.map-card-rainting
+  position: absolute
+  left: 0
+  width: 100%
+  top: -40px
+  padding: 15px 20px
+  z-index: 2
+
+.map-popup-location-price:before
+  content: ''
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: -1
+  background: #061B41
+  opacity: 0.5
+
+.map-card-rainting i
+  float: left
+  margin-right: 4px
+
+.infoBox-close
+  position: absolute
+  width: 36px
+  height: 36px
+  line-height: 36px
+  top: 30px
+  right: 20px
+  color: #fff
+  border-radius: 6px
+  z-index: 20
+  cursor: pointer
+  -webkit-transition: all 300ms
+  transition: all 300ms
+  &:hover
+    animation: bounce 1s
+
+.header-search-button:hover i, .contact-btn:hover i, .header-sec-link a:hover i
+  animation: bounce 1s
+
+.pagination
+  margin-top: 30px
+  text-align: center
+  float: left
+  width: 100%
+  a
+    display: inline-block
+    width: 44px
+    height: 44px
+    line-height: 44px
+    border-radius: 6px
+    border: 1px solid #eee
+    box-sizing: border-box
+    position: relative
+    font-size: 13px
+    color: #888DA0
+    background: #fff
+    letter-spacing: 1px
+    &.current-page, &:hover
+      color: #fff
+    i
+      font-size: 12px
+
+.back-to-filters
+  position: absolute
+  right: -40px
+  width: 40px
+  height: 40px
+  top: 15px
+  font-size: 14px
+  color: #fff
+  line-height: 40px
+  z-index: -1
+  background: #18458B
+  border-top-right-radius: 6px
+  border-bottom-right-radius: 6px
+  span
+    visibility: visible
+    position: absolute
+    height: 40px
+    min-width: 150px
+    line-height: 40px
+    visibility: hidden
+    opacity: 0
+    top: 0
+    font-size: 12px
+    left: -150px
+    margin-top: 20px
+    -webkit-transition: all 300ms
+    transition: all 300ms
+    font-weight: 500
+    border-top-left-radius: 6px
+    border-bottom-left-radius: 6px
+    background: #18458B
+  &:hover
+    span
+      margin-top: 0
+      visibility: visible
+      opacity: 1
+    i
+      animation: bounce 1s
+
+.wishlist-link:hover i
+  animation: bounce 1s
+
+.slideshow-container
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 110%
+  z-index: 1
+
+.slideshow-item, .slideshow-container .slick-slide
+  position: relative
+  float: left
+  width: 100%
+  height: 100%
+
+.slick-dots
+  position: absolute
+  bottom: 120px
+  width: 100%
+  left: 0
+  z-index: 100
+  li
+    position: relative
+    display: inline-block
+    width: 10px
+    height: 10px
+    margin: 0 3px
+    padding: 0
+    cursor: pointer
+    button
+      font-size: 0
+      line-height: 0
+      display: block
+      width: 6px
+      height: 6px
+      cursor: pointer
+      color: transparent
+      border: 0
+      outline: none
+      background: rgba(255, 255, 255, 0.41)
+      border-radius: 100%
+
+.map-modal-wrap
+  position: fixed
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  z-index: 1000
+  display: none
+  overflow: auto
+  -webkit-transform: translate3d(0, 0, 0)
+
+.map-modal-wrap-overlay
+  position: fixed
+  top: 0
+  left: 0
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  z-index: 1
+  background: rgba(0, 0, 0, 0.41)
+  -webkit-transform: translate3d(0, 0, 0)
+
+.map-modal-item
+  position: relative
+  max-width: 650px
+  margin: 0 auto
+  top: 25%
+  z-index: 2
+
+.map-modal-container
+  padding: 0
+  background: #fff
+  border-radius: 10px
+  overflow: hidden
+  box-shadow: 0px 0px 0px 7px rgba(255, 255, 255, 0.2)
+  h3
+    float: left
+    text-align: left
+    font-size: 15px
+    font-weight: 600
+    margin: 25px 0
+    color: #666
+    padding-left: 30px
+    i
+      padding-right: 10px
+
+.map-modal #singleMap
+  margin-bottom: 0
+
+.map-modal-close
+  position: absolute
+  right: 30px
+  bottom: 16px
+  width: 36px
+  height: 36px
+  line-height: 38px
+  border-radius: 4px
+  color: #fff
+  z-index: 10
+  cursor: pointer
+
+.list-single-hero
+  padding: 250px 0 0
+  overflow: hidden
+
+.list-single-hero-title
+  z-index: 2
+  padding: 40px 0 30px
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(6, 27, 65, 0)), color-stop(100%, rgba(6, 27, 65, 0.95)))
+  background: -webkit-linear-gradient(top, rgba(6, 27, 65, 0) 0%, rgba(6, 27, 65, 0.95) 100%)
+  background: -o-linear-gradient(top, rgba(6, 27, 65, 0) 0%, rgba(6, 27, 65, 0.95) 100%)
+  background: -ms-linear-gradient(top, rgba(6, 27, 65, 0) 0%, rgba(6, 27, 65, 0.95) 100%)
+  background: linear-gradient(to bottom, rgba(6, 27, 65, 0) 0%, rgba(6, 27, 65, 0.95) 100%)
+
+.map-card-rainting, .geodir-category-opt, .listing-item-cat, .ajax-modal-title
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(6, 27, 65, 0)), color-stop(100%, rgba(6, 27, 65, 0.95)))
+  background: -webkit-linear-gradient(top, rgba(6, 27, 65, 0) 0%, rgba(6, 27, 65, 0.95) 100%)
+  background: -o-linear-gradient(top, rgba(6, 27, 65, 0) 0%, rgba(6, 27, 65, 0.95) 100%)
+  background: -ms-linear-gradient(top, rgba(6, 27, 65, 0) 0%, rgba(6, 27, 65, 0.95) 100%)
+  background: linear-gradient(to bottom, rgba(6, 27, 65, 0) 0%, rgba(6, 27, 65, 0.95) 100%)
+
+.list-single-hero-title h2
+  text-align: left
+  float: left
+  width: 100%
+  z-index: 2
+  color: #fff
+  font-size: 44px
+  font-weight: 600
+  position: relative
+  font-family: 'Montserrat', sans-serif
+  &:before
+    content: ''
+    position: absolute
+    left: 0
+    bottom: -20px
+    width: 40px
+    height: 4px
+    border-radius: 4px
+
+.listing-rating-wrap
+  float: left
+  margin-bottom: 10px
+
+.list-single-hero-title .listing-rating i
+  font-size: 15px
+  margin-right: 4px
+
+.listing-rating-wrap
+  .listing-rating
+    float: left
+  span
+    float: left
+    color: #fff
+    padding-right: 20px
+    font-size: 13px
+    font-weight: 600
+
+.list-single-header-contacts
+  margin-top: 40px
+  li
+    float: left
+    margin-right: 18px
+    a
+      color: #fff
+      font-size: 12px
+    i
+      padding-right: 10px
+
+.list-single-hero-details
+  margin-top: 6px
+
+.list-single-hero-rating
+  float: right
+  position: relative
+  z-index: 1
+  .rate-class-name
+    float: right
+    cursor: pointer
+    span
+      background: #18458B
+      color: #fff
+      float: left
+      font-weight: 600
+      border-radius: 7px 7px 7px 0
+      padding: 22px
+      font-size: 24px
+      border: 1px solid rgba(0, 0, 0, 0.21)
+      text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.21)
+  .score
+    float: left
+    color: #fff
+    text-align: right
+    padding-right: 15px
+    margin-top: 20px
+    strong
+      width: 100%
+      float: left
+      padding-bottom: 4px
+
+.list-single-hero-rating-list
+  position: absolute
+  bottom: 100%
+  margin-bottom: 20px
+  right: 0
+  z-index: 10
+  background: rgba(6, 27, 65, 0.45)
+  padding: 15px
+  overflow: hidden
+  border-radius: 4px
+  transition: all .2s ease-in-out
+  visibility: hidden
+  opacity: 0
+
+.list-single-hero-rating:hover .list-single-hero-rating-list
+  visibility: visible
+  opacity: 1
+  margin-bottom: 10px
+
+.list-single-hero-rating-list .rate-item
+  margin-bottom: 10px
+
+.flat-hero-container
+  background: #fff
+  padding: 25px 30px 30px
+  border-radius: 4px
+  .listing-rating-wrap
+    margin: 0
+    top: 11px
+    position: relative
+  .box-widget-item-header
+    margin-bottom: 10px
+    padding-bottom: 30px
+    h3
+      font-size: 18px
+  .list-single-hero-price
+    color: #666
+    font-size: 14px
+    margin-top: 0
+    margin-bottom: 15px
+    border-bottom: 1px solid #eee
+    padding: 5px 0 20px
+    text-align: left
+
+.list-single-hero-header .list-single-hero-price
+  color: #666
+  font-size: 14px
+  margin-top: 0
+  margin-bottom: 15px
+  border-bottom: 1px solid #eee
+  padding: 5px 0 20px
+  text-align: left
+  padding: 25px 30px
+  margin-bottom: 0
+  border: none
+  background: #ECF6F8
+  color: #999
+  border-radius: 4px
+  text-transform: uppercase
+  font-size: 11px
+  span
+    padding-left: 50px
+
+.flat-hero-container .list-single-hero-price:before
+  font-family: Font Awesome\ 5 Pro
+  content: "\f4c0"
+  position: absolute
+  color: #ccc
+  top: 1px
+  font-size: 35px
+  right: 0px
+  opacity: 0.4
+  font-weight: 500
+
+.list-single-hero-header
+  .list-single-hero-price:before
+    font-family: Font Awesome\ 5 Pro
+    content: "\f4c0"
+    position: absolute
+    color: #ccc
+    top: 1px
+    font-size: 35px
+    right: 0px
+    opacity: 0.4
+    font-weight: 500
+    top: 1px
+    font-size: 55px
+  .geodir-category-location
+    margin-top: 15px
+
+.flat-hero-container
+  .review-score-detail
+    width: 100%
+    padding: 0
+  .rate-class-name-wrap
+    margin-bottom: 20px
+    border-bottom: 1px solid #eee
+    padding: 0px 0 20px
+    a
+      float: right
+      width: 40%
+      padding: 14px 0
+      border-radius: 4px
+      font-size: 11px
+      position: relative
+      top: 18px
+      color: #fff
+      font-weight: 400
+      i
+        padding-left: 10px
+  .rate-class-name
+    float: left
+    width: 60%
+    span
+      background: #18458B
+      color: #fff
+      float: left
+      font-weight: 600
+      border-radius: 7px 7px 7px 0
+      padding: 22px
+      font-size: 24px
+      border: 1px solid rgba(0, 0, 0, 0.21)
+      text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.21)
+      margin-right: 10px
+    .score
+      text-align: left
+      padding-left: 18px
+      color: #666
+      font-size: 12px
+      strong
+        display: block
+        padding: 18px 0 6px 0
+  .reviews-score-wrap
+    padding: 0 0 15px
+    margin-bottom: 10px
+
+.review-score-detail-list .rate-item
+  margin-bottom: 11px
+
+.rate-item-title
+  margin-bottom: 6px
+  text-align: left
+  color: #fff
+  font-size: 12px
+
+.review-score-detail-list
+  .rate-item-title, .rate-item-percent
+    color: #666
+
+.rate-item-bg
+  height: 6px
+  background: #fff
+  border-radius: 8px
+  float: left
+  width: calc(100% - 30px)
+  overflow: hidden
+
+.review-score-detail-list .rate-item-bg
+  background: #eee
+  height: 10px
+
+.rate-item-line
+  float: left
+  height: 6px
+  border-radius: 4px
+
+.review-score-detail-list .rate-item-line
+  height: 10px
+
+.rate-item-percent
+  position: absolute
+  top: 14px
+  right: 0
+  color: #fff
+
+.list-single-hero-links
+  float: right
+  position: relative
+  top: 20px
+
+.lisd-link
+  float: left
+  margin-left: 10px
+  padding: 10px 20px
+  border: 1px dashed rgba(255, 255, 255, 0.21)
+  background: rgba(255, 255, 255, 0.11)
+  color: #fff
+  border-radius: 4px
+  cursor: pointer
+  font-size: 12px
+  i
+    padding-right: 10px
+  &:hover
+    border-color: transparent
+
+.list-single-main-container
+  padding-left: 60px
+
+.list-single-main-item
+  padding: 30px 30px
+  background: #fff
+  margin-bottom: 20px
+  border-radius: 4px
+  border: 1px solid #f2f2f2
+
+article
+  .list-single-main-item
+    margin-bottom: 0
+  &.post-article .list-single-main-item
+    &:last-child
+      margin-bottom: 0
+    margin-bottom: 20px
+
+.list-single-main-item-title
+  h3
+    color: #183c7d
+    text-align: left
+    font-size: 18px
+    font-weight: 600
+    a
+      color: #334e6f
+  margin: 0 0 25px 0
+  padding-bottom: 25px
+  border-bottom: 1px solid #eee
+
+.list-single-hero-header .list-single-main-item-title
+  border-bottom: 0
+  margin-bottom: 0
+  padding-bottom: 0
+
+.list-single-main-item-title .listing-rating
+  float: left
+  margin-top: 10px
+
+.list-single-hero-header .list-single-main-item-title h3
+  font-size: 24px
+
+.list-single-main-item-title:before
+  font-family: Font Awesome\ 5 Pro
+  content: "\f0d7"
+  position: absolute
+  right: 0
+  top: 2px
+  color: #ADC7DD
+
+.list-single-hero-header .list-single-main-item-title:before
+  display: none
+
+.list-single-main-item-title.no-dec-title
+  border: none
+  margin-bottom: 0
+  padding-bottom: 15px
+  &:before
+    display: none
+
+.list-single-main-item p
+  text-align: left
+  color: #878C9F
+
+.listing-features li
+  float: left
+  width: 33.3%
+  text-align: left
+  margin-bottom: 15px
+  font-size: 13px
+  color: #888DA0
+  font-weight: 600
+  position: relative
+  padding-left: 30px
+  i
+    position: absolute
+    left: 0
+    top: 0
+
+.tags-stylwrap
+  a
+    float: left
+    padding: 10px 25px
+    border-radius: 2px
+    color: #888DA0
+    font-size: 12px
+    background: #ECF6F8
+    font-weight: 500
+    margin-right: 6px
+  &.sb-tags a
+    color: #fff
+    margin-bottom: 6px
+
+.box-widget-item
+  margin-bottom: 30px
+
+.box-widget-item-header
+  padding: 0 0 20px
+  margin: 0 0 25px
+  float: left
+  width: 100%
+  border-bottom: 1px solid #eee
+  position: relative
+  &:before
+    font-family: Font Awesome\ 5 Pro
+    content: "\f0d7"
+    position: absolute
+    right: 0
+    top: 2px
+    color: #ADC7DD
+  h3
+    text-align: left
+    font-size: 16px
+    font-weight: 600
+    color: #183c7d
+    i
+      padding-right: 12px
+      font-size: 16px
+      color: #999
+
+.box-widget
+  background: #fff
+  border-radius: 4px
+  border: 1px solid #eee
+  float: left
+  width: 100%
+
+.no-bor-rad
+  border-radius: 0
+
+.box-widget-content
+  float: left
+  width: 100%
+  position: relative
+  padding: 25px 30px 30px
+  &.no-pad-bottom
+    padding-bottom: 0
+
+#weather-widget
+  float: left
+  width: 100%
+  border-radius: 4px
+  overflow: hidden
+
+.box-widget-list
+  display: block
+  i
+    padding-right: 10px
+  li
+    border-bottom: 1px solid #eee
+    padding-bottom: 15px
+    margin-bottom: 15px
+    color: #666
+    float: left
+    position: relative
+    width: 100%
+    text-align: left
+    font-size: 12px
+    span
+      min-width: 80px
+      float: left
+    a
+      margin-left: 20px
+      color: #878C9F
+
+.list-widget-social
+  float: left
+  margin-top: 10px
+  li
+    float: left
+    margin-right: 10px
+    a
+      float: left
+      width: 36px
+      height: 36px
+      line-height: 36px
+      border-radius: 4px
+      color: #fff
+      font-size: 12px
+      font-weight: 300
+
+.banner-wdget
+  overflow: hidden
+  border-radius: 6px
+  .overlay
+    opacity: 0.3
+
+.banner-wdget-content
+  padding: 90px 30px 70px
+  z-index: 10
+  h4
+    font-weight: 500
+    color: #fff
+    font-size: 18px
+    span
+      color: #5ECFB1
+      font-weight: 400
+  a
+    font-weight: 600
+    color: #fff
+    padding: 12px 30px
+    display: inline-table
+    margin-top: 15px
+    border-radius: 6px
+    cursor: pointer
+    box-shadow: 0px 0px 0px 7px rgba(255, 255, 255, 0.2)
+    &:hover
+      background: #24324F
+  .countdown-item
+    width: 25%
+    float: left
+    color: #fff
+    p
+      font-size: 10px
+      color: #fff
+    span
+      font-size: 24px
+      font-weight: 700
+      font-style: italic
+  .countdown
+    margin-top: 15px
+
+.list-single-main-media
+  overflow: hidden
+  margin-bottom: 20px
+
+.box-widget-author-title
+  border-bottom: 1px  solid #eee
+  margin-bottom: 10px
+  padding: 0 0 40px 80px
+
+.box-widget-author-content
+  padding: 10px 0 0
+  margin-bottom: 10px
+  border-bottom: 1px  solid #eee
+  p
+    text-align: left
+
+.box-widget-author:before
+  font-family: Font Awesome\ 5 Pro
+  content: "\f4fc"
+  position: absolute
+  color: #ccc
+  top: 10px
+  font-size: 35px
+  right: 0px
+  opacity: 0.4
+  font-weight: 500
+
+.box-widget-author-title
+  a
+    float: left
+    text-align: left
+    color: #666
+    position: relative
+    font-size: 14px
+    margin-top: 10px
+    padding-bottom: 6px
+  span
+    float: left
+    width: 100%
+    font-size: 10px
+    text-align: left
+    color: #999
+    text-transform: uppercase
+
+.box-widget-author-title-img
+  position: absolute
+  left: 0
+  width: 60px
+  top: 0
+  height: 100%
+  img
+    width: 60px
+    height: 60px
+    border-radius: 100%
+
+.box-widget.widget-posts
+  li
+    padding: 8px 0
+    margin-bottom: 19px
+    border-bottom: 1px  solid #eee
+    &:last-child
+      margin-bottom: 0
+  .widget-posts-img
+    float: left
+    width: 28%
+    img
+      border-radius: 4px
+      width: 100%
+      height: auto
+  .widget-posts-descr
+    float: left
+    width: 66%
+    margin-left: 6%
+    text-align: left
+    padding: 10px
+    background: #f9f9f9
+    border-radius: 4px
+    a
+      font-size: 13px
+      font-weight: 500
+      padding-bottom: 20px
+      color: #878C9F
+  .widget-posts-date
+    float: left
+    width: 100%
+    margin-top: 14px
+    font-weight: 600
+    color: #999
+    font-size: 11px
+    i
+      padding-right: 10px
+
+.box-image-widget
+  float: left
+  width: 100%
+  position: relative
+  margin-bottom: 20px
+  padding-bottom: 10px
+  border-bottom: 1px solid #eee
+  &:last-child
+    margin-bottom: 0
+
+.box-image-widget-media
+  float: left
+  width: 35%
+  a
+    float: left
+    width: 100%
+    margin-top: 8px
+    padding: 8px 0
+    color: #fff
+    border-radius: 2px
+    font-size: 11px
+
+.box-image-widget-details
+  float: left
+  width: 65%
+  padding-left: 18px
+  text-align: left
+  h4
+    padding-bottom: 6px
+    color: #666
+    span
+      color: #5ECFB1
+      font-size: 11px
+      padding-left: 20px
+  p
+    font-size: 12px
+
+.box-image-widget-media img
+  width: 100%
+  height: auto
+
+.pricerange
+  span
+    float: left
+    margin-right: 20px
+    color: #878C9F
+    font-weight: 700
+  font-size: 14px
+  text-align: left
+  font-weight: 600
+  color: #5ECFB1
+
+.claim-widget-link
+  padding-top: 20px
+  margin-top: 20px
+  border-top: 1px solid #eee
+  span
+    float: left
+    text-align: left
+    font-weight: 500
+  a
+    float: left
+    text-align: left
+    font-weight: 500
+    &:hover
+      color: #24324F
+  span
+    color: #878C9F
+    margin-right: 20px
+
+.rooms-item
+  margin-bottom: 25px
+  border-bottom: 1px solid #eee
+  &:last-child
+    margin-bottom: 0
+
+.rooms-media
+  float: left
+  width: 40%
+  position: relative
+  overflow: hidden
+  border-radius: 6px 6px 6px 0
+  img
+    width: 100%
+    height: auto
+
+.rooms-details
+  float: left
+  width: 60%
+  padding: 5px 0 10px  20px
+
+.rooms-details-header
+  text-align: left
+  padding-bottom: 20px
+
+.rooms-price
+  position: absolute
+  right: 0
+  top: 0
+  color: #5ECFB1
+  font-size: 19px
+  font-weight: 600
+  strong
+    padding-left: 3px
+    font-size: 10px
+    color: #999
+
+.rooms-details-header
+  h3
+    color: #334e6f
+    padding-bottom: 6px
+    font-size: 16px
+    font-weight: 700
+  h5
+    font-size: 11px
+    font-weight: 700
+
+.rooms-container
+  margin-top: 20px
+
+.rooms-details .facilities-list
+  margin-top: 20px
+  margin-bottom: 0
+
+.facilities-list .btn
+  float: right
+  margin: 0
+  top: -18px
+  height: 40px
+  line-height: 40px
+  i
+    height: 40px
+    line-height: 40px
+
+.list-single-facts
+  background: #fff
+
+.single-facts
+  margin-top: 20px
+  padding-top: 20px
+  border-top: 1px solid #eee
+  .inline-facts-wrap
+    width: 25%
+    float: left
+    padding: 15px
+  .inline-facts
+    position: relative
+    padding: 20px 30px
+    background: #ECF6F8
+    border-radius: 6px
+    i
+      font-size: 54px
+      position: absolute
+      right: 10px
+      top: 10px
+      opacity: 0.4
+      z-index: 1
+    .num
+      font-size: 34px
+      color: #999
+      font-weight: 700
+      text-align: left
+    h6
+      text-align: left
+      color: #888DA0
+      font-weight: 300
+      padding-top: 10px
+
+.home-facts .inline-facts .num, .single-facts .inline-facts h6
+  position: relative
+  z-index: 2
+
+.home-facts
+  float: left
+  width: 25%
+  padding: 0 25px
+  .num
+    color: #fff
+    font-family: 'Montserrat', sans-serif
+    font-size: 44px
+  h6
+    color: rgba(255, 255, 255, 0.71)
+    font-size: 13px
+    font-weight: 500
+    margin-top: 20px
+    font-size: 15px
+    font-weight: 500
+    position: relative
+    color: rgba(255, 255, 255, 0.91)
+    &:before
+      content: ''
+      position: absolute
+      top: -12px
+      left: 50%
+      height: 1px
+      background: #fff
+      margin-left: -25px
+      opacity: 0.4
+      width: 50px
+
+.list-single-facts .inline-facts-wrap
+  width: 25%
+  float: left
+  padding: 20px 0
+  border-left: 1px solid #e2e2e2
+  box-sizing: border-box
+  background: #f9f9f9
+  &:first-child
+    border: none
+  i
+    font-size: 34px
+    width: 100%
+    padding-bottom: 10px
+  .milestone-counter
+    display: inline-block
+    color: #666
+  h6
+    display: inline-block
+    color: #666
+    padding-left: 4px
+    color: #999
+    font-size: 12px
+
+.cart-detai ls
+  background: #f9f9f9
+
+.cart-details_text
+  float: left
+  width: 100%
+  border: 1px solid #eee
+  border-top: none
+
+.cart-details_header
+  border: 1px solid #eee
+  display: inline-table
+  padding: 15px 20px
+
+.cart-details_text .geodir-category-content-title-item h3 a
+  color: #666
+
+.cart_list li
+  text-align: left
+  padding: 15px 20px
+  color: #666
+  font-size: 12px
+  border-bottom: 1px solid #eee
+  &:last-child
+    border-bottom: 0
+  span
+    float: right
+
+.cart-total strong
+  float: right
+
+.cart_list li span strong
+  padding-left: 6px
+  color: #5ECFB1
+
+.cart-total
+  padding: 15px 20px
+  background: #F7F9FB
+  float: left
+  width: 100%
+  border: 1px solid #eee
+  border-radius: 6px
+
+.cart-details
+  margin-bottom: 15px
+
+.cart-total
+  span
+    float: left
+    color: #878C9F
+    font-size: 16px
+    font-weight: 600
+    position: relative
+    top: 2px
+  strong
+    font-size: 20px
+    font-weight: 400
+
+#progressbar
+  margin-bottom: 30px
+  counter-reset: step
+  width: 100%
+  float: left
+  box-sizing: border-box
+  li
+    list-style-type: none
+    color: #666
+    font-size: 12px
+    width: 25%
+    float: left
+    text-align: left
+    position: relative
+    padding: 0 0 25px
+    span
+      padding-right: 10px
+    &:after
+      content: ''
+      position: absolute
+      bottom: 0
+      width: 100%
+      left: 0
+      height: 4px
+      border-radius: 4px
+      background: #eee
+      z-index: 1
+    &:before
+      content: ''
+      position: absolute
+      bottom: 0
+      width: 0
+      left: 0
+      height: 4px
+      z-index: 2
+      border-radius: 4px
+      transition: all 200ms linear
+    &.active:before
+      width: 99%
+
+.bookiing-form-wrap .custom-form form fieldset:not(:first-of-type)
+  display: none
+
+.next-form
+  float: right
+
+.previous-form
+  float: left
+  padding: 0 30px 0 80px
+  height: 44px
+  line-height: 44px
+  border-radius: 4px
+  color: #fff
+  font-weight: 600
+  font-size: 12px
+  text-align: left
+  position: relative
+  overflow: hidden
+  i
+    position: absolute
+    left: 0
+    width: 50px
+    height: 44px
+    line-height: 44px
+    border-right: 1px solid rgba(255, 255, 255, 0.21)
+    text-align: center
+    top: 0
+  &:hover:after
+    width: 100%
+  &:after
+    content: ''
+    position: absolute
+    width: 50px
+    height: 100%
+    background: rgba(255, 255, 255, 0.2)
+    z-index: 0
+    left: 0
+    top: 0
+    transition: all 200ms linear
+
+.success-table-header
+  text-align: left
+  color: #666
+  font-size: 16px
+  font-weight: 400
+  padding: 10px 0 0 70px
+  i.decsth
+    color: #5ECFB1
+    position: absolute
+    font-size: 54px
+    left: 0
+    top: 0
+  h4, p
+    float: left
+  a
+    font-size: 12px
+    color: #fff
+    padding: 12px 25px
+    float: right
+    border-radius: 30px
+    position: relative
+    top: -14px
+    i
+      padding-right: 8px
+      font-size: 15px
+
+.log-massage
+  padding: 10px 0
+  text-align: left
+  font-size: 12px
+  color: #666
+
+/*------ Reviews------------------------------------------------
+
+.reviews-score-wrap
+  padding: 0 0 25px
+  border-bottom: 1px solid #eee
+  margin-bottom: 20px
+
+.list-single-hero-header .reviews-score-wrap
+  padding: 0
+  border-bottom: none
+  margin-bottom: 0
+
+.review-score-total, .review-score-detail
+  float: left
+  width: 25%
+
+.review-score-total
+  span
+    background: #18458B
+    color: #fff
+    float: left
+    font-weight: 600
+    border-radius: 7px 7px 0 7px
+    padding: 22px 0
+    width: 100%
+    font-size: 34px
+    border: 1px solid rgba(0, 0, 0, 0.21)
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.21)
+  a
+    float: left
+    width: 100%
+    padding: 10px 0
+    color: #fff
+    margin-top: 10px
+    border-radius: 4px
+  span strong
+    display: block
+    font-size: 14px
+    font-weight: 500
+    padding-top: 6px
+
+.review-score-detail
+  width: 75%
+  padding-left: 20px
+
+.reviews-comments-wrap
+  display: inline-table
+  margin-top: 30px
+
+.reviews-comments-item-text .review-score-user
+  float: right
+  position: relative
+  top: -12px
+  span
+    background: #18458B
+    color: #fff
+    float: right
+    font-weight: 600
+    border-radius: 3px 3px 0 3px
+    width: 40px
+    height: 40px
+    line-height: 40px
+    font-size: 12px
+    border: 1px solid rgba(0, 0, 0, 0.21)
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.21)
+  strong
+    margin-right: 12px
+    font-size: 11px
+    color: #666
+    position: relative
+    top: 10px
+
+.reviews-comments-item
+  padding: 0 0 30px 110px
+  position: relative
+  float: left
+  margin-bottom: 40px
+  width: 100%
+  border-bottom: 1px solid #eee
+  &.reply-comment-item
+    width: 90%
+    margin-left: 10%
+    padding: 30px 20px 30px 110px
+    border-radius: 6px
+    .review-comments-avatar
+      top: 30px
+    &:before
+      content: ''
+      position: absolute
+      top: 0
+      left: -10%
+      margin-left: 30px
+      width: 40px
+      height: 40px
+      border-left: 1px solid #eee
+      border-bottom: 1px solid #eee
+  &:last-child
+    border: none
+    margin-bottom: 0
+
+.review-comments-avatar
+  position: absolute
+  top: 0
+  left: 10px
+  width: 80px
+  height: 80px
+  &:before
+    content: ''
+    position: absolute
+    top: 100%
+    margin-top: 20px
+    left: 0
+    margin-left: 38px
+    width: 40px
+    height: 40px
+    border-left: 1px solid #eee
+    border-bottom: 1px solid #eee
+  img
+    width: 80px
+    height: 80px
+    float: left
+    border-radius: 100%
+
+.reviews-comments-item-text
+  float: left
+  width: 100%
+  position: relative
+  padding: 30px 20px
+  background: #f9f9f9
+  border-radius: 6px
+  .new-dashboard-item
+    top: 0
+  h4
+    text-align: left
+    padding-bottom: 25px
+    float: left
+    font-size: 16px
+    font-weight: 600
+    color: #666
+    a
+      color: #666
+  p
+    text-align: left
+
+.reviews-comments-item-date
+  float: left
+  margin-top: 18px
+  font-weight: 500
+  color: #999
+  width: 100%
+  text-align: left
+  padding-top: 18px
+  font-size: 12px
+  border-top: 1px solid #eee
+  span
+    float: left
+  a
+    float: right
+    font-weight: 600
+    color: #666
+  span i, a i
+    margin-right: 10px
+
+.leave-rating, .leave-rating-title
+  float: left
+
+.leave-rating-wrap
+  float: left
+  margin: 30px 0 30px 0
+  width: 100%
+
+.leave-rating-title
+  margin-right: 10px
+  font-weight: 500
+  font-size: 14px
+  color: #666
+  position: relative
+  top: -3px
+
+.review-score-form
+  margin-top: 10px
+
+.review-total, .review-range-container
+  float: left
+
+.review-total
+  width: 30%
+  background: #F7F9FB
+  padding: 35px 0
+  border: 1px solid #eee
+  box-sizing: border-box
+  border-radius: 4px
+  strong
+    float: left
+    width: 100%
+    margin-top: 10px
+    color: #666
+
+.custom-form .review-total span input
+  font-size: 34px
+  border: none
+  padding: 0
+  text-align: center
+  font-weight: 600
+  margin-bottom: 0
+  line-height: 1px
+
+.review-range-container
+  width: 70%
+  padding-right: 20px
+
+.review-range-item
+  display: block
+  margin-bottom: 10px
+  .range-slider-title
+    width: 30%
+    margin-bottom: 0
+  .range-slider-wrap
+    width: 70%
+    margin-top: 0
+    position: relative
+    top: -24px
+  .range-slider-title, .range-slider-wrap
+    float: left

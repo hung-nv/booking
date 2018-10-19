@@ -6,6 +6,8 @@
 
         @include('homepage.partial._sectionAboutiStay')
 
+        @include('homepage.partial._sectionFeedback')
+
         @include('homepage.partial._sectionPromotion')
     </div>
 @endsection
