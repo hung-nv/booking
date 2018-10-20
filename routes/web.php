@@ -9,6 +9,8 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/', ['as' => 'homepage', 'uses' => 'HomepageController@index']);
     // route list posts.
     Route::get('category', ['as' => 'post.list', 'uses' => 'PostController@index']);
+
+    Route::get('single', ['as' => 'post.details', 'uses' => 'PostController@details']);
 });
 
 Route::group(['prefix' => 'administrator', 'namespace' => 'Backend'], function () {

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageId', 'homepage')
+
 @section('content')
     <div class="content">
         @include('homepage.partial._sectionBanner')

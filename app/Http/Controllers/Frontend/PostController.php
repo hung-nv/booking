@@ -19,4 +19,9 @@ class PostController extends Controller
     {
 	    return view('article.index');
     }
+
+    public function details()
+    {
+        return view('article.details');
+    }
 }

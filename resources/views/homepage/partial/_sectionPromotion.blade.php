@@ -14,7 +14,7 @@
                         <a href="dashboard-add-listing.html" class="btn  color-bg float-btn">Booking Now<i class="fal fa-plus"></i></a>
                     </div>
                 </div>
-                <!--column text   end-->0
+                <!--column text   end-->
             </div>
         </div>
     </div>

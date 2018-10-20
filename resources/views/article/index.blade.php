@@ -7,9 +7,9 @@
         <div class="breadcrumbs-fs fl-wrap">
             <div class="container">
                 <div class="breadcrumbs fl-wrap">
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                     <a href="#">Listings</a>
-                    <span>Listings Without Map</span>
+                    <span>Search</span>
                 </div>
             </div>
         </div>
