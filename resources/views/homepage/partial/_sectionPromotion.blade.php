@@ -9,7 +9,7 @@
                 <!-- column text-->
                 <div class="colomn-text fl-wrap">
                     <div class="colomn-text-title">
-                        <h3>The owner of the hotel or business ?</h3>
+                        <h3>Promotion</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar.</p>
                         <a href="/category" class="btn  color-bg float-btn">Booking Now<i class="fal fa-plus"></i></a>
                     </div>

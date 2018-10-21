@@ -349,8 +349,8 @@ footer .footer {
   margin: 0 auto;
   text-align: center;
   padding: 40px 0 1px;
-  background-color: #eee;
-  color: #000;
+  background-color: #633716;
+  color: #fff;
 }
 
 footer .footer .title {
@@ -358,7 +358,7 @@ footer .footer .title {
   line-height: 24px;
   margin-bottom: 10px;
   letter-spacing: 0;
-  color: #000;
+  color: #fff;
   font-family: "Playfair Display","Old Standard TT",serif;
 }
 
@@ -384,15 +384,15 @@ footer .footer ul li {
 }
 
 footer .footer ul li a {
-  color: #333;
+  color: #fff;
 }
 
 footer .footer ul li a:hover {
-  color: #333;
+  color: #fff;
 }
 
 footer .footer a {
-  color: #000;
+  color: #fff;
 }
 
 footer .footer a:hover {
@@ -421,7 +421,7 @@ footer .footer .company-info p strong {
 }
 
 footer .footer p {
-  color: #333;
+  color: #fff;
 }
 
 footer .footer .copyright {

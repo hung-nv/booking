@@ -25,22 +25,18 @@ class MenuSystemTableSeeder extends Seeder
             ['label' => 'Create Landing Page', 'icon' => 'icon-note', 'route' => 'page.landing', 'parent_id' => '7', 'sort' => 1, 'show' => '1,2'],
             ['label' => 'All Pages', 'icon' => 'icon-list', 'route' => 'page.index', 'parent_id' => '7', 'sort' => 2, 'show' => '1,2'],
 
-            ['label' => 'Custom field', 'icon' => 'icon-puzzle', 'route' => 'advanceField', 'parent_id' => '0', 'sort' => 0, 'show' => '1'],
-            ['label' => 'Create Field', 'icon' => 'icon-plus', 'route' => 'advanceField.create', 'parent_id' => '11', 'sort' => 1, 'show' => '1'],
-            ['label' => 'All Custom Field', 'icon' => 'icon-list', 'route' => 'advanceField.index', 'parent_id' => '11', 'sort' => 2, 'show' => '1'],
-
             ['label' => 'Products', 'icon' => 'icon-handbag', 'route' => 'product', 'parent_id' => '0', 'sort' => 0, 'show' => '1,2'],
-            ['label' => 'Create Product', 'icon' => 'icon-plus', 'route' => 'product.create', 'parent_id' => '14', 'sort' => 0, 'show' => '1,2'],
-            ['label' => 'All Products', 'icon' => 'icon-list', 'route' => 'product.index', 'parent_id' => '14', 'sort' => 0, 'show' => '1,2'],
-            ['label' => 'Attributes', 'icon' => 'icon-tag', 'route' => 'attributeValue.index', 'parent_id' => '14', 'sort' => 0, 'show' => '1,2'],
+            ['label' => 'Create Product', 'icon' => 'icon-plus', 'route' => 'product.create', 'parent_id' => '11', 'sort' => 0, 'show' => '1,2'],
+            ['label' => 'All Products', 'icon' => 'icon-list', 'route' => 'product.index', 'parent_id' => '11', 'sort' => 0, 'show' => '1,2'],
+            ['label' => 'Attributes', 'icon' => 'icon-tag', 'route' => 'attributeValue.index', 'parent_id' => '11', 'sort' => 0, 'show' => '1,2'],
 
             ['label' => 'Users', 'icon' => 'icon-user', 'route' => 'user', 'parent_id' => '0', 'sort' => 0, 'show' => '1'],
-            ['label' => 'Create User', 'icon' => 'icon-user-follow', 'route' => 'user.create', 'parent_id' => '18', 'sort' => 1, 'show' => '1'],
-            ['label' => 'All User', 'icon' => 'icon-users', 'route' => 'user.index', 'parent_id' => '18', 'sort' => 2, 'show' => '1'],
+            ['label' => 'Create User', 'icon' => 'icon-user-follow', 'route' => 'user.create', 'parent_id' => '15', 'sort' => 1, 'show' => '1'],
+            ['label' => 'All User', 'icon' => 'icon-users', 'route' => 'user.index', 'parent_id' => '15', 'sort' => 2, 'show' => '1'],
 
             ['label' => 'Themes', 'icon' => 'icon-globe', 'route' => 'setting', 'parent_id' => '0', 'sort' => 0, 'show' => '1,2'],
-            ['label' => 'Menu', 'icon' => 'icon-diamond', 'route' => 'setting.menu', 'parent_id' => '21', 'sort' => 1, 'show' => '1,2'],
-            ['label' => 'Setting', 'icon' => 'icon-settings', 'route' => 'setting.index', 'parent_id' => '21', 'sort' => 2, 'show' => '1,2'],
+            ['label' => 'Menu', 'icon' => 'icon-diamond', 'route' => 'setting.menu', 'parent_id' => '18', 'sort' => 1, 'show' => '1,2'],
+            ['label' => 'Setting', 'icon' => 'icon-settings', 'route' => 'setting.index', 'parent_id' => '18', 'sort' => 2, 'show' => '1,2'],
         ]);
     }
 }

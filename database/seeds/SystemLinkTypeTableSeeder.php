@@ -18,9 +18,7 @@ class SystemLinkTypeTableSeeder extends Seeder
 
             ['name' => 'Page Details', 'prefix' => 'page'],
 
-	        ['name' => 'Catalog Details', 'prefix' => ''],
-
-	        ['name' => 'Product Details', 'prefix' => 'product'],
+            ['name' => 'Landing', 'prefix' => '']
         ]);
     }
 }

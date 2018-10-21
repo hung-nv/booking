@@ -19,8 +19,8 @@ class CreateMetaFieldTable extends Migration
             $table->string('key_name')->nullable();
             $table->text('key_value')->nullable();
 
-            $table->integer('article_id')->unsigned();
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+            $table->integer('article_content_id')->unsigned();
+            $table->foreign('article_content_id')->references('id')->on('article_content')->onDelete('cascade');
         });
     }
 
