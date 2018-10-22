@@ -2,7 +2,7 @@
     <label class="control-label col-md-3">Name</label>
     <div class="col-md-9">
         <input name="name" v-model="categoryName" value="{{ $category['name'] or old('name') }}" class="form-control"
-               placeholder="Enter your category name" required/>
+               placeholder="Enter your category name" id="category-name" required/>
     </div>
 </div>
 
@@ -30,17 +30,6 @@
             <input type="hidden" name="old_image" id="old-image" data-id="{{ $category['id'] }}" value="{{ $category['image'] or '' }}">
         @endif
         <input id="image" name="image" type="file" data-show-upload="false">
-    </div>
-</div>
-
-<?php $type = isset($category) ? $category['system_link_type_id'] : old('system_link_type_id') ?>
-<div class="form-group">
-    <label class="control-label col-md-3">Type</label>
-    <div class="col-md-9">
-        <select class="form-control" name="system_link_type_id">
-            <option value="1" @if($type == 1) selected @endif>Post Category</option>
-            <option value="4" @if($type == 4) selected @endif>Product Category</option>
-        </select>
     </div>
 </div>
 

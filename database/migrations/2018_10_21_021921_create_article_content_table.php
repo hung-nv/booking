@@ -24,7 +24,6 @@ class CreateArticleContentTable extends Migration
             $table->string('lang', 5)->default('en');
 
             $table->string('name');
-            $table->string('slug', 191)->unique();
             $table->string('image')->nullable();
             $table->string('description')->default('');
             $table->text('content');

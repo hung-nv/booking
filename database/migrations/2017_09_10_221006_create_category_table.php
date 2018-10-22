@@ -19,6 +19,8 @@ class CreateCategoryTable extends Migration
 
             $table->increments('id');
 
+            $table->string('slug', 100)->unique();
+
             $table->integer('parent_id')->nullable()->unsigned();
             $table->foreign('parent_id')->references('id')->on('category')->onDelete('cascade');
 

@@ -129,6 +129,9 @@ class CategoryServices
             $data['image'] = $fileName;
         }
 
+        // set system_link_type is 'category'
+        $data['system_link_type_id'] = 1;
+
         $data['parent_id'] = empty($data['parent_id']) ? null : $data['parent_id'];
 
         $category = Category::create($data);

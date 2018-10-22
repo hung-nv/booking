@@ -4558,7 +4558,19 @@ var Category = /** @class */ (function (_super) {
     Category.prototype.setUp = function () {
         this.setDatatable();
         this.setInputImage();
+        this.setFocus();
     };
+    /**
+     * Set focus to first input if create category.
+     */
+    Category.prototype.setFocus = function () {
+        if ($(ui.inputImage).length) {
+            $('#category-name').focus();
+        }
+    };
+    /**
+     * Datatable for category.
+     */
     Category.prototype.setDatatable = function () {
         if ($(ui.tableCategory).length) {
             $(ui.tableCategory).dataTable({

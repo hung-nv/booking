@@ -19,6 +19,8 @@ class CreateCategoryContentTable extends Migration
             $table->increments('id');
             $table->string('lang', 5)->default('en');
 
+            $table->string('name', 100);
+
             $table->integer('category_id')->nullable()->unsigned();
             $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
 

@@ -32,8 +32,22 @@ export default class Category extends Page {
         this.setDatatable();
 
         this.setInputImage();
+
+        this.setFocus();
     }
 
+    /**
+     * Set focus to first input if create category.
+     */
+    public setFocus() {
+        if ($(ui.inputImage).length) {
+            $('#category-name').focus();
+        }
+    }
+
+    /**
+     * Datatable for category.
+     */
     public setDatatable() {
         if ($(ui.tableCategory).length) {
             $(ui.tableCategory).dataTable({

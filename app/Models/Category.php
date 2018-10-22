@@ -8,26 +8,40 @@ class Category extends \Eloquent
 {
     protected $table = 'category';
 
-    protected $fillable = ['name', 'slug', 'parent_id', 'image', 'icon', 'meta_title', 'meta_description', 'system_link_type_id'];
+    protected $fillable = ['slug', 'parent_id', 'system_link_type_id'];
 
-    public function posts()
+    /**
+     * Define relationship many to many with article.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function articles()
     {
-        return $this->belongsToMany('App\Models\Post', 'post_category', 'category_id', 'article_id');
+        return $this->belongsToMany('App\Models\Article', 'article_category', 'category_id', 'article_id');
     }
 
-    public function products() {
-        return $this->belongsToMany('App\Models\Product', 'product_category', 'category_id', 'product_id');
+    /**
+     * Define relationship has one content with lang.
+     * @param $lang
+     * @return mixed
+     */
+    public function categoryContent($lang)
+    {
+        return $this->hasOne('App\Models\CategoryContent')->wherePivot('lang', $lang);
     }
 
-    public function limitProduct() {
-        return $this->belongsToMany('App\Models\Product', 'product_category', 'category_id', 'product_id')->limit(8);
-    }
-
+    /**
+     * Define relationship belongsTo category: one parent.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function parent()
     {
         return $this->belongsTo('App\Models\Category', 'parent_id');
     }
 
+    /**
+     * Define relationship hasMany: one parent - many child.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function childrens() {
         return $this->hasMany('App\Models\Category', 'parent_id');
     }

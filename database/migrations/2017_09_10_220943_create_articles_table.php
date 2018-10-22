@@ -17,6 +17,7 @@ class CreateArticlesTable extends Migration
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('slug', 191)->unique();
             $table->integer('view')->default(0);
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');

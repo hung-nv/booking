@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends \Eloquent
+class Article extends \Eloquent
 {
     protected $table = 'articles';
 
@@ -64,7 +64,7 @@ class Post extends \Eloquent
      * @param int $postType
      * @return $this|\Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function getPostsByName(string $name, int $pageSize, int $postType)
+    public static function getPostsByName($name, $pageSize, $postType)
     {
         $posts = self::where('system_link_type_id', $postType)->orderByDesc('created_at');
 
