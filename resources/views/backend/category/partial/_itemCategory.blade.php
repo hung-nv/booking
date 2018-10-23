@@ -3,15 +3,6 @@
     <td>{{ $character . ' ' . $item->name }}</td>
     <td>{{ $item->slug }}</td>
     <td>
-        @if($item->system_link_type_id == $catalogType)
-            <span class="badge badge-success badge-roundless"> Product Catalog</span>
-        @endif
-
-        @if($item->system_link_type_id == $categoryType)
-            <span class="badge badge-primary badge-roundless"> Post Category</span>
-        @endif
-    </td>
-    <td>
         @if($item->status == 1)
             <span class="badge badge-info badge-roundless"> Approved </span>
         @else

@@ -37,21 +37,21 @@ class Article extends \Eloquent
         );
     }
 
-    public function fields()
+    /**
+     * Define relationship has one content with lang.
+     * @param $lang
+     * @return mixed
+     */
+    public function articleContent($lang)
     {
-        return $this->hasMany('App\Models\MetaField', 'article_id');
+        return $this->hasOne('App\Models\ArticleContent')->wherePivot('lang', $lang);
     }
 
-    public function groups()
-    {
-        return $this->belongsToMany(
-            'App\Models\Group',
-            'article_group',
-            'article_id',
-            'group_id'
-        );
-    }
-
+    /**
+     * Re format datetime.
+     * @param $value
+     * @return false|string
+     */
     public function getCreatedAtAttribute($value)
     {
         return date('d/m/Y H.i', strtotime($value));

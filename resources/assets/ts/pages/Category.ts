@@ -1,6 +1,6 @@
 import Page from "../systems/page";
 
-import {slugify} from "../utilities/common/helpers";
+import {slugify, changeLanguage} from "../utilities/common/helpers";
 import {initInputImage} from "../utilities/image/image";
 
 declare let $;

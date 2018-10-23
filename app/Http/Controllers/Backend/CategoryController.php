@@ -24,9 +24,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Throwable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $category = $this->categoryServices->getIndexCategory();
+        $category = $this->categoryServices->getIndexCategory($request);
 
         return view('backend.category.index', [
             'category' => $category
@@ -42,8 +42,11 @@ class CategoryController extends Controller
     {
         $templateCategory = $this->categoryServices->getSelectCategory($request->old('parent_id'));
 
+        $lang = $request->lang ? $request->lang : 'en';
+
         return view('backend.category.create', [
-            'templateCategory' => $templateCategory
+            'templateCategory' => $templateCategory,
+            'lang' => $lang
         ]);
     }
 
@@ -65,17 +68,25 @@ class CategoryController extends Controller
 
     /**
      * Edit category.
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $information = $this->categoryServices->getInformationCategoryById($id);
+        $lang = $request->lang ? $request->lang : 'en';
+
+        $information = $this->categoryServices->getInformationCategoryById($id, $lang);
+
+        if (empty($information)) {
+            abort(404);
+        }
 
         return view('backend.category.update', [
             'category' => $information['category'],
-            'templateCategory' => $information['templateSelectCategory']
+            'templateCategory' => $information['templateSelectCategory'],
+            'lang' => $lang
         ]);
     }
 

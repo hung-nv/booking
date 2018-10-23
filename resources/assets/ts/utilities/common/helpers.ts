@@ -97,3 +97,7 @@ export function slugify(string) {
 
     return string;
 }
+
+export function changeLanguage(lang) {
+    window.location.href = '/?lang=' + lang;
+}

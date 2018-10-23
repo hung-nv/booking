@@ -24,7 +24,7 @@ class CategoryStore extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:category,name|max:255',
+            'slug' => 'required|unique:category,slug|max:255',
             'image' => 'image|max:10240',
             'meta_title' => 'max:255',
             'meta_description' => 'max:255'

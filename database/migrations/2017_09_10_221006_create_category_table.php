@@ -24,8 +24,6 @@ class CreateCategoryTable extends Migration
             $table->integer('parent_id')->nullable()->unsigned();
             $table->foreign('parent_id')->references('id')->on('category')->onDelete('cascade');
 
-            $table->tinyInteger('sort')->default(0);
-
             $table->tinyInteger('system_link_type_id');
 
             $table->boolean('status')->default(1);

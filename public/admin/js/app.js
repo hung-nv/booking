@@ -1234,6 +1234,10 @@ function slugify(string) {
     return string;
 }
 exports.slugify = slugify;
+function changeLanguage(lang) {
+    window.location.href = '/?lang=' + lang;
+}
+exports.changeLanguage = changeLanguage;
 
 
 /***/ }),

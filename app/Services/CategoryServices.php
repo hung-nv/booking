@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Models\CategoryContent;
 use App\Services\Common\ImageServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,12 +24,15 @@ class CategoryServices
 
     /**
      * Get all category.
+     * @param Request $request
      * @return string
      * @throws \Throwable
      */
-    public function getIndexCategory()
+    public function getIndexCategory($request)
     {
-        $category = Category::all();
+        $lang = $request->lang ? $request->lang : 'en';
+
+        $category = Category::getCategoryByLang($lang);
 
         $templateCategory = $this->getTemplateIndexCategory($category);
 
@@ -116,6 +120,29 @@ class CategoryServices
      */
     public function createCategory($request)
     {
+        try {
+            DB::beginTransaction();
+
+            $respon = $this->storeCategory($request);
+
+            DB::commit();
+
+            return $respon;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            throw $exception;
+        }
+    }
+
+    /**
+     * Store category.
+     * @param Request $request
+     * @return string
+     * @throws \Exception
+     */
+    public function storeCategory($request)
+    {
         $data = $request->all();
 
         if ($request->hasFile('image')) {
@@ -134,7 +161,11 @@ class CategoryServices
 
         $data['parent_id'] = empty($data['parent_id']) ? null : $data['parent_id'];
 
+        // store category.
         $category = Category::create($data);
+
+        // store category content.
+        $category->categoryContent()->create($data);
 
         $message = 'Create category "' . $category->name . '" successful';
 
@@ -173,7 +204,13 @@ class CategoryServices
      */
     public function updateCategoryById($request, $categoryId)
     {
-        $category = Category::findOrFail($categoryId);
+        $category = Category::find($categoryId);
+
+        $category->update([
+            'slug' => $request->slug
+        ]);
+
+        $categoryContent = CategoryContent::findCategoryContentById($categoryId, $request->lang);
 
         $oldSlug = $category->slug;
         $oldType = $category->system_link_type_id;
@@ -182,7 +219,7 @@ class CategoryServices
 
         if ($request->hasFile('image')) {
             // delete old image category.
-            $this->imageServices->deleteImage($category->image);
+            $this->imageServices->deleteImage($categoryContent->image);
 
             // upload image to folder.
             $fileName = $this->imageServices->uploads($request->file('image'), 'category');
@@ -196,12 +233,12 @@ class CategoryServices
 
         $data['parent_id'] = empty($data['parent_id']) ? null : $data['parent_id'];
 
-        $category->update($data);
+        $categoryContent->update($data);
 
         //update menu.
         $this->menuServices->upadteCategoryToMenu($category, $oldSlug, $oldType);
 
-        $message = 'Update category "' . $category->name . '" successful';
+        $message = 'Update category "' . $categoryContent->name . '" successful';
 
         return $message;
     }
@@ -251,22 +288,22 @@ class CategoryServices
     /**
      * Get Information Category
      * @param $categoryId
-     * @return array
-     * @throws \Exception
+     * @param $lang
+     * @return array|null
      */
-    public function getInformationCategoryById($categoryId)
+    public function getInformationCategoryById($categoryId, $lang)
     {
-        try {
-            $category = Category::findOrFail($categoryId);
+        $category = Category::findCategoryById($categoryId, $lang);
 
-            $dataCategory = Category::all();
-
-            $template = $this->getTemplateSelectCategory($dataCategory, $category->parent_id);
-
-            return ['category' => $category, 'templateSelectCategory' => $template];
-        } catch (\Exception $exception) {
-            throw $exception;
+        if (empty($category)) {
+            return null;
         }
+
+        $dataCategory = Category::getCategoryByLang($lang);
+
+        $template = $this->getTemplateSelectCategory($dataCategory, $category->parent_id);
+
+        return ['category' => $category, 'templateSelectCategory' => $template];
     }
 
     /**

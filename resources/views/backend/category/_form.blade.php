@@ -59,3 +59,5 @@
         </select>
     </div>
 </div>
+
+<input type="hidden" name="lang" value="{{ $lang }}">

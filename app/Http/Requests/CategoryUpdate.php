@@ -24,7 +24,7 @@ class CategoryUpdate extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:category,name,' . $this->segment(3) . '|max:255',
+            'slug' => 'required|max:255|unique:category,slug,' . $this->segment(3) . '|max:255',
             'image' => 'image|max:10240',
             'meta_title' => 'max:255',
             'meta_description' => 'max:255'
