@@ -28,8 +28,11 @@ class CategoryController extends Controller
     {
         $category = $this->categoryServices->getIndexCategory($request);
 
+        $lang = $request->lang ? $request->lang : 'en';
+
         return view('backend.category.index', [
-            'category' => $category
+            'category' => $category,
+            'lang' => $lang
         ]);
     }
 

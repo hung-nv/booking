@@ -199,7 +199,7 @@ return [
         Jenssegers\Agent\AgentServiceProvider::class,
 
 	    // debug
-//	    Barryvdh\Debugbar\ServiceProvider::class
+	    Barryvdh\Debugbar\ServiceProvider::class
     ],
 
     /*

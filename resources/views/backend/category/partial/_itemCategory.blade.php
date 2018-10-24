@@ -1,6 +1,12 @@
 <tr class="odd gradeX">
     <td>{{ $item->id }}</td>
-    <td>{{ $character . ' ' . $item->name }}</td>
+    <td>
+        @if (empty($item->originName))
+            {{ $character . ' ' . $item->name }}
+        @else
+            <a class="btn btn-sm btn-success" href="/adfsa">Translate</a>
+        @endif
+    </td>
     <td>{{ $item->slug }}</td>
     <td>
         @if($item->status == 1)

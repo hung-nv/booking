@@ -65,13 +65,22 @@ class Category extends \Eloquent
      */
     public static function getCategoryByLang($lang)
     {
-        return self::select('a.*', 'b.name')
+        $model = self::select('a.*', 'b.name')
             ->from('category AS a')
             ->join('category_content AS b', function ($join) use ($lang) {
                 $join->on('a.id', '=', 'b.category_id');
                 $join->where('b.lang', $lang);
-            })
-            ->get();
+            });
+
+        if ($lang != 'en') {
+            $model->leftJoin('category_content AS c', function ($join) use ($lang) {
+                $join->on('a.id', '=', 'c.category_id');
+                $join->where('c.lang', 'en');
+            });
+            $model->addSelect('c.name as originName');
+        }
+
+        return $model->get();
     }
 
     /**

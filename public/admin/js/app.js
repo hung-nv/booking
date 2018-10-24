@@ -400,6 +400,15 @@ var Page = /** @class */ (function () {
         // Set update Csrf code for ajax.
         this.setAjaxCsrf();
     }
+    Page.prototype.changeLanguage = function (language) {
+        var currentLanguage = helpers_1.getParameterByName('lang');
+        if (!currentLanguage) {
+            currentLanguage = 'en';
+        }
+        if (language !== currentLanguage) {
+            window.location.href = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?lang=' + language;
+        }
+    };
     /**
      * Set from validate.
      */

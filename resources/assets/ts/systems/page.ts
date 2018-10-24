@@ -1,7 +1,7 @@
 import PageModule from './PageModule';
 
 import expandValidateRule from '../utilities/validate_rule/rules';
-import {confirmBeforeDelete} from '../utilities/common/helpers';
+import {confirmBeforeDelete, getParameterByName} from '../utilities/common/helpers';
 
 declare var $;
 
@@ -13,7 +13,7 @@ export default class Page implements PageModule {
     /**
      * Method construct.
      */
-    constructor () {
+    constructor() {
         // Set from validate.
         this.checkFormValidate();
 
@@ -21,10 +21,22 @@ export default class Page implements PageModule {
         this.setAjaxCsrf();
     }
 
+    public changeLanguage(language) {
+        let currentLanguage = getParameterByName('lang');
+
+        if (!currentLanguage) {
+            currentLanguage = 'en';
+        }
+
+        if (language !== currentLanguage) {
+            window.location.href = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?lang=' + language;
+        }
+    }
+
     /**
      * Set from validate.
      */
-    private checkFormValidate () {
+    private checkFormValidate() {
         // Expand validate rules.
         expandValidateRule();
     }
