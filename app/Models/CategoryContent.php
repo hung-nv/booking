@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CategoryContent extends Model
+class CategoryContent extends \Eloquent
 {
     protected $table = 'category_content';
 
@@ -15,8 +15,7 @@ class CategoryContent extends Model
         'image',
         'icon',
         'meta_title',
-        'meta_description',
-        'status'
+        'meta_description'
     ];
 
     /**

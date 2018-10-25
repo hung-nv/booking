@@ -32,8 +32,6 @@ class CreateCategoryContentTable extends Migration
             $table->string('meta_keywords')->nullable();
 
             $table->timestamps();
-
-            $table->boolean('status')->default(1);
         });
     }
 

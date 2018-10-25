@@ -30,23 +30,48 @@ class CategoryServices
      */
     public function getIndexCategory($request)
     {
-        $lang = $request->lang ? $request->lang : 'en';
+        $category = Category::getAllCategory();
 
-        $category = Category::getCategoryByLang($lang);
+        $category = $this->resolveCollectionCategory($category);
 
         $templateCategory = $this->getTemplateIndexCategory($category);
 
         return $templateCategory;
     }
 
+    public function resolveCollectionCategory($category)
+    {
+        $result = [];
+
+        foreach ($category as $item) {
+            if (array_key_exists($item['id'], $result)) {
+                $result[$item['id']]['id_content_' . $item['lang']] = $item['id_content'];
+
+                $result[$item['id']]['name_' . $item['lang']] = $item['name'];
+            } else {
+                $result[$item['id']] = [
+                    'id' => $item['id'],
+                    'id_content_' . $item['lang'] => $item['id_content'],
+                    'name_' . $item['lang'] => $item['name'],
+                    'parent_id' => $item['parent_id'],
+                    'status' => $item['status'],
+                    'slug' => $item['slug']
+                ];
+            }
+        }
+
+        return $result;
+    }
+
     /**
      * Get template select option for category.
      * @param $selectedId
+     * @param $lang
      * @return string
      */
-    public function getSelectCategory($selectedId)
+    public function getSelectCategory($selectedId, $lang)
     {
-        $dataCategory = Category::all();
+        $dataCategory = Category::getCategoryByLang($lang);
 
         return $this->getTemplateSelectCategory($dataCategory, $selectedId);
     }
@@ -96,7 +121,7 @@ class CategoryServices
     {
         if (count($category) > 0) {
             foreach ($category as $key => $item) {
-                if ($item->parent_id == $parentId) {
+                if ($item['parent_id'] == $parentId) {
                     $template[] = view('backend.category.partial._itemCategory', [
                         'item' => $item,
                         'character' => $character
@@ -104,7 +129,7 @@ class CategoryServices
 
                     unset($category[$key]);
 
-                    $this->getTemplateIndexCategory($category, $item->id, $character . '|---', $template);
+                    $this->getTemplateIndexCategory($category, $item['id'], $character . '|---', $template);
                 }
             }
         }
@@ -204,13 +229,13 @@ class CategoryServices
      */
     public function updateCategoryById($request, $categoryId)
     {
-        $category = Category::find($categoryId);
+        $categoryContent = CategoryContent::find($categoryId);
+
+        $category = $categoryContent->category;
 
         $category->update([
             'slug' => $request->slug
         ]);
-
-        $categoryContent = CategoryContent::findCategoryContentById($categoryId, $request->lang);
 
         $oldSlug = $category->slug;
         $oldType = $category->system_link_type_id;
@@ -293,13 +318,13 @@ class CategoryServices
      */
     public function getInformationCategoryById($categoryId, $lang)
     {
-        $category = Category::findCategoryById($categoryId, $lang);
+        $category = Category::findCategoryById($categoryId);
 
         if (empty($category)) {
             return null;
         }
 
-        $dataCategory = Category::getCategoryByLang($lang);
+        $dataCategory = Category::getCategoryByLang($lang, [$categoryId]);
 
         $template = $this->getTemplateSelectCategory($dataCategory, $category->parent_id);
 

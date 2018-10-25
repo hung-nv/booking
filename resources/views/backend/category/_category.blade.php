@@ -4,8 +4,10 @@
         <th> ID</th>
         <th> Name</th>
         <th> Slug</th>
-        <th> Status</th>
-        <th> Actions</th>
+        <th style="width: 30px"> <img src="{{ asset('images/icon/United-Kingdom-flag-icon.png') }}" width="20px"></th>
+        <th style="width: 30px"> <img src="{{ asset('images/icon/Korea-Flag-icon.png') }}" width="20px"></th>
+        <th style="width: 30px"> <img src="{{ asset('images/icon/Vietnam-Flag-icon.png') }}" width="20px"></th>
+        <th style="width: 60px;"> Actions</th>
     </tr>
     </thead>
     <tbody>

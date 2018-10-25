@@ -43,9 +43,9 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
-        $templateCategory = $this->categoryServices->getSelectCategory($request->old('parent_id'));
-
         $lang = $request->lang ? $request->lang : 'en';
+
+        $templateCategory = $this->categoryServices->getSelectCategory($request->old('parent_id'), $lang);
 
         return view('backend.category.create', [
             'templateCategory' => $templateCategory,

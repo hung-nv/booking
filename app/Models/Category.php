@@ -44,7 +44,8 @@ class Category extends \Eloquent
      * Define relationship hasMany: one parent - many child.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function childrens() {
+    public function childrens()
+    {
         return $this->hasMany('App\Models\Category', 'parent_id');
     }
 
@@ -61,9 +62,10 @@ class Category extends \Eloquent
     /**
      * Get category by lang.
      * @param $lang
+     * @param $exceptCategoryIds
      * @return Category[]|\Illuminate\Database\Eloquent\Collection
      */
-    public static function getCategoryByLang($lang)
+    public static function getCategoryByLang($lang, $exceptCategoryIds = [])
     {
         $model = self::select('a.*', 'b.name')
             ->from('category AS a')
@@ -72,32 +74,48 @@ class Category extends \Eloquent
                 $join->where('b.lang', $lang);
             });
 
-        if ($lang != 'en') {
-            $model->leftJoin('category_content AS c', function ($join) use ($lang) {
-                $join->on('a.id', '=', 'c.category_id');
-                $join->where('c.lang', 'en');
-            });
-            $model->addSelect('c.name as originName');
+        if ($exceptCategoryIds) {
+            $model->whereNotIn('b.id', $exceptCategoryIds);
         }
 
         return $model->get();
     }
 
     /**
+     * Get all category.
+     * @return array
+     */
+    public static function getAllCategory()
+    {
+        return self::select([
+            'b.id',
+            'a.id as id_content',
+            'a.lang',
+            'a.name',
+            'b.parent_id',
+            'b.status',
+            'b.slug'
+        ])
+            ->from('category_content AS a')
+            ->leftJoin('category AS b', function ($join) {
+                $join->on('a.category_id', '=', 'b.id');
+            })
+            ->get()->toArray();
+    }
+
+    /**
      * Find category by categoryId and lang
-     * @param int $categoryId
-     * @param string $lang
+     * @param int $categoryContentId
      * @return Category|Model|null
      */
-    public static function findCategoryById($categoryId, $lang)
+    public static function findCategoryById($categoryContentId)
     {
         return self::select('a.slug', 'a.parent_id', 'a.system_link_type_id', 'b.*')
             ->from('category AS a')
-            ->join('category_content AS b', function ($join) use ($lang) {
+            ->join('category_content AS b', function ($join) {
                 $join->on('a.id', '=', 'b.category_id');
-                $join->where('b.lang', $lang);
             })
-            ->where('a.id', $categoryId)
+            ->where('b.id', $categoryContentId)
             ->first();
     }
 }
