@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\ArticleContent;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PostUpdate extends FormRequest
@@ -23,13 +24,18 @@ class PostUpdate extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|unique:articles,name, ' . $this->segment(3) . '|max:255',
-            'slug' => 'required|unique:articles,slug, ' . $this->segment(3) . '|max:255',
+        $rules = [
+            'name' => 'required|max:255',
             'image' => 'image|max:10240',
-            'description' => 'required',
-            'content' => 'required',
-            'parent' => 'required'
+            'content' => 'required'
         ];
+
+        if (isset($this->slug)) {
+            $articleContent = ArticleContent::find($this->segment(3));
+
+            $rules['slug'] = 'required|unique:articles,slug, ' . $articleContent->article_id . '|max:255';
+        }
+
+        return $rules;
     }
 }

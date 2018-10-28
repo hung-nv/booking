@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Requests\PostStore;
-use App\Http\Requests\PostUpdate;
-use App\Services\PostServices;
+use App\Services\ArticleServices;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PostController extends Controller
+class ArticleController extends Controller
 {
-    private $postServices;
+    private $articleServices;
 
-    public function __construct(PostServices $postServices)
+    public function __construct(ArticleServices $articleServices)
     {
         parent::__construct();
-        $this->postServices = $postServices;
+        $this->articleServices = $articleServices;
     }
 
     /**
@@ -25,12 +23,11 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $dataPosts = $this->postServices->getIndexPosts($request->all(), $this->postType);
+        $dataPosts = $this->articleServices->getIndexPosts($request->all(), $this->postType);
 
         return view('backend.post.index', [
             'posts' => $dataPosts['posts'],
-            'name' => $dataPosts['name'],
-            'groups' => $dataPosts['groups']
+            'name' => $dataPosts['name']
         ]);
     }
 
@@ -42,7 +39,7 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        $templateCategory = $this->postServices->getCheckboxCategory(
+        $templateCategory = $this->articleServices->getCheckboxCategory(
             $this->categoryType,
             $request->old('parent')
         );
@@ -65,7 +62,7 @@ class PostController extends Controller
      */
     public function store(PostStore $request)
     {
-        $response = $this->postServices->createPost($request, $this->postType);
+        $response = $this->articleServices->createPost($request, $this->postType);
 
         return redirect()->route('post.index')->with([
             'success' => $response
@@ -82,9 +79,9 @@ class PostController extends Controller
     public function edit(Request $request, $id)
     {
         try {
-            $dataPost = $this->postServices->getPostInformationById($request, $id);
+            $dataPost = $this->articleServices->getPostInformationById($request, $id);
 
-            $templateCategory = $this->postServices->getCheckboxCategory(
+            $templateCategory = $this->articleServices->getCheckboxCategory(
                 $this->categoryType,
                 $dataPost['post_category']
             );
@@ -109,7 +106,7 @@ class PostController extends Controller
      */
     public function update(PostUpdate $request, $id)
     {
-        $response = $this->postServices->updatePost($request, $id);
+        $response = $this->articleServices->updatePost($request, $id);
 
         return redirect()->route('post.index')->with([
             'success' => $response
@@ -124,7 +121,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $response = $this->postServices->deletePost($id);
+        $response = $this->articleServices->deletePost($id);
 
         return redirect()->route('post.index')->with([
             'success' => $response

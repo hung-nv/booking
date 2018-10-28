@@ -39,6 +39,11 @@ class CategoryServices
         return $templateCategory;
     }
 
+    /**
+     * Resolve all language of category to one record.
+     * @param $category
+     * @return array
+     */
     public function resolveCollectionCategory($category)
     {
         $result = [];
@@ -64,14 +69,33 @@ class CategoryServices
     }
 
     /**
+     * Get current category. (origin category to translate)
+     * @param $dataRequest
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
+    public function getCurrentCategory($dataRequest)
+    {
+        if (empty($dataRequest) || empty($dataRequest['category_id'])) {
+            return null;
+        }
+
+        $category = Category::findOriginCategoryById($dataRequest['category_id']);
+
+        if (!$category) {
+            return null;
+        }
+
+        return $category;
+    }
+
+    /**
      * Get template select option for category.
      * @param $selectedId
-     * @param $lang
      * @return string
      */
-    public function getSelectCategory($selectedId, $lang)
+    public function getSelectCategory($selectedId)
     {
-        $dataCategory = Category::getCategoryByLang($lang);
+        $dataCategory = Category::getCategoryByLang(config('const.lang.en.alias'));
 
         return $this->getTemplateSelectCategory($dataCategory, $selectedId);
     }
@@ -170,6 +194,19 @@ class CategoryServices
     {
         $data = $request->all();
 
+        // set system_link_type is 'category'
+        $data['system_link_type_id'] = 1;
+
+        // set parent_id
+        $data['parent_id'] = empty($data['parent_id']) ? null : $data['parent_id'];
+
+        if (empty($data['category_id'])) {
+            // create category.
+            $category = Category::create($data);
+        } else {
+            $category = Category::find($data['category_id']);
+        }
+
         if ($request->hasFile('image')) {
             // upload image to folder.
             $fileName = $this->imageServices->uploads($request->file('image'), 'category');
@@ -180,14 +217,6 @@ class CategoryServices
 
             $data['image'] = $fileName;
         }
-
-        // set system_link_type is 'category'
-        $data['system_link_type_id'] = 1;
-
-        $data['parent_id'] = empty($data['parent_id']) ? null : $data['parent_id'];
-
-        // store category.
-        $category = Category::create($data);
 
         // store category content.
         $category->categoryContent()->create($data);
@@ -222,20 +251,26 @@ class CategoryServices
 
     /**
      * Update category.
-     * @param $request
+     * @param Request $request
      * @param $categoryId
      * @return string
      * @throws \Exception
      */
     public function updateCategoryById($request, $categoryId)
     {
+        // get category content.
         $categoryContent = CategoryContent::find($categoryId);
 
+        // get category.
         $category = $categoryContent->category;
 
-        $category->update([
-            'slug' => $request->slug
-        ]);
+        // update category if edit version english.
+        if ($request->has(['slug'])) {
+            $category->update([
+                'parent_id' => $request->parent_id,
+                'slug' => $request->slug
+            ]);
+        }
 
         $oldSlug = $category->slug;
         $oldType = $category->system_link_type_id;
@@ -255,8 +290,6 @@ class CategoryServices
 
             $data['image'] = $fileName;
         }
-
-        $data['parent_id'] = empty($data['parent_id']) ? null : $data['parent_id'];
 
         $categoryContent->update($data);
 
@@ -305,7 +338,7 @@ class CategoryServices
 
         $this->imageServices->deleteImage($category->image);
 
-        $this->menuServices->deleteCategoryFromMenu($category->slug, $category->system_link_type_id);
+//        $this->menuServices->deleteCategoryFromMenu($category->slug, $category->system_link_type_id);
 
         return 'Delete category "' . $category->name . '" successful';
     }
@@ -313,10 +346,9 @@ class CategoryServices
     /**
      * Get Information Category
      * @param $categoryId
-     * @param $lang
      * @return array|null
      */
-    public function getInformationCategoryById($categoryId, $lang)
+    public function getInformationCategoryById($categoryId)
     {
         $category = Category::findCategoryById($categoryId);
 
@@ -324,7 +356,7 @@ class CategoryServices
             return null;
         }
 
-        $dataCategory = Category::getCategoryByLang($lang, [$categoryId]);
+        $dataCategory = Category::getCategoryByLang(config('const.lang.en.alias'), [$categoryId]);
 
         $template = $this->getTemplateSelectCategory($dataCategory, $category->parent_id);
 
@@ -333,12 +365,12 @@ class CategoryServices
 
     /**
      * Delete category image by category id.
-     * @param $categoryId
+     * @param $categoryContentId
      * @return array
      */
-    public function deleteImageByCategoryId($categoryId)
+    public function deleteImageByCategoryId($categoryContentId)
     {
-        $category = Category::findOrFail($categoryId);
+        $category = CategoryContent::findOrFail($categoryContentId);
 
         if (!$category) {
             throw new NotFoundHttpException('Not found category.');

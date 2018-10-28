@@ -23,6 +23,7 @@ class CreateArticlesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->tinyInteger('system_link_type_id');
             $table->boolean('status')->default(true);
+            $table->timestamps();
         });
     }
 

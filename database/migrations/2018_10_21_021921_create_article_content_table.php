@@ -25,16 +25,12 @@ class CreateArticleContentTable extends Migration
 
             $table->string('name');
             $table->string('image')->nullable();
-            $table->string('description')->default('');
+            $table->string('description')->nullable();
             $table->text('content');
             $table->integer('view')->default(0);
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
-
-            $table->timestamps();
-
-            $table->boolean('status')->default(true);
         });
     }
 

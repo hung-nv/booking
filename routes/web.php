@@ -33,7 +33,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'auth', 'namespace' =
         Route::put('user/update-account', ['as' => 'user.putUpdateAccount', 'uses' => 'UserController@account']);
 
         // route resource post.
-        Route::resource('post', 'PostController');
+        Route::resource('article', 'ArticleController');
 
         // route resource category.
         Route::resource('category', 'CategoryController');

@@ -17,7 +17,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <a href="{{ route('post.index') }}">Post</a>
+    <a href="{{ route('article.index') }}">Post</a>
     <i class="fa fa-circle"></i>
 @endsection
 
@@ -38,7 +38,7 @@
 
                     @include('backend.blocks.message')
 
-                    <form action="{{ route('post.store') }}" class="horizontal-form" role="form"
+                    <form action="{{ route('article.store') }}" class="horizontal-form" role="form"
                           method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
 

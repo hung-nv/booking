@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\CategoryContent;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CategoryUpdate extends FormRequest
@@ -23,11 +24,20 @@ class CategoryUpdate extends FormRequest
      */
     public function rules()
     {
-        return [
-            'slug' => 'required|max:255|unique:category,slug,' . $this->segment(3) . '|max:255',
+        $rules = [
             'image' => 'image|max:10240',
             'meta_title' => 'max:255',
             'meta_description' => 'max:255'
         ];
+
+        if (isset($this->slug)) {
+            $categoryContent = CategoryContent::find($this->segment(3));
+
+            $categoryId = $categoryContent->category_id;
+
+            $rules['slug'] = 'required|max:255|unique:category,slug,' . $categoryId . '|max:255';
+        }
+
+        return $rules;
     }
 }

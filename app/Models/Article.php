@@ -8,22 +8,9 @@ class Article extends \Eloquent
 {
     protected $table = 'articles';
 
-    protected $dates = [
-        'created_at',
-        'updated_at'
-    ];
-
     protected $fillable = [
-        'name',
         'slug',
-        'image',
-        'description',
-        'content',
         'user_id',
-        'status',
-        'meta_title',
-        'meta_description',
-        'meta_keywords',
         'system_link_type_id'
     ];
 
@@ -38,23 +25,12 @@ class Article extends \Eloquent
     }
 
     /**
-     * Define relationship has one content with lang.
-     * @param $lang
+     * Define relationship has one article content.
      * @return mixed
      */
-    public function articleContent($lang)
+    public function articleContent()
     {
-        return $this->hasOne('App\Models\ArticleContent')->wherePivot('lang', $lang);
-    }
-
-    /**
-     * Re format datetime.
-     * @param $value
-     * @return false|string
-     */
-    public function getCreatedAtAttribute($value)
-    {
-        return date('d/m/Y H.i', strtotime($value));
+        return $this->hasMany('App\Models\ArticleContent', 'article_id');
     }
 
     /**
@@ -84,6 +60,50 @@ class Article extends \Eloquent
      */
     public static function getAllPages(array $type)
     {
-        return self::whereIn('system_link_type_id', $type)->orderByDesc('created_at')->get();
+        return self::select([
+            'b.*',
+            'a.id AS id_content',
+            'a.name',
+            'a.description',
+            'a.content',
+            'a.lang'
+        ])
+            ->from('article_content AS a')
+            ->leftJoin('articles AS b', function ($join) {
+                $join->on('a.article_id', '=', 'b.id');
+            })
+            ->whereIn('system_link_type_id', $type)
+            ->orderByDesc('b.created_at')
+            ->get()
+            ->toArray();
+    }
+
+    public static function findOriginArticleById($articleId)
+    {
+        return self::select([
+            'b.id',
+            'a.name'
+        ])
+            ->from('article_content AS a')
+            ->join('articles AS b', function ($join) {
+                $join->on('a.article_id', '=', 'b.id');
+            })
+            ->where('b.id', $articleId)
+            ->first();
+    }
+
+    public static function getArticleContentById($articleId)
+    {
+        return self::select([
+            'a.*',
+            'b.slug',
+            'b.status'
+        ])
+            ->from('article_content AS a')
+            ->join('articles AS b', function ($join) {
+                $join->on('a.article_id', '=', 'b.id');
+            })
+            ->where('a.id', $articleId)
+            ->first();
     }
 }

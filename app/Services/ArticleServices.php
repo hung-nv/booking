@@ -2,17 +2,17 @@
 
 namespace App\Services;
 
+use App\Models\ArticleContent;
 use App\Models\Category;
-use App\Models\Group;
 use App\Models\MetaField;
-use App\Models\Post;
+use App\Models\Article;
 use App\Services\Common\ImageServices;
 use App\Utilities\MultiLevel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PostServices
+class ArticleServices
 {
     use MultiLevel;
 
@@ -34,11 +34,9 @@ class PostServices
     {
         $name = empty($request['name']) ? '-1' : $request['name'];
 
-        $posts = Post::getPostsByName($name, 20, $postType);
+        $posts = Article::getPostsByName($name, 20, $postType);
 
-        $groups = Group::all();
-
-        return ['name' => $name, 'posts' => $posts, 'groups' => $groups];
+        return ['name' => $name, 'posts' => $posts];
     }
 
     /**
@@ -48,7 +46,55 @@ class PostServices
      */
     public function getIndexPages(array $type)
     {
-        return Post::getAllPages($type);
+        $pages = Article::getAllPages($type);
+
+        $pages = $this->resolveCollectionPage($pages);
+
+        return $pages;
+    }
+
+    /**
+     * Resolve all language of page to one record.
+     * @param $pages
+     * @return array
+     */
+    public function resolveCollectionPage($pages)
+    {
+        $result = [];
+
+        foreach ($pages as $item) {
+            if (array_key_exists($item['id'], $result)) {
+                $result[$item['id']]['id_content_' . $item['lang']] = $item['id_content'];
+
+                $result[$item['id']]['name_' . $item['lang']] = $item['name'];
+            } else {
+                $result[$item['id']] = [
+                    'id' => $item['id'],
+                    'id_content_' . $item['lang'] => $item['id_content'],
+                    'name_' . $item['lang'] => $item['name'],
+                    'status' => $item['status'],
+                    'created_at' => $item['created_at'],
+                    'system_link_type_id' => $item['system_link_type_id'],
+                ];
+            }
+        }
+
+        return $result;
+    }
+
+    public function getCurrentPage($dataRequest)
+    {
+        if (empty($dataRequest) || empty($dataRequest['article_id'])) {
+            return null;
+        }
+
+        $article = Article::findOriginArticleById($dataRequest['article_id']);
+
+        if (!$article) {
+            return null;
+        }
+
+        return $article;
     }
 
     /**
@@ -75,9 +121,43 @@ class PostServices
      * @return string
      * @throws \Exception
      */
-    public function createPost($request, $postType)
+    public function createArticle($request, $postType)
+    {
+        try {
+            DB::beginTransaction();
+
+            $respon = $this->storeArticle($request, $postType);
+
+            DB::commit();
+
+            return $respon;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            throw $exception;
+        }
+    }
+
+    /**
+     * Store article.
+     * @param Request $request
+     * @param $postType
+     * @return string
+     */
+    public function storeArticle($request, $postType)
     {
         $data = $request->all();
+
+        $data['user_id'] = \Auth::user()->id;
+        $data['system_link_type_id'] = $postType;
+
+        if (empty($data['article_id'])) {
+            // create article.
+            $article = Article::create($data);
+        } else {
+            // code here if translate.
+            $article = Article::find($data['article_id']);
+        }
 
         if ($request->hasFile('image')) {
             // upload image to folder.
@@ -90,36 +170,13 @@ class PostServices
             $data['image'] = $fileName;
         }
 
-        $data['user_id'] = \Auth::user()->id;
-        $data['system_link_type_id'] = $postType;
+        $article->articleContent()->create($data);
 
-        try {
-            DB::beginTransaction();
-
-            $response = $this->storePostPackage($data);
-
-            DB::commit();
-
-            return $response;
-        } catch (\Exception $exception) {
-            DB::rollBack();
-
-            throw $exception;
+        if (!empty($data['parent'])) {
+            $article->category()->attach($data['parent']);
         }
-    }
 
-    /**
-     * Store post package.
-     * @param $data
-     * @return string
-     */
-    public function storePostPackage($data)
-    {
-        $post = Post::create($data);
-
-        $post->category()->attach($data['parent']);
-
-        $message = 'Create "' . $post->name . '" successful';
+        $message = 'Create "' . $data['name'] . '" successful';
 
         return $message;
     }
@@ -132,7 +189,7 @@ class PostServices
      */
     public function getPostInformationById($request, $id)
     {
-        $post = Post::findOrFail($id);
+        $post = Article::findOrFail($id);
 
         $post_category = [];
         foreach ($post->category as $i) {
@@ -153,6 +210,27 @@ class PostServices
     }
 
     /**
+     * @param $request
+     * @param $id
+     * @return array
+     */
+    public function getArticleInformationById($request, $id)
+    {
+        $article = Article::getArticleContentById($id);
+
+        $name = $article->name ? $article->name : $request->old('name');
+        $slug = $article->slug ? $article->slug : $request->old('slug');
+
+        $return = [
+            'article' => $article,
+            'name' => $name,
+            'slug' => $slug
+        ];
+
+        return $return;
+    }
+
+    /**
      * Get data landing page.
      * @param $request
      * @param $id
@@ -160,7 +238,7 @@ class PostServices
      */
     public function getLandingInformationById($request, $id)
     {
-        $page = Post::findOrFail($id);
+        $page = Article::findOrFail($id);
 
         $post_category = [];
         foreach ($page->category as $i) {
@@ -218,7 +296,16 @@ class PostServices
      */
     public function updatePostPackage($request, $id, $updateMenu)
     {
-        $post = Post::findOrFail($id);
+        $articleContent = ArticleContent::find($id);
+
+        $article = $articleContent->article;
+
+        // update category if edit version english.
+        if ($request->has(['slug'])) {
+            $article->update([
+                'slug' => $request->slug
+            ]);
+        }
 
         $data = $request->all();
 
@@ -240,14 +327,12 @@ class PostServices
 
         // update menu if page.
         if ($updateMenu) {
-            $this->menuServices->updatePageToMenu($post->slug, $request->name, $request->slug);
+            $this->menuServices->updatePageToMenu($article->slug, $request->name, $request->slug);
         }
 
-        if ($post->update($data)) {
-            $post->category()->sync($request->parent);
-        }
+        $articleContent->update($data);
 
-        $message = '"' . $post->name . '" has been updated!';
+        $message = '"' . $request->name . '" has been updated!';
 
         return $message;
     }
@@ -260,7 +345,7 @@ class PostServices
      */
     public function addPostToGroup($data)
     {
-        $post = Post::findOrFail($data['post_id']);
+        $post = Article::findOrFail($data['post_id']);
 
         $post->groups()->attach([$data['group_id']]);
 
@@ -281,7 +366,7 @@ class PostServices
      */
     public function removePostToGroup($data)
     {
-        $post = Post::findOrFail($data['post_id']);
+        $post = Article::findOrFail($data['post_id']);
 
         $post->groups()->detach([$data['group_id']]);
 
@@ -339,7 +424,7 @@ class PostServices
             'system_link_type_id' => $landingType
         ];
 
-        $landing = Post::create($dataPage);
+        $landing = Article::create($dataPage);
 
         $landing->category()->attach($request->parent);
 
@@ -393,7 +478,7 @@ class PostServices
             'meta_description' => $request->meta_description,
         ];
 
-        $landing = Post::findOrFail($id);
+        $landing = Article::findOrFail($id);
 
         unset(
             $data['_token'],
@@ -448,12 +533,12 @@ class PostServices
 
     /**
      * Delete post image by id.
-     * @param $postId
+     * @param $articleId
      * @return array
      */
-    public function deleteImageByPostId($postId)
+    public function deleteImageByPostId($articleId)
     {
-        $post = Post::findOrFail($postId);
+        $post = ArticleContent::findOrFail($articleId);
 
         if (!$post) {
             throw new NotFoundHttpException('Not found post');
@@ -550,7 +635,8 @@ class PostServices
      */
     public function deletePostPackage($postId)
     {
-        $post = Post::findOrFail($postId);
+        $post = Article::find($postId);
+
         $post->category()->detach();
 
         if ($post->delete()) {
@@ -566,7 +652,7 @@ class PostServices
      */
     public function deletePagePackage($pageId, $landingType)
     {
-        $page = Post::findOrFail($pageId);
+        $page = Article::find($pageId);
 
         $page->category()->detach();
 
@@ -579,9 +665,11 @@ class PostServices
             });
         }
 
-        if ($page->delete()) {
-            $this->imageServices->deleteImage($page->image);
+        foreach ($page->articleContent as $articleContent) {
+            $this->imageServices->deleteImage($articleContent->image);
         }
+
+        $page->delete();
     }
 
     public function getAllPostsByParentCategory($category_id, $allCategory, $columns = [], $post_type = 1)

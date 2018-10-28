@@ -1,3 +1,21 @@
+@if(!empty($originCategory))
+    <input name="category_id" type="hidden" value="{{ $originCategory->id }}"/>
+
+    <div class="form-group">
+        <label class="control-label col-md-3">Origin Name (English Version)</label>
+        <div class="col-md-9">
+            <input name="originName" value="{{ $originCategory->name }}" class="form-control" readonly/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3">Translate To: </label>
+        <div class="col-md-9">
+            <input name="language" value="{{ config('const.lang.'.$lang.'.label') }}" class="form-control" readonly/>
+        </div>
+    </div>
+@endif
+
 <div class="form-group">
     <label class="control-label col-md-3">Name</label>
     <div class="col-md-9">
@@ -6,24 +24,24 @@
     </div>
 </div>
 
-@if ($lang === 'en')
+@if ($lang === 'en' || (!empty($category) && $category->lang === 'en'))
     <div class="form-group">
         <label class="control-label col-md-3">Slug</label>
         <div class="col-md-9">
             <input name="slug" :value="categorySlug" class="form-control"
                    placeholder="Enter your category slug"></div>
     </div>
-@endif
 
-<div class="form-group">
-    <label class="control-label col-md-3">Parent</label>
-    <div class="col-md-9">
-        <select class="form-control" name="parent_id">
-            <option value="">Select...</option>
-            {!! $templateCategory !!}
-        </select>
+    <div class="form-group">
+        <label class="control-label col-md-3">Parent</label>
+        <div class="col-md-9">
+            <select class="form-control" name="parent_id">
+                <option value="">Select...</option>
+                {!! $templateCategory !!}
+            </select>
+        </div>
     </div>
-</div>
+@endif
 
 <div class="form-group">
     <label for="exampleInputFile" class="col-md-3 control-label">Image</label>

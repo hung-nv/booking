@@ -6,19 +6,19 @@ use App\Http\Requests\LandingStore;
 use App\Http\Requests\LandingUpdate;
 use App\Http\Requests\PostStore;
 use App\Http\Requests\PostUpdate;
-use App\Services\PostServices;
+use App\Services\ArticleServices;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
-    private $postServices;
+    private $articleServices;
 
-    public function __construct(PostServices $postServices)
+    public function __construct(ArticleServices $articleServices)
     {
         parent::__construct();
 
-        $this->postServices = $postServices;
+        $this->articleServices = $articleServices;
     }
 
     /**
@@ -27,7 +27,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = $this->postServices->getIndexPages([$this->pageType, $this->landingType]);
+        $pages = $this->articleServices->getIndexPages([$this->pageType, $this->landingType]);
 
         return view('backend.page.index', [
             'pages' => $pages
@@ -42,18 +42,28 @@ class PageController extends Controller
      */
     public function create(Request $request)
     {
-        $templateCategory = $this->postServices->getCheckboxCategory(
+        // get origin category (english version)
+        $originArticle = $this->articleServices->getCurrentPage($request->all());
+
+        if (!(empty($request->all()) || ($request->has(['lang', 'article_id']) && $originArticle))) {
+            abort(404);
+        }
+
+        $templateCategory = $this->articleServices->getCheckboxCategory(
             $this->categoryType,
             $request->old('parent')
         );
 
         $name = $request->old('name') ? $request->old('name') : '';
         $slug = $request->old('slug') ? $request->old('slug') : '';
+        $lang = $request->lang ? $request->lang : 'en';
 
         return view('backend.page.create', [
             'templateCategory' => $templateCategory,
+            'originArticle' => $originArticle,
             'name' => $name,
-            'slug' => $slug
+            'slug' => $slug,
+            'lang' => $lang
         ]);
     }
 
@@ -65,7 +75,7 @@ class PageController extends Controller
      */
     public function store(PostStore $request)
     {
-        $response = $this->postServices->createPost($request, $this->pageType);
+        $response = $this->articleServices->createArticle($request, $this->pageType);
 
         return redirect()->route('page.index')->with([
             'success' => $response
@@ -80,7 +90,7 @@ class PageController extends Controller
      */
     public function landing(Request $request)
     {
-        $templateCategory = $this->postServices->getCheckboxCategory(
+        $templateCategory = $this->articleServices->getCheckboxCategory(
             $this->categoryType,
             $request->old('parent')
         );
@@ -103,7 +113,7 @@ class PageController extends Controller
      */
     public function storeLanding(LandingStore $request)
     {
-        $response = $this->postServices->createLandingPage($request, $this->landingType);
+        $response = $this->articleServices->createLandingPage($request, $this->landingType);
 
         return redirect()->route('page.index')->with([
             'success' => $response
@@ -120,18 +130,13 @@ class PageController extends Controller
     public function edit(Request $request, $id)
     {
         try {
-            $dataPost = $this->postServices->getPostInformationById($request, $id);
-
-            $templateCategory = $this->postServices->getCheckboxCategory(
-                $this->categoryType,
-                $dataPost['post_category']
-            );
+            $dataPost = $this->articleServices->getArticleInformationById($request, $id);
 
             return view('backend.page.update', [
-                'templateCategory' => $templateCategory,
-                'post' => $dataPost['post'],
+                'article' => $dataPost['article'],
                 'name' => $dataPost['name'],
-                'slug' => $dataPost['slug']
+                'slug' => $dataPost['slug'],
+                'lang' => $dataPost['article']->lang
             ]);
         } catch (\Exception $exception) {
             return abort(403);
@@ -147,7 +152,7 @@ class PageController extends Controller
      */
     public function update(PostUpdate $request, $id)
     {
-        $response = $this->postServices->updatePost($request, $id, true);
+        $response = $this->articleServices->updatePost($request, $id, false);
 
         return redirect()->route('page.index')->with([
             'success' => $response
@@ -164,9 +169,9 @@ class PageController extends Controller
     public function editLanding(Request $request, $id)
     {
         try {
-            $dataPage = $this->postServices->getLandingInformationById($request, $id);
+            $dataPage = $this->articleServices->getLandingInformationById($request, $id);
 
-            $templateCategory = $this->postServices->getCheckboxCategory(
+            $templateCategory = $this->articleServices->getCheckboxCategory(
                 $this->categoryType,
                 $dataPage['post_category']
             );
@@ -192,7 +197,7 @@ class PageController extends Controller
      */
     public function updateLanding(LandingUpdate $request, $id)
     {
-        $response = $this->postServices->updateLanding($request, $id);
+        $response = $this->articleServices->updateLanding($request, $id);
 
         return redirect()->route('page.index')->with([
             'success' => $response
@@ -207,7 +212,7 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        $response = $this->postServices->deletePage($id, $this->landingType);
+        $response = $this->articleServices->deletePage($id, $this->landingType);
 
         return redirect()->route('page.index')->with([
             'success' => $response

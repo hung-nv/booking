@@ -23,12 +23,11 @@ class Category extends \Eloquent
 
     /**
      * Define relationship has one content with lang.
-     * @param $lang
      * @return mixed
      */
     public function categoryContent()
     {
-        return $this->hasOne('App\Models\CategoryContent');
+        return $this->hasMany('App\Models\CategoryContent');
     }
 
     /**
@@ -56,7 +55,13 @@ class Category extends \Eloquent
      */
     public static function getCategoryByType($type)
     {
-        return self::where('system_link_type_id', $type)->get();
+        return self::select('a.slug', 'b.name', 'a.id', 'a.parent_id')
+            ->from('category AS a')
+            ->join('category_content AS b', function ($join) {
+                $join->on('a.id', '=', 'b.category_id');
+                $join->where('b.lang', config('const.lang.en.alias'));
+            })
+            ->where('system_link_type_id', $type)->get();
     }
 
     /**
@@ -116,6 +121,23 @@ class Category extends \Eloquent
                 $join->on('a.id', '=', 'b.category_id');
             })
             ->where('b.id', $categoryContentId)
+            ->first();
+    }
+
+    /**
+     * Get origin category by category Id.
+     * @param int $categoryId
+     * @return Model|null|static
+     */
+    public static function findOriginCategoryById($categoryId)
+    {
+        return self::select('a.slug', 'b.name', 'a.id')
+            ->from('category AS a')
+            ->join('category_content AS b', function ($join) {
+                $join->on('a.id', '=', 'b.category_id');
+                $join->where('b.lang', config('const.lang.en.alias'));
+            })
+            ->where('a.id', $categoryId)
             ->first();
     }
 }

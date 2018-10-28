@@ -21,8 +21,6 @@ class Controller extends BaseController
     protected $postType,
         $categoryType,
         $pageType,
-        $catalogType,
-        $productType,
         $landingType;
 
     /**
@@ -47,15 +45,11 @@ class Controller extends BaseController
         $this->categoryType = 1;
         $this->postType = 2;
         $this->pageType = 3;
-        $this->catalogType = 4;
-        $this->productType = 5;
-        $this->landingType = 6;
+        $this->landingType = 4;
 
         View::share('pageType', $this->pageType);
 
         View::share('landingType', $this->landingType);
-
-        View::share('catalogType', $this->catalogType);
 
         View::share('categoryType', $this->categoryType);
     }

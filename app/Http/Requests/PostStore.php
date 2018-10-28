@@ -23,13 +23,16 @@ class PostStore extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|unique:articles,name|max:255',
-            'slug' => 'required|unique:articles,slug|max:255',
-            'description' => 'required',
-            'image' => 'required|image|max:10240',
-            'content' => 'required',
-            'parent' => 'required'
+        $rules = [
+            'name' => 'required|max:255',
+            'image' => 'image|max:10240',
+            'content' => 'required'
         ];
+
+        if (isset($this->slug)) {
+            $rules['slug'] = 'required|unique:articles,slug|max:255';
+        }
+
+        return $rules;
     }
 }

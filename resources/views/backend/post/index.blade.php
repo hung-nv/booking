@@ -5,7 +5,7 @@
 @section('pageId', 'post')
 
 @section('breadcrumbs')
-    <a href="{{ route('post.index') }}">Posts</a>
+    <a href="{{ route('article.index') }}">Posts</a>
     <i class="fa fa-circle"></i>
 @endsection
 
@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="btn-group">
-                                    <a class="btn sbold green" href="{{ route('post.create') }}">
+                                    <a class="btn sbold green" href="{{ route('article.create') }}">
                                         Insert
                                         <i class="fa fa-plus"></i>
                                     </a>

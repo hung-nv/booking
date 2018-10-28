@@ -5,33 +5,33 @@
     </td>
     <td>{{ $item['slug'] }}</td>
     <td>
-        <a href="{{ route('category.edit', ['category' => $item['id_content_'.config('const.lang.en')]]) }}"
-           class="btn btn-icon-only default">
+        <a href="{{ route('category.edit', ['category' => $item['id_content_'.config('const.lang.en.alias')]]) }}"
+           class="btn btn-icon-only blue">
             <i class="fa fa-edit"></i>
         </a>
     </td>
     <td>
-        @if(!empty($item['name_'.config('const.lang.ko')]))
-            <a href="{{ route('category.edit', ['category' => $item['id_content_'.config('const.lang.ko')]]) }}"
-               class="btn btn-icon-only default">
+        @if(!empty($item['name_'.config('const.lang.ko.alias')]))
+            <a href="{{ route('category.edit', ['category' => $item['id_content_'.config('const.lang.ko.alias')]]) }}"
+               class="btn btn-icon-only blue">
                 <i class="fa fa-edit"></i>
             </a>
         @else
-            <a href="{{ route('category.create', ['lang' => config('const.lang.ko')]) }}"
-               class="btn btn-icon-only default">
+            <a href="{{ route('category.create', ['lang' => config('const.lang.ko.alias'), 'category_id' => $item['id']]) }}"
+               class="btn btn-icon-only red">
                 <i class="fa fa-plus"></i>
             </a>
         @endif
     </td>
     <td>
-        @if(!empty($item['name_'.config('const.lang.vi')]))
-            <a href="{{ route('category.edit', ['category' => $item['id_content_'.config('const.lang.vi')]]) }}"
-               class="btn btn-icon-only default">
+        @if(!empty($item['name_'.config('const.lang.vi.alias')]))
+            <a href="{{ route('category.edit', ['category' => $item['id_content_'.config('const.lang.vi.alias')]]) }}"
+               class="btn btn-icon-only blue">
                 <i class="fa fa-edit"></i>
             </a>
         @else
-            <a href="{{ route('category.create', ['lang' => config('const.lang.vi')]) }}"
-               class="btn btn-icon-only default">
+            <a href="{{ route('category.create', ['lang' => config('const.lang.vi.alias'),  'category_id' => $item['id']]) }}"
+               class="btn btn-icon-only red">
                 <i class="fa fa-plus"></i>
             </a>
         @endif

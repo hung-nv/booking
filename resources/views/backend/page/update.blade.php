@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="portlet-body">
-                    <form action="{{ route('page.update', ['page' => $page['id']]) }}" class="horizontal-form"
+                    <form action="{{ route('page.update', ['page' => $article['id']]) }}" class="horizontal-form"
                           role="form"
                           method="post" enctype="multipart/form-data" id="page-update-form">
                         {{ csrf_field() }}

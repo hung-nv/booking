@@ -23,11 +23,16 @@ class CategoryStore extends FormRequest
      */
     public function rules()
     {
-        return [
-            'slug' => 'required|unique:category,slug|max:255',
+        $rules = [
             'image' => 'image|max:10240',
             'meta_title' => 'max:255',
             'meta_description' => 'max:255'
         ];
+
+        if (isset($this->slug)) {
+            $rules['slug'] = 'required|unique:category,slug|max:255';
+        }
+
+        return $rules;
     }
 }

@@ -43,12 +43,20 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
+        // get origin category (english version)
+        $originCategory = $this->categoryServices->getCurrentCategory($request->all());
+
+        if (!(empty($request->all()) || ($request->has(['lang', 'category_id']) && $originCategory))) {
+            abort(404);
+        }
+
         $lang = $request->lang ? $request->lang : 'en';
 
-        $templateCategory = $this->categoryServices->getSelectCategory($request->old('parent_id'), $lang);
+        $templateCategory = $this->categoryServices->getSelectCategory($request->old('parent_id'));
 
         return view('backend.category.create', [
             'templateCategory' => $templateCategory,
+            'originCategory' => $originCategory,
             'lang' => $lang
         ]);
     }
@@ -78,9 +86,7 @@ class CategoryController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $lang = $request->lang ? $request->lang : 'en';
-
-        $information = $this->categoryServices->getInformationCategoryById($id, $lang);
+        $information = $this->categoryServices->getInformationCategoryById($id);
 
         if (empty($information)) {
             abort(404);
@@ -89,7 +95,7 @@ class CategoryController extends Controller
         return view('backend.category.update', [
             'category' => $information['category'],
             'templateCategory' => $information['templateSelectCategory'],
-            'lang' => $lang
+            'lang' => $information['category']->lang
         ]);
     }
 

@@ -24,17 +24,6 @@
                         <i class="icon-settings font-dark"></i>
                         <span class="caption-subject bold uppercase"> Data</span>
                     </div>
-
-                    <div class="actions">
-                        <div class="btn-group btn-group-devided" data-toggle="buttons">
-                            <label class="btn btn-transparent blue btn-outline btn-sm @if($lang == 'en') active @endif" v-on:click="changeLanguage('en')">
-                                <input type="radio" name="options" class="toggle" id="option1">English</label>
-                            <label class="btn btn-transparent blue btn-outline btn-sm @if($lang == 'ko') active @endif" v-on:click="changeLanguage('ko')">
-                                <input type="radio" name="options" class="toggle" id="option2">Korea</label>
-                            <label class="btn btn-transparent blue btn-outline btn-sm @if($lang == 'vi') active @endif" v-on:click="changeLanguage('vi')">
-                                <input type="radio" name="options" class="toggle" id="option2">Vietnam</label>
-                        </div>
-                    </div>
                 </div>
                 <div class="portlet-body">
                     <div class="table-toolbar">
