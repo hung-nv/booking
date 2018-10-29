@@ -49,17 +49,11 @@ class PageController extends Controller
             abort(404);
         }
 
-        $templateCategory = $this->articleServices->getCheckboxCategory(
-            $this->categoryType,
-            $request->old('parent')
-        );
-
         $name = $request->old('name') ? $request->old('name') : '';
         $slug = $request->old('slug') ? $request->old('slug') : '';
         $lang = $request->lang ? $request->lang : 'en';
 
         return view('backend.page.create', [
-            'templateCategory' => $templateCategory,
             'originArticle' => $originArticle,
             'name' => $name,
             'slug' => $slug,
@@ -90,16 +84,11 @@ class PageController extends Controller
      */
     public function landing(Request $request)
     {
-        $templateCategory = $this->articleServices->getCheckboxCategory(
-            $this->categoryType,
-            $request->old('parent')
-        );
-
         $name = $request->old('name') ? $request->old('name') : '';
         $slug = $request->old('slug') ? $request->old('slug') : '';
+        $lang = $request->lang ? $request->lang : 'en';
 
         return view('backend.page.landing', [
-            'templateCategory' => $templateCategory,
             'name' => $name,
             'slug' => $slug
         ]);
