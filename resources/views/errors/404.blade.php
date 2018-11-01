@@ -5,7 +5,7 @@
           type="text/css"/>
 @endsection
 
-@section('title', '403 Unauthorized')
+@section('title', '404 Not found')
 
 @section('content')
     <h1 class="page-title"> 404</h1>

@@ -1,5 +1,6 @@
 export default {
     'category': 'pages/Category',
+    'comment': 'pages/Comment',
     'post': 'pages/Post',
     'page': 'pages/Page',
     'landing': 'pages/Landing',
