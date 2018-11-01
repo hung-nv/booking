@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\SystemLinkType;
 
-class Services
+class BaseServices
 {
     protected $configLink;
 

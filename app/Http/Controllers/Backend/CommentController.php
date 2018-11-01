@@ -47,6 +47,11 @@ class CommentController extends Controller
         ]);
     }
 
+    /**
+     * @param CommentStore $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function store(CommentStore $request)
     {
         $response = $this->commentServices->createComment($request);
@@ -70,13 +75,28 @@ class CommentController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update comment.
+     * @param CommentStore $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function update(CommentStore $request, $id)
     {
+        $response = $this->commentServices->updateComment($request, $id);
 
+        return redirect()->route('comment.index')->with([
+            'success' => $response
+        ]);
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
+        $response = $this->commentServices->deleteComment($id);
 
+        return redirect()->route('comment.index')->with([
+            'success' => $response
+        ]);
     }
 }

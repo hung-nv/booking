@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
-use App\Models\Comment;
-use App\Models\CommentContent;
+use App\Models\Services;
+use App\Models\ServicesContent;
 use App\Services\Common\ImageServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class CommentServices
+class FeatureServices
 {
     private $imageServices;
 
@@ -23,29 +24,29 @@ class CommentServices
             return null;
         }
 
-        $comment = Comment::findOriginCommentById($dataRequest['comment_id']);
+        $services = Services::findOriginCommentById($dataRequest['comment_id']);
 
-        if (!$comment) {
+        if (!$services) {
             return null;
         }
 
-        return $comment;
+        return $services;
     }
 
     public function getIndexComment()
     {
-        $comments = Comment::getAllComments();
+        $services = Services::getAllComments();
 
-        $comments = $this->resolveComments($comments);
+        $services = $this->resolveComments($services);
 
-        return $comments;
+        return $services;
     }
 
-    private function resolveComments($comments)
+    private function resolveComments($services)
     {
         $result = [];
 
-        foreach ($comments as $item) {
+        foreach ($services as $item) {
             if (array_key_exists($item['id'], $result)) {
                 $result[$item['id']]['id_content_' . $item['lang']] = $item['id_content'];
 
@@ -72,12 +73,12 @@ class CommentServices
      * @return string
      * @throws \Exception
      */
-    public function createComment($request)
+    public function createServices($request)
     {
         try {
             DB::beginTransaction();
 
-            $respon = $this->storeComment($request);
+            $respon = $this->storeServices($request);
 
             DB::commit();
 
@@ -91,11 +92,11 @@ class CommentServices
 
     /**
      * Store comment.
-     * @param $request
+     * @param Request $request
      * @return string
      * @throws \Exception
      */
-    public function storeComment($request)
+    public function storeServices($request)
     {
         $data = $request->all();
 
@@ -103,9 +104,9 @@ class CommentServices
 
         if (empty($data['comment_id'])) {
             // create comment.
-            $comment = Comment::create($data);
+            $services = Services::create($data);
         } else {
-            $comment = Comment::find($data['comment_id']);
+            $services = Services::find($data['comment_id']);
         }
 
         if ($request->hasFile('avatar')) {
@@ -119,7 +120,7 @@ class CommentServices
             $data['avatar'] = $fileName;
         }
 
-        $comment->commentContent()->create($data);
+        $services->servicesContent()->create($data);
 
         return 'Create comment by "' . $request->name . '" successful';
     }
@@ -151,20 +152,20 @@ class CommentServices
     /**
      * Update comment content.
      * @param Request $request
-     * @param $commentId
+     * @param $servicesId
      * @return string
      * @throws \Exception
      */
-    public function updateCommentById($request, $commentId)
+    public function updateCommentById($request, $servicesId)
     {
         // get category content.
-        $commentContent = CommentContent::find($commentId);
+        $ServicesContent = ServicesContent::find($servicesId);
 
         $data = $request->all();
 
         if ($request->hasFile('avatar')) {
             // delete old image category.
-            $this->imageServices->deleteImage($commentContent->image);
+            $this->imageServices->deleteImage($ServicesContent->image);
 
             // upload image to folder.
             $fileName = $this->imageServices->uploads($request->file('avatar'), 'comment');
@@ -176,31 +177,31 @@ class CommentServices
             $data['avatar'] = $fileName;
         }
 
-        $commentContent->update($data);
+        $ServicesContent->update($data);
 
-        $message = 'Update category "' . $commentContent->name . '" successful';
+        $message = 'Update category "' . $ServicesContent->name . '" successful';
 
         return $message;
     }
 
-    public function getInformationCommentById($commentContentId)
+    public function getInformationCommentById($ServicesContentId)
     {
-        $comment = Comment::findCommentByCommentContentId($commentContentId);
+        $services = Services::findCommentByServicesContentId($ServicesContentId);
 
-        return $comment;
+        return $services;
     }
 
     /**
      * Delete comment.
-     * @param $commentId
+     * @param $servicesId
      * @throws \Exception
      */
-    public function deleteComment($commentId)
+    public function deleteComment($servicesId)
     {
         try {
             DB::beginTransaction();
 
-            $response = $this->deleteCommentById($commentId);
+            $response = $this->deleteCommentById($servicesId);
 
             DB::commit();
 
@@ -214,34 +215,30 @@ class CommentServices
 
     /**
      * Delete comment.
-     * @param $commentId
+     * @param $servicesId
      * @throws \Exception
      */
-    public function deleteCommentById($commentId)
+    public function deleteCommentById($servicesId)
     {
-        $comment = Comment::find($commentId);
+        $services = Services::find($servicesId);
 
-        foreach ($comment->commentContent as $commentContent) {
-            $this->imageServices->deleteImage($commentContent->avatar);
-        }
-
-        $comment->delete();
+        $services->delete();
     }
 
-    public function deleteAvatarByCommentContentId($commentContentId)
+    public function deleteAvatarByServicesContentId($servicesContentId)
     {
-        $commentContent = CommentContent::findOrFail($commentContentId);
+        $ServicesContent = ServicesContent::findOrFail($servicesContentId);
 
-        if (!$commentContent) {
+        if (!$ServicesContent) {
             throw new NotFoundHttpException('Not found post');
         } else {
-            $deleteFile = $this->imageServices->deleteImage($commentContent->avatar);
+            $deleteFile = $this->imageServices->deleteImage($ServicesContent->avatar);
 
             if (empty($deleteFile)) {
                 throw new NotFoundHttpException('Not found image');
             }
 
-            $commentContent->update(['avatar' => null]);
+            $ServicesContent->update(['avatar' => null]);
 
             return ['message' => 'Delete file successful'];
         }

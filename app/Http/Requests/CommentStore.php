@@ -23,10 +23,17 @@ class CommentStore extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|max:255',
-            'image' => 'required|image|max:10240',
             'content' => 'required'
         ];
+
+        if (!empty($this->old_avatar)) {
+            $rules['avatar'] = 'image|max:10240';
+        } else {
+            $rules['avatar'] = 'required|image|max:10240';
+        }
+
+        return $rules;
     }
 }

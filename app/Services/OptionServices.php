@@ -9,7 +9,7 @@ use App\Models\Option;
 use App\Services\Common\ImageServices;
 use Illuminate\Support\Facades\DB;
 
-class OptionServices extends Services
+class OptionServices extends BaseServices
 {
     private $imageServices;
 

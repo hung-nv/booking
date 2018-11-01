@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\CategoryContent;
 use App\Services\Common\ImageServices;
 use Illuminate\Http\Request;
+use App\Services\MenuServices;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -15,7 +16,7 @@ class CategoryServices
 
     private $menuServices;
 
-    public function __construct(ImageServices $imageServices, MenuServices $menuServices)
+    public function __construct(ImageServices $imageServices,MenuServices $menuServices)
     {
         $this->imageServices = $imageServices;
 
@@ -294,7 +295,7 @@ class CategoryServices
         $categoryContent->update($data);
 
         //update menu.
-        $this->menuServices->upadteCategoryToMenu($category, $oldSlug, $oldType);
+//        $this->menuServices->upadteCategoryToMenu($category, $oldSlug, $oldType);
 
         $message = 'Update category "' . $categoryContent->name . '" successful';
 

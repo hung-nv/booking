@@ -10,7 +10,7 @@ use App\Models\MenuGroup;
 use App\Utilities\MultiLevel;
 use Illuminate\Support\Facades\DB;
 
-class MenuServices extends Services
+class MenuServices extends BaseServices
 {
     use MultiLevel;
 

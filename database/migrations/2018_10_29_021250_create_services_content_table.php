@@ -24,7 +24,6 @@ class CreateServicesContentTable extends Migration
             $table->foreign('services_id')->references('id')->on('services')->onDelete('cascade');
 
             $table->string('name');
-            $table->string('icon');
         });
     }
 

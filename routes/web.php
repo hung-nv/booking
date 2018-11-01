@@ -44,6 +44,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'auth', 'namespace' =
         // route resource comment.
         Route::resource('comment', 'CommentController', ['except' => ['show']]);
 
+        // route resource services.
+        Route::resource('services', 'ServicesController', ['except' => ['show']]);
+
         // route resource services
         Route::resource('services', 'ServicesController', ['except' => ['show']]);
 

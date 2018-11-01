@@ -18,6 +18,8 @@ class CreateServicesTable extends Migration
 
             $table->increments('id');
 
+            $table->string('icon');
+
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
 

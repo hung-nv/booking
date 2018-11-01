@@ -59,4 +59,6 @@ Route::group(['namespace' => 'Api', 'middleware' => 'auth:api'], function () {
     Route::post('update-sort', 'ApiMenuController@sort');
     // delete file setting.
     Route::post('delete-file-setting', 'ApiOptionController@deleteFile');
+    // delete avatar comment.
+    Route::post('comment/delete-image', 'ApiCommentController@deleteAvatar');
 });

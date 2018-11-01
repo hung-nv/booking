@@ -37,9 +37,9 @@ class MenuSystemTableSeeder extends Seeder
             ['label' => 'Create comment', 'icon' => 'icon-plus', 'route' => 'comment.create', 'parent_id' => '17', 'sort' => 1, 'show' => '1,2'],
             ['label' => 'All', 'icon' => 'icon-list', 'route' => 'comment.index', 'parent_id' => '17', 'sort' => 2, 'show' => '1,2'],
 
-            ['label' => 'Sercies', 'icon' => 'icon-globe', 'route' => 'Sercies', 'parent_id' => '0', 'sort' => 4, 'show' => '1,2'],
-            ['label' => 'Create Sercies', 'icon' => 'icon-plus', 'route' => 'sercies.create', 'parent_id' => '20', 'sort' => 1, 'show' => '1,2'],
-            ['label' => 'All', 'icon' => 'icon-list', 'route' => 'sercies.index', 'parent_id' => '20', 'sort' => 2, 'show' => '1,2'],
+            ['label' => 'Services', 'icon' => 'icon-globe', 'route' => 'Services', 'parent_id' => '0', 'sort' => 4, 'show' => '1,2'],
+            ['label' => 'Create Services', 'icon' => 'icon-plus', 'route' => 'services.create', 'parent_id' => '20', 'sort' => 1, 'show' => '1,2'],
+            ['label' => 'All', 'icon' => 'icon-list', 'route' => 'services.index', 'parent_id' => '20', 'sort' => 2, 'show' => '1,2'],
 
             ['label' => 'Contact', 'icon' => 'icon-globe', 'route' => 'contact.index', 'parent_id' => '0', 'sort' => 5, 'show' => '1,2']
         ]);
