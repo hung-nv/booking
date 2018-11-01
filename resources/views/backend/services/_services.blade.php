@@ -11,31 +11,30 @@
     </tr>
     </thead>
     <tbody>
-    @if(!empty($comments))
-        @foreach($comments as $i)
+    @if(!empty($services))
+        @foreach($services as $i)
             <tr class="odd gradeX">
                 <td> {{ $i['id'] }}</td>
                 <td>
-                    <p class="font-red-mint">{{ $i['name_'.config('const.lang.en.alias')] }}</p>
-                    <p>
-                        - {{ $i['content_'.config('const.lang.en.alias')] }}
+                    <p class="font-red-mint">
+                        {{ $i['name_'.config('const.lang.en.alias')] }}
                     </p>
                 </td>
                 <td>{{ $i['created_at'] }}</td>
                 <td>
-                    <a href="{{ route('comment.edit', ['comment' => $i['id_content_'.config('const.lang.en.alias')]]) }}"
+                    <a href="{{ route('services.edit', ['services' => $i['id_content_'.config('const.lang.en.alias')]]) }}"
                        class="btn btn-icon-only blue">
                         <i class="fa fa-edit"></i>
                     </a>
                 </td>
                 <td>
                     @if(!empty($i['name_'.config('const.lang.ko.alias')]))
-                        <a href="{{ route('comment.edit', ['comment' => $i['id_content_'.config('const.lang.ko.alias')]]) }}"
+                        <a href="{{ route('services.edit', ['services' => $i['id_content_'.config('const.lang.ko.alias')]]) }}"
                            class="btn btn-icon-only blue">
                             <i class="fa fa-edit"></i>
                         </a>
                     @else
-                        <a href="{{ route('comment.create', ['lang' => config('const.lang.ko.alias'), 'comment_id' => $i['id']]) }}"
+                        <a href="{{ route('services.create', ['lang' => config('const.lang.ko.alias'), 'services_id' => $i['id']]) }}"
                            class="btn btn-icon-only red">
                             <i class="fa fa-plus"></i>
                         </a>
@@ -43,19 +42,19 @@
                 </td>
                 <td>
                     @if(!empty($i['name_'.config('const.lang.vi.alias')]))
-                        <a href="{{ route('comment.edit', ['comment' => $i['id_content_'.config('const.lang.vi.alias')]]) }}"
+                        <a href="{{ route('services.edit', ['services' => $i['id_content_'.config('const.lang.vi.alias')]]) }}"
                            class="btn btn-icon-only blue">
                             <i class="fa fa-edit"></i>
                         </a>
                     @else
-                        <a href="{{ route('comment.create', ['lang' => config('const.lang.vi.alias'),  'comment_id' => $i['id']]) }}"
+                        <a href="{{ route('services.create', ['lang' => config('const.lang.vi.alias'),  'services_id' => $i['id']]) }}"
                            class="btn btn-icon-only red">
                             <i class="fa fa-plus"></i>
                         </a>
                     @endif
                 </td>
                 <td>
-                    <form action="{{ route('comment.destroy', $i['id']) }}" method="POST">
+                    <form action="{{ route('services.destroy', $i['id']) }}" method="POST">
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
                         <button type="button" class="btn red btn-sm btn-delete" v-on:click="confirmBeforeDelete">

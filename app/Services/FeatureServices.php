@@ -18,13 +18,13 @@ class FeatureServices
         $this->imageServices = $imageServices;
     }
 
-    public function getCurrentComment($dataRequest)
+    public function getCurrentServices($dataRequest)
     {
-        if (empty($dataRequest) || empty($dataRequest['comment_id'])) {
+        if (empty($dataRequest) || empty($dataRequest['services_id'])) {
             return null;
         }
 
-        $services = Services::findOriginCommentById($dataRequest['comment_id']);
+        $services = Services::findOriginServicesById($dataRequest['services_id']);
 
         if (!$services) {
             return null;
@@ -33,16 +33,16 @@ class FeatureServices
         return $services;
     }
 
-    public function getIndexComment()
+    public function getIndexServices()
     {
-        $services = Services::getAllComments();
+        $services = Services::getAllServices();
 
-        $services = $this->resolveComments($services);
+        $services = $this->resolveServices($services);
 
         return $services;
     }
 
-    private function resolveComments($services)
+    private function resolveServices($services)
     {
         $result = [];
 
@@ -51,15 +51,13 @@ class FeatureServices
                 $result[$item['id']]['id_content_' . $item['lang']] = $item['id_content'];
 
                 $result[$item['id']]['name_' . $item['lang']] = $item['name'];
-
-                $result[$item['id']]['content_' . $item['lang']] = $item['content'];
             } else {
                 $result[$item['id']] = [
                     'id' => $item['id'],
                     'id_content_' . $item['lang'] => $item['id_content'],
                     'name_' . $item['lang'] => $item['name'],
-                    'content_' . $item['lang'] => $item['content'],
                     'created_at' => $item['created_at'],
+                    'icon' => $item['icon'],
                 ];
             }
         }
@@ -102,22 +100,11 @@ class FeatureServices
 
         $data['user_id'] = \Auth::user()->id;
 
-        if (empty($data['comment_id'])) {
+        if (empty($data['services_id'])) {
             // create comment.
             $services = Services::create($data);
         } else {
-            $services = Services::find($data['comment_id']);
-        }
-
-        if ($request->hasFile('avatar')) {
-            // upload image to folder.
-            $fileName = $this->imageServices->uploads($request->file('avatar'), 'comment');
-
-            if (empty($fileName)) {
-                return 'Fail';
-            }
-
-            $data['avatar'] = $fileName;
+            $services = Services::find($data['services_id']);
         }
 
         $services->servicesContent()->create($data);
@@ -132,12 +119,12 @@ class FeatureServices
      * @return string
      * @throws \Exception
      */
-    public function updateComment($request, $id)
+    public function updateServices($request, $id)
     {
         try {
             DB::beginTransaction();
 
-            $response = $this->updateCommentById($request, $id);
+            $response = $this->updateServicesById($request, $id);
 
             DB::commit();
 
@@ -156,52 +143,45 @@ class FeatureServices
      * @return string
      * @throws \Exception
      */
-    public function updateCommentById($request, $servicesId)
+    public function updateServicesById($request, $servicesId)
     {
         // get category content.
-        $ServicesContent = ServicesContent::find($servicesId);
+        $servicesContent = ServicesContent::find($servicesId);
 
         $data = $request->all();
 
-        if ($request->hasFile('avatar')) {
-            // delete old image category.
-            $this->imageServices->deleteImage($ServicesContent->image);
+        $servicesContent->update($data);
 
-            // upload image to folder.
-            $fileName = $this->imageServices->uploads($request->file('avatar'), 'comment');
-
-            if (empty($fileName)) {
-                return 'Fail';
-            }
-
-            $data['avatar'] = $fileName;
+        if ($request->has('icon')) {
+            $servicesContent->services()->update([
+                'icon' => $data['icon']
+            ]);
         }
 
-        $ServicesContent->update($data);
-
-        $message = 'Update category "' . $ServicesContent->name . '" successful';
+        $message = 'Update category "' . $servicesContent->name . '" successful';
 
         return $message;
     }
 
-    public function getInformationCommentById($ServicesContentId)
+    public function getInformationServicesById($servicesContentId)
     {
-        $services = Services::findCommentByServicesContentId($ServicesContentId);
+        $services = Services::findServicesByServicesContentId($servicesContentId);
 
         return $services;
     }
 
     /**
-     * Delete comment.
+     * Delete services.
      * @param $servicesId
+     * @return string
      * @throws \Exception
      */
-    public function deleteComment($servicesId)
+    public function deleteServices($servicesId)
     {
         try {
             DB::beginTransaction();
 
-            $response = $this->deleteCommentById($servicesId);
+            $response = $this->deleteServicesById($servicesId);
 
             DB::commit();
 
@@ -214,33 +194,17 @@ class FeatureServices
     }
 
     /**
-     * Delete comment.
+     * Delete services.
      * @param $servicesId
+     * @return string
      * @throws \Exception
      */
-    public function deleteCommentById($servicesId)
+    public function deleteServicesById($servicesId)
     {
         $services = Services::find($servicesId);
 
         $services->delete();
-    }
 
-    public function deleteAvatarByServicesContentId($servicesContentId)
-    {
-        $ServicesContent = ServicesContent::findOrFail($servicesContentId);
-
-        if (!$ServicesContent) {
-            throw new NotFoundHttpException('Not found post');
-        } else {
-            $deleteFile = $this->imageServices->deleteImage($ServicesContent->avatar);
-
-            if (empty($deleteFile)) {
-                throw new NotFoundHttpException('Not found image');
-            }
-
-            $ServicesContent->update(['avatar' => null]);
-
-            return ['message' => 'Delete file successful'];
-        }
+        return 'Delete successful';
     }
 }

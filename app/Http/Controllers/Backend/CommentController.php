@@ -91,6 +91,12 @@ class CommentController extends Controller
         ]);
     }
 
+    /**
+     * Delete comment.
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function destroy($id)
     {
         $response = $this->commentServices->deleteComment($id);

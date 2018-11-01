@@ -9,5 +9,6 @@ export default {
     'attribute': 'pages/Attribute',
     'product': 'pages/Product',
     'menu': 'pages/Menu',
-    'setting': 'pages/Setting'
+    'setting': 'pages/Setting',
+    'services': 'pages/Services'
 };

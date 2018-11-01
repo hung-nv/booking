@@ -193,6 +193,7 @@ class CommentServices
     /**
      * Delete comment.
      * @param $commentId
+     * @return string
      * @throws \Exception
      */
     public function deleteComment($commentId)
@@ -215,6 +216,7 @@ class CommentServices
     /**
      * Delete comment.
      * @param $commentId
+     * @return string
      * @throws \Exception
      */
     public function deleteCommentById($commentId)
@@ -226,6 +228,8 @@ class CommentServices
         }
 
         $comment->delete();
+
+        return 'Delete successful';
     }
 
     public function deleteAvatarByCommentContentId($commentContentId)
