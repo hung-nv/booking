@@ -10,6 +10,7 @@ const ui = {
     inputThumbnail: '#image',
     nameThumbnail: 'image',
     inputOldThumbnail: '#old-image',
+    urlDeleteThumbnailLanding: '/api/post/delete-image',
     inputImage: '#gallery-image-1',
     nameImage: 'gallery-image-1',
     inputImage2: '#gallery-image-2',
@@ -74,7 +75,7 @@ export default class Landing extends Page {
                 initInputImage(
                     ui.inputOldThumbnail,
                     ui.inputThumbnail,
-                    ui.urlDeleteImage,
+                    ui.urlDeleteThumbnailLanding,
                     {extractName: ui.nameThumbnail}
                 );
             } else {
@@ -98,6 +99,12 @@ export default class Landing extends Page {
                     ui.urlDeleteImage,
                     {extractName: ui.nameImage}
                 );
+
+                $(ui.inputImage).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
             } else {
                 $(ui.inputImage).fileinput({
                     allowedFileExtensions: ["jpg", "png"],
@@ -119,6 +126,12 @@ export default class Landing extends Page {
                     ui.urlDeleteImage,
                     {extractName: ui.nameImage2}
                 );
+
+                $(ui.inputImage2).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
             } else {
                 $(ui.inputImage2).fileinput({
                     allowedFileExtensions: ["jpg", "png"],
@@ -140,6 +153,12 @@ export default class Landing extends Page {
                     ui.urlDeleteImage,
                     {extractName: ui.nameImage3}
                 );
+
+                $(ui.inputImage3).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
             } else {
                 $(ui.inputImage3).fileinput({
                     allowedFileExtensions: ["jpg", "png"],
@@ -161,6 +180,12 @@ export default class Landing extends Page {
                     ui.urlDeleteImage,
                     {extractName: ui.nameImage4}
                 );
+
+                $(ui.inputImage4).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
             } else {
                 $(ui.inputImage4).fileinput({
                     allowedFileExtensions: ["jpg", "png"],
@@ -182,6 +207,12 @@ export default class Landing extends Page {
                     ui.urlDeleteImage,
                     {extractName: ui.nameImage5}
                 );
+
+                $(ui.inputImage5).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
             } else {
                 $(ui.inputImage5).fileinput({
                     allowedFileExtensions: ["jpg", "png"],
@@ -203,6 +234,12 @@ export default class Landing extends Page {
                     ui.urlDeleteImage,
                     {extractName: ui.nameImage6}
                 );
+
+                $(ui.inputImage6).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
             } else {
                 $(ui.inputImage6).fileinput({
                     allowedFileExtensions: ["jpg", "png"],

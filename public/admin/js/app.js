@@ -4728,6 +4728,7 @@ var ui = {
     inputThumbnail: '#image',
     nameThumbnail: 'image',
     inputOldThumbnail: '#old-image',
+    urlDeleteThumbnailLanding: '/api/post/delete-image',
     inputImage: '#gallery-image-1',
     nameImage: 'gallery-image-1',
     inputImage2: '#gallery-image-2',
@@ -4787,7 +4788,7 @@ var Landing = /** @class */ (function (_super) {
     Landing.prototype.setInputImage = function () {
         if ($(ui.inputThumbnail).length) {
             if ($(ui.inputOldThumbnail).length) {
-                image_1.initInputImage(ui.inputOldThumbnail, ui.inputThumbnail, ui.urlDeleteImage, { extractName: ui.nameThumbnail });
+                image_1.initInputImage(ui.inputOldThumbnail, ui.inputThumbnail, ui.urlDeleteThumbnailLanding, { extractName: ui.nameThumbnail });
             }
             else {
                 $(ui.inputThumbnail).fileinput({
@@ -4804,6 +4805,10 @@ var Landing = /** @class */ (function (_super) {
         if ($(ui.inputImage).length) {
             if ($(ui.inputOldImage).length) {
                 image_1.initInputImage(ui.inputOldImage, ui.inputImage, ui.urlDeleteImage, { extractName: ui.nameImage });
+                $(ui.inputImage).on('fileclear', function (event) {
+                    var input = $(this).parents('.file-input').find('.kv-file-remove');
+                    input.trigger("click");
+                });
             }
             else {
                 $(ui.inputImage).fileinput({
@@ -4820,6 +4825,10 @@ var Landing = /** @class */ (function (_super) {
         if ($(ui.inputImage2).length) {
             if ($(ui.inputOldImage2).length) {
                 image_1.initInputImage(ui.inputOldImage2, ui.inputImage2, ui.urlDeleteImage, { extractName: ui.nameImage2 });
+                $(ui.inputImage2).on('fileclear', function (event) {
+                    var input = $(this).parents('.file-input').find('.kv-file-remove');
+                    input.trigger("click");
+                });
             }
             else {
                 $(ui.inputImage2).fileinput({
@@ -4836,6 +4845,10 @@ var Landing = /** @class */ (function (_super) {
         if ($(ui.inputImage3).length) {
             if ($(ui.inputOldImage3).length) {
                 image_1.initInputImage(ui.inputOldImage3, ui.inputImage3, ui.urlDeleteImage, { extractName: ui.nameImage3 });
+                $(ui.inputImage3).on('fileclear', function (event) {
+                    var input = $(this).parents('.file-input').find('.kv-file-remove');
+                    input.trigger("click");
+                });
             }
             else {
                 $(ui.inputImage3).fileinput({
@@ -4852,6 +4865,10 @@ var Landing = /** @class */ (function (_super) {
         if ($(ui.inputImage4).length) {
             if ($(ui.inputOldImage4).length) {
                 image_1.initInputImage(ui.inputOldImage4, ui.inputImage4, ui.urlDeleteImage, { extractName: ui.nameImage4 });
+                $(ui.inputImage4).on('fileclear', function (event) {
+                    var input = $(this).parents('.file-input').find('.kv-file-remove');
+                    input.trigger("click");
+                });
             }
             else {
                 $(ui.inputImage4).fileinput({
@@ -4868,6 +4885,10 @@ var Landing = /** @class */ (function (_super) {
         if ($(ui.inputImage5).length) {
             if ($(ui.inputOldImage5).length) {
                 image_1.initInputImage(ui.inputOldImage5, ui.inputImage5, ui.urlDeleteImage, { extractName: ui.nameImage5 });
+                $(ui.inputImage5).on('fileclear', function (event) {
+                    var input = $(this).parents('.file-input').find('.kv-file-remove');
+                    input.trigger("click");
+                });
             }
             else {
                 $(ui.inputImage5).fileinput({
@@ -4884,6 +4905,10 @@ var Landing = /** @class */ (function (_super) {
         if ($(ui.inputImage6).length) {
             if ($(ui.inputOldImage6).length) {
                 image_1.initInputImage(ui.inputOldImage6, ui.inputImage6, ui.urlDeleteImage, { extractName: ui.nameImage6 });
+                $(ui.inputImage6).on('fileclear', function (event) {
+                    var input = $(this).parents('.file-input').find('.kv-file-remove');
+                    input.trigger("click");
+                });
             }
             else {
                 $(ui.inputImage6).fileinput({

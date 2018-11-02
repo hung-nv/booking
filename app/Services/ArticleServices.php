@@ -431,6 +431,7 @@ class ArticleServices
         }
 
         unset($dataRequest['_token']);
+        unset($dataRequest['_method']);
 
         // remove key services: many to many article-services.
         unset($dataRequest['services']);
@@ -439,15 +440,17 @@ class ArticleServices
         unset($dataRequest['language']);
         unset($dataRequest['originName']);
         unset($dataRequest['article_id']);
+        unset($dataRequest['old_image']);
 
         return $dataRequest;
     }
 
     /**
      * Store istay.
-     * @param Request $request
+     * @param $request
      * @param $landingType
-     * @return $this|\Illuminate\Database\Eloquent\Model|string
+     * @return string
+     * @throws \Exception
      */
     public function storeIstay($request, $landingType)
     {
@@ -503,50 +506,27 @@ class ArticleServices
      */
     public function updateLanding($request, $id)
     {
+        $iStayContent = $this->saveIstay($request, $id);
+
         $data = $request->all();
 
-        $dataPage = [
-            'name' => $request->name,
-            'slug' => str_slug($request->slug),
-            'status' => $request->status,
-            'meta_title' => $request->meta_title,
-            'meta_description' => $request->meta_description,
-        ];
+        $data = $this->resolveBeforeInsertLanding($data);
 
-        $landing = Article::findOrFail($id);
-
-        unset(
-            $data['_token'],
-            $data['slug'],
-            $data['parent'],
-            $data['name'],
-            $data['status'],
-            $data['meta_title'],
-            $data['meta_description']
-        );
-
-        $landing->update($dataPage);
-
-        $landing->category()->sync($request->parent);
-
-        foreach ($data as $k => $v) {
+        foreach ($data as $key => $v) {
             if ($v) {
-                // except other value.
-                if (strlen(strstr($k, 'old')) > 0 || strlen(strstr($k, '_method')) > 0) {
+                if (strlen(strstr($key, 'old')) > 0 and strlen(strstr($key, 'image')) > 0) {
                     continue;
                 }
 
-                $field = MetaField::getFieldByArticleIdAndName($id, $k);
+                $field = MetaField::getFieldByArticleIdAndName($id, $key);
 
-                if (strlen(strstr($k, 'image')) > 0) {
-                    if ($request->hasFile($k)) {
-                        // delete old image.
-                        if (!empty($field)) {
-                            $this->imageServices->deleteImage($field->key_value);
-                        }
-
-                        $value = $this->imageServices->uploads($request->file($k), 'fields');
+                if ($request->hasFile($key)) {
+                    // delete old image.
+                    if (!empty($field)) {
+                        $this->imageServices->deleteImage($field->key_value);
                     }
+
+                    $value = $this->imageServices->uploads($request->file($key), 'fields');
 
                 } else {
                     $value = $v;
@@ -555,8 +535,8 @@ class ArticleServices
                 if ($field) {
                     $field->update(['key_value' => $value]);
                 } else {
-                    $landing->fields()->create([
-                        'key_name' => $k,
+                    $iStayContent->fields()->create([
+                        'key_name' => $key,
                         'key_value' => $value
                     ]);
                 }
@@ -567,24 +547,70 @@ class ArticleServices
     }
 
     /**
+     * Save istay.
+     * @param Request $request
+     * @param $id
+     * @return ArticleContent|ArticleContent[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|string
+     * @throws \Exception
+     */
+    public function saveIstay($request, $id)
+    {
+        $articleContent = ArticleContent::find($id);
+
+        $article = $articleContent->article;
+
+        $data = $request->all();
+
+        if (!empty($request->slug)) {
+            // update english version.
+            if ($request->hasFile('image')) {
+                // delete old image if exist.
+                if (isset($request->old_image) && $request->old_image) {
+                    $this->imageServices->deleteImage($request->old_image);
+                }
+
+                // upload image to folder.
+                $fileName = $this->imageServices->uploads($request->file('image'), 'posts');
+
+                if (empty($fileName)) {
+                    return 'Fail';
+                }
+
+                $data['image'] = $fileName;
+            }
+
+            $article->update($data);
+
+            // save article services.
+            if ($request->services) {
+                $article->services()->sync($request->services);
+            }
+        }
+
+        $articleContent->update($data);
+
+        return $articleContent;
+    }
+
+    /**
      * Delete post image by id.
      * @param $articleId
      * @return array
      */
     public function deleteImageByPostId($articleId)
     {
-        $post = ArticleContent::findOrFail($articleId);
+        $articleContent = ArticleContent::findOrFail($articleId);
 
-        if (!$post) {
+        if (!$articleContent) {
             throw new NotFoundHttpException('Not found post');
         } else {
-            $deleteFile = $this->imageServices->deleteImage($post->image);
+            $deleteFile = $this->imageServices->deleteImage($articleContent->article->image);
 
             if (empty($deleteFile)) {
                 throw new NotFoundHttpException('Not found image');
             }
 
-            $post->update(['image' => null]);
+            $articleContent->article->update(['image' => null]);
 
             return ['message' => 'Delete file successful'];
         }
@@ -689,19 +715,18 @@ class ArticleServices
     {
         $page = Article::find($pageId);
 
-        $page->category()->detach();
+        $this->imageServices->deleteImage($page->image);
+
+        $page->services()->detach();
 
         if ($page->system_link_type_id === $landingType) {
+
             // delete image of landing page.
-            MetaField::where('article_id', $pageId)->get()->each(function ($field) {
+            MetaField::whereIn('article_content_id', $page->articleContent->pluck('id'))->get()->each(function ($field) {
                 if (strlen(strstr($field->key_name, 'image')) > 0) {
                     $this->imageServices->deleteImage($field->key_value);
                 }
             });
-        }
-
-        foreach ($page->articleContent as $articleContent) {
-            $this->imageServices->deleteImage($articleContent->image);
         }
 
         $page->delete();

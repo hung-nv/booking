@@ -69,7 +69,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>Range Price</label>
-                <input type="text" name="range-price" value="{{ $field['feature-heading'] or old('feature-heading') }}"
+                <input type="text" name="range-price" value="{{ $field['range-price'] or old('range-price') }}"
                        class="form-control">
             </div>
 
@@ -81,7 +81,7 @@
 
             <div class="form-group">
                 <label>Hotline</label>
-                <input type="text" name="address" value="{{ $field['hotline'] or old('hotline') }}"
+                <input type="text" name="hotline" value="{{ $field['hotline'] or old('hotline') }}"
                        class="form-control">
             </div>
 
