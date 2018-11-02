@@ -10,11 +10,11 @@ class MetaField extends \Eloquent
 
     public $timestamps = false;
 
-    protected $fillable = ['key_name', 'key_value', 'article_id'];
+    protected $fillable = ['key_name', 'key_value', 'article_content_id'];
 
-    public function post()
+    public function articleContent()
     {
-        return $this->belongsTo('App\Models\Post', 'article_id');
+        return $this->belongsTo('App\Models\ArticleContent', 'article_content_id');
     }
 
     /**
@@ -24,7 +24,7 @@ class MetaField extends \Eloquent
      */
     public static function getDataLandingById($pageId)
     {
-        return self::select(['key_name', 'key_value'])->where('article_id', $pageId)
+        return self::select(['key_name', 'key_value'])->where('article_content_id', $pageId)
             ->pluck('key_value', 'key_name');
     }
 
@@ -36,7 +36,7 @@ class MetaField extends \Eloquent
      */
     public static function getFieldByArticleIdAndName($pageId, $keyName)
     {
-        return self::where('article_id', $pageId)
+        return self::where('article_content_id', $pageId)
             ->where('key_name', $keyName)
             ->first();
     }

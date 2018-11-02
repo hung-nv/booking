@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    @if ($lang === 'en' || (!empty($article) && $article->lang === 'en'))
+    @if ($lang === 'en' || (!empty($page) && $page->lang === 'en'))
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">

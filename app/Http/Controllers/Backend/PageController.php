@@ -176,13 +176,11 @@ class PageController extends Controller
         try {
             $dataPage = $this->articleServices->getLandingInformationById($request, $id);
 
-            $templateCategory = $this->articleServices->getCheckboxCategory(
-                $this->categoryType,
-                $dataPage['post_category']
-            );
+            $templateFeatures = $this->articleServices->getTemplateCheckboxServices($dataPage['selectedServices'], 'services');
 
             return view('backend.page.updateLanding', [
-                'templateCategory' => $templateCategory,
+                'templateFeatures' => $templateFeatures,
+                'lang' => $dataPage['page']->lang,
                 'page' => $dataPage['page'],
                 'name' => $dataPage['name'],
                 'slug' => $dataPage['slug'],

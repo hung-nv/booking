@@ -54,7 +54,7 @@
                                     <a href="#tab_3" data-toggle="tab" aria-expanded="false"> About</a>
                                 </li>
                                 <li class="">
-                                    <a href="#tab_4" data-toggle="tab" aria-expanded="false"> Galery</a>
+                                    <a href="#tab_4" data-toggle="tab" aria-expanded="false"> Gallery</a>
                                 </li>
                             </ul>
 

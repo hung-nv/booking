@@ -23,7 +23,7 @@
                        required/>
             </div>
 
-            @if ($lang === 'en' || (!empty($article) && $article->lang === 'en'))
+            @if ($lang === 'en' || (!empty($page) && $page->lang === 'en'))
                 <div class="form-group">
                     <label>Slug</label>
                     <input type="text" name="slug" class="form-control" :value="postSlug"/>
@@ -52,12 +52,12 @@
                 </select>
             </div>
 
-            @if ($lang === 'en' || (!empty($article) && $article->lang === 'en'))
+            @if ($lang === 'en' || (!empty($page) && $page->lang === 'en'))
                 <div class="form-group">
                     <label>Thumbnail</label>
-                    @if(isset($page) && $page['image'])
-                        <input type="hidden" name="old_image" id="old-image" data-id="{{ $page['id'] }}"
-                               value="{{ $page['image'] or '' }}">
+                    @if(isset($page) && $page->article->image)
+                        <input type="hidden" name="old_image" id="old-image" data-id="{{ $page->article->id }}"
+                               value="{{ $page->article->image or '' }}">
                     @endif
                     <input id="image" name="image" type="file" data-show-upload="false">
                 </div>

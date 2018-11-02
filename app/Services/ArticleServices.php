@@ -243,27 +243,31 @@ class ArticleServices
 
     /**
      * Get data landing page.
-     * @param $request
+     * @param Request $request
      * @param $id
      * @return array
      */
     public function getLandingInformationById($request, $id)
     {
-        $page = Article::findOrFail($id);
+        $articleContent = ArticleContent::find($id);
 
-        $post_category = [];
-        foreach ($page->category as $i) {
-            $post_category[] = $i->id;
+        $article = $articleContent->article;
+
+        $articleServices = [];
+        foreach ($article->services as $i) {
+            $articleServices[] = $i->id;
         }
 
-        $name = $page->name ? $page->name : $request->old('name');
-        $slug = $page->slug ? $page->slug : $request->old('slug');
+        $selectedServices = $request->old('services') ? $request->old('services') : $articleServices;
+
+        $name = $articleContent->name ? $articleContent->name : $request->old('name');
+        $slug = $article->slug ? $article->slug : $request->old('slug');
 
         $dataLanding = MetaField::getDataLandingById($id);
 
         $return = [
-            'page' => $page,
-            'post_category' => $post_category,
+            'page' => $articleContent,
+            'selectedServices' => $selectedServices,
             'name' => $name,
             'slug' => $slug,
             'dataLanding' => $dataLanding

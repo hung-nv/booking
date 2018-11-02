@@ -57,7 +57,7 @@
                                     <a href="#tab_3" data-toggle="tab" aria-expanded="false"> About</a>
                                 </li>
                                 <li class="">
-                                    <a href="#tab_4" data-toggle="tab" aria-expanded="false"> Price</a>
+                                    <a href="#tab_4" data-toggle="tab" aria-expanded="false"> Gallery</a>
                                 </li>
                             </ul>
 
@@ -66,13 +66,13 @@
                                     @include('backend.page.partial._form_landing')
                                 </div>
                                 <div class="tab-pane" id="tab_2">
-                                    @include('backend.page.partial._meta_field')
+                                    @include('backend.page.partial._features')
                                 </div>
                                 <div class="tab-pane" id="tab_3">
                                     @include('backend.page.partial._about')
                                 </div>
                                 <div class="tab-pane" id="tab_4">
-                                    @include('backend.page.partial._price')
+                                    @include('backend.page.partial._galery')
                                 </div>
                             </div>
                         </div>
