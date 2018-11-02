@@ -7,15 +7,27 @@ declare let $;
 declare let viewData;
 
 const ui = {
-    inputImage: '#feature1-image',
-    nameImage: 'feature1-image',
-    inputImage2: '#feature2-image',
-    nameImage2: 'feature2-image',
-    inputImage3: '#feature3-image',
-    nameImage3: 'feature3-image',
-    inputOldImage: '#old-feature1-image',
-    inputOldImage2: '#old-feature2-image',
-    inputOldImage3: '#old-feature3-image',
+    inputThumbnail: '#image',
+    nameThumbnail: 'image',
+    inputOldThumbnail: '#old-image',
+    inputImage: '#gallery-image-1',
+    nameImage: 'gallery-image-1',
+    inputImage2: '#gallery-image-2',
+    nameImage2: 'gallery-image-2',
+    inputImage3: '#gallery-image-3',
+    nameImage3: 'gallery-image-3',
+    inputImage4: '#gallery-image-4',
+    nameImage4: 'gallery-image-4',
+    inputImage5: '#gallery-image-5',
+    nameImage5: 'gallery-image-5',
+    inputImage6: '#gallery-image-6',
+    nameImage6: 'gallery-image-6',
+    inputOldImage: '#old-gallery-image-1',
+    inputOldImage2: '#old-gallery-image-2',
+    inputOldImage3: '#old-gallery-image-3',
+    inputOldImage4: '#old-gallery-image-4',
+    inputOldImage5: '#old-gallery-image-5',
+    inputOldImage6: '#old-gallery-image-6',
     urlDeleteImage: '/api/landing/delete-image',
     inputRemoveInitPreview: '.kv-file-remove',
     tablePages: '#datatable-page'
@@ -57,6 +69,27 @@ export default class Landing extends Page {
      * Set input image preview.
      */
     public setInputImage() {
+        if ($(ui.inputThumbnail).length) {
+            if ($(ui.inputOldThumbnail).length) {
+                initInputImage(
+                    ui.inputOldThumbnail,
+                    ui.inputThumbnail,
+                    ui.urlDeleteImage,
+                    {extractName: ui.nameThumbnail}
+                );
+            } else {
+                $(ui.inputThumbnail).fileinput({
+                    allowedFileExtensions: ["jpg", "png"],
+                    browseLabel: "Select Image",
+                    showCaption: false,
+                    autoReplace: true,
+                    maxFileCount: 1,
+                    maxFileSize: 1024,
+                    showClose: false
+                });
+            }
+        }
+
         if ($(ui.inputImage).length) {
             if ($(ui.inputOldImage).length) {
                 initInputImage(
@@ -109,6 +142,69 @@ export default class Landing extends Page {
                 );
             } else {
                 $(ui.inputImage3).fileinput({
+                    allowedFileExtensions: ["jpg", "png"],
+                    browseLabel: "Select Image",
+                    showCaption: false,
+                    autoReplace: true,
+                    maxFileCount: 1,
+                    maxFileSize: 1024,
+                    showClose: false
+                });
+            }
+        }
+
+        if ($(ui.inputImage4).length) {
+            if ($(ui.inputOldImage4).length) {
+                initInputImage(
+                    ui.inputOldImage4,
+                    ui.inputImage4,
+                    ui.urlDeleteImage,
+                    {extractName: ui.nameImage4}
+                );
+            } else {
+                $(ui.inputImage4).fileinput({
+                    allowedFileExtensions: ["jpg", "png"],
+                    browseLabel: "Select Image",
+                    showCaption: false,
+                    autoReplace: true,
+                    maxFileCount: 1,
+                    maxFileSize: 1024,
+                    showClose: false
+                });
+            }
+        }
+
+        if ($(ui.inputImage5).length) {
+            if ($(ui.inputOldImage5).length) {
+                initInputImage(
+                    ui.inputOldImage5,
+                    ui.inputImage5,
+                    ui.urlDeleteImage,
+                    {extractName: ui.nameImage5}
+                );
+            } else {
+                $(ui.inputImage5).fileinput({
+                    allowedFileExtensions: ["jpg", "png"],
+                    browseLabel: "Select Image",
+                    showCaption: false,
+                    autoReplace: true,
+                    maxFileCount: 1,
+                    maxFileSize: 1024,
+                    showClose: false
+                });
+            }
+        }
+
+        if ($(ui.inputImage6).length) {
+            if ($(ui.inputOldImage6).length) {
+                initInputImage(
+                    ui.inputOldImage6,
+                    ui.inputImage6,
+                    ui.urlDeleteImage,
+                    {extractName: ui.nameImage6}
+                );
+            } else {
+                $(ui.inputImage6).fileinput({
                     allowedFileExtensions: ["jpg", "png"],
                     browseLabel: "Select Image",
                     showCaption: false,

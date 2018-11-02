@@ -84,13 +84,29 @@ class PageController extends Controller
      */
     public function landing(Request $request)
     {
+        // get origin category (english version)
+        $originArticle = $this->articleServices->getCurrentPage($request->all());
+
+        if (!(empty($request->all()) || ($request->has(['lang', 'article_id']) && $originArticle))) {
+            abort(404);
+        }
+
         $name = $request->old('name') ? $request->old('name') : '';
+
         $slug = $request->old('slug') ? $request->old('slug') : '';
+
         $lang = $request->lang ? $request->lang : 'en';
+
+        $features = $request->old('services') ? $request->old('services') : [];
+
+        $templateFeatures = $this->articleServices->getTemplateCheckboxServices($features, 'services');
 
         return view('backend.page.landing', [
             'name' => $name,
-            'slug' => $slug
+            'slug' => $slug,
+            'lang' => $lang,
+            'templateFeatures' => $templateFeatures,
+            'originArticle' => $originArticle
         ]);
     }
 
@@ -102,7 +118,7 @@ class PageController extends Controller
      */
     public function storeLanding(LandingStore $request)
     {
-        $response = $this->articleServices->createLandingPage($request, $this->landingType);
+        $response = $this->articleServices->createIstay($request, $this->landingType);
 
         return redirect()->route('page.index')->with([
             'success' => $response

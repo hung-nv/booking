@@ -6,13 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends \Eloquent
 {
+    const ISTAY_TYPE = 1;
+
+    const ROOM_TYPE = 2;
+
+    const FILLABLE = [
+        'slug',
+        'image',
+        'price',
+        'user_id',
+        'system_link_type_id',
+        'landing_type',
+        'status'
+    ];
+
     protected $table = 'articles';
 
-    protected $fillable = [
-        'slug',
-        'user_id',
-        'system_link_type_id'
-    ];
+    protected $fillable = self::FILLABLE;
 
     public function category()
     {
@@ -31,6 +41,15 @@ class Article extends \Eloquent
     public function articleContent()
     {
         return $this->hasMany('App\Models\ArticleContent', 'article_id');
+    }
+
+    /**
+     * Define relationship many to many: article - services.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function services()
+    {
+        return $this->belongsToMany('App\Models\Services', 'article_services', 'article_id', 'services_id');
     }
 
     /**
@@ -105,5 +124,18 @@ class Article extends \Eloquent
             })
             ->where('a.id', $articleId)
             ->first();
+    }
+
+    public static function getIstay($landingType)
+    {
+        return self::select()
+            ->from('article_content AS a')
+            ->join('articles AS b', function ($join) {
+                $join->on('a.article_id', '=', 'b.id');
+            })
+            ->where('a.lang', config('const.lang.en.alias'))
+            ->where('b.system_link_type_id', $landingType)
+            ->where('b.landing_type', self::ISTAY_TYPE)
+            ->get();
     }
 }

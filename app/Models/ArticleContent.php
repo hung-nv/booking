@@ -6,19 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class ArticleContent extends \Eloquent
 {
-    protected $table = 'article_content';
-
-    public $timestamps = false;
-
-    protected $fillable = [
+    const FILLABLE = [
         'lang',
         'name',
-        'image',
         'description',
         'content',
         'meta_title',
         'meta_description'
     ];
+
+    protected $table = 'article_content';
+
+    public $timestamps = false;
+
+    protected $fillable = self::FILLABLE;
 
     /**
      * Define relationship belongsTo article.

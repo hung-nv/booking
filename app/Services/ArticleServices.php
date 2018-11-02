@@ -6,6 +6,7 @@ use App\Models\ArticleContent;
 use App\Models\Category;
 use App\Models\MetaField;
 use App\Models\Article;
+use App\Models\Services;
 use App\Services\Common\ImageServices;
 use App\Utilities\MultiLevel;
 use Illuminate\Http\Request;
@@ -72,6 +73,7 @@ class ArticleServices
                     'id' => $item['id'],
                     'id_content_' . $item['lang'] => $item['id_content'],
                     'name_' . $item['lang'] => $item['name'],
+                    'landing_type' => $item['landing_type'],
                     'status' => $item['status'],
                     'created_at' => $item['created_at'],
                     'system_link_type_id' => $item['system_link_type_id'],
@@ -110,6 +112,15 @@ class ArticleServices
         $category = Category::getCategoryByType($categoryType);
 
         $template = $this->getTemplateCheckboxCategory($category, $parent, $name);
+
+        return $template;
+    }
+
+    public function getTemplateCheckboxServices($parent, $name)
+    {
+        $services = Services::getServicesDefault();
+
+        $template = $this->getTemplateCheckbox($services, $parent, $name);
 
         return $template;
     }
@@ -338,60 +349,18 @@ class ArticleServices
     }
 
     /**
-     * Add post to group.
-     * @param $data
-     * @return string
-     * @throws \Exception
-     */
-    public function addPostToGroup($data)
-    {
-        $post = Article::findOrFail($data['post_id']);
-
-        $post->groups()->attach([$data['group_id']]);
-
-        if ($post->groups->contains($data['group_id'])) {
-            $message = 'This post has been add to "' . $data['group_name'] . '"';
-
-            return $message;
-        } else {
-            throw new \Exception('Fail to add post to group.');
-        }
-    }
-
-    /**
-     * Remove post from group.
-     * @param $data
-     * @return string
-     * @throws \Exception
-     */
-    public function removePostToGroup($data)
-    {
-        $post = Article::findOrFail($data['post_id']);
-
-        $post->groups()->detach([$data['group_id']]);
-
-        if ($post->groups->contains($data['group_id'])) {
-            throw new \Exception('Fail to remove post to group.');
-        } else {
-            $message = 'This post has been remove from "' . $data['group_name'] . '"';
-
-            return $message;
-        }
-    }
-
-    /**
      * Create landing page.
      * @param $request
      * @param int $landingType
      * @return string
      * @throws \Exception
      */
-    public function createLandingPage($request, int $landingType)
+    public function createIstay($request, $landingType)
     {
         try {
             DB::beginTransaction();
 
-            $response = $this->storeLandingPackage($request, $landingType);
+            $response = $this->storeIstayPackage($request, $landingType);
 
             DB::commit();
 
@@ -410,53 +379,115 @@ class ArticleServices
      * @return string
      * @throws \Exception
      */
-    public function storeLandingPackage($request, int $landingType)
+    public function storeIstayPackage($request, $landingType)
     {
+        $istayContent = $this->storeIstay($request, $landingType);
+
         $data = $request->all();
 
-        $dataPage = [
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'user_id' => \Auth::user()->id,
-            'status' => $request->status,
-            'meta_title' => $request->meta_title,
-            'meta_description' => $request->meta_description,
-            'system_link_type_id' => $landingType
-        ];
+        $data = $this->resolveBeforeInsertLanding($data);
 
-        $landing = Article::create($dataPage);
+        if (!empty($data)) {
+            foreach ($data as $key => $v) {
+                if (!empty($key) && $v) {
 
-        $landing->category()->attach($request->parent);
+                    if (strlen(strstr($key, 'image')) > 0 and $request->hasFile($key)) {
+                        // if input file: upload image.
+                        $value = $this->imageServices->uploads($request->file($key), 'fields');
+                    } else {
+                        $value = $v;
+                    }
 
-        unset(
-            $data['_token'],
-            $data['slug'],
-            $data['parent'],
-            $data['name'],
-            $data['description'],
-            $data['status'],
-            $data['meta_title'],
-            $data['meta_description']
-        );
-
-        foreach ($data as $key => $v) {
-            if (!empty($key) && $v) {
-
-                if (strlen(strstr($key, 'image')) > 0) {
-                    // upload image.
-                    $value = $this->imageServices->uploads($request->file($key), 'fields');
-                } else {
-                    $value = $v;
+                    $istayContent->fields()->create([
+                        'key_name' => $key,
+                        'key_value' => $value
+                    ]);
                 }
-
-                $landing->fields()->create([
-                    'key_name' => $key,
-                    'key_value' => $value
-                ]);
             }
         }
 
         return 'Landing page "' . $request->name . '" create successful.';
+    }
+
+    /**
+     * Remove key of request not use.
+     * @param $dataRequest
+     * @return mixed
+     */
+    public function resolveBeforeInsertLanding($dataRequest)
+    {
+        $fillableArticle = Article::FILLABLE;
+
+        $fillableArticleContent = ArticleContent::FILLABLE;
+
+        $fillable = array_merge($fillableArticle, $fillableArticleContent);
+
+        foreach ($fillable as $key) {
+            unset($dataRequest[$key]);
+        }
+
+        unset($dataRequest['_token']);
+
+        // remove key services: many to many article-services.
+        unset($dataRequest['services']);
+
+        // remove key to recognize origin language.
+        unset($dataRequest['language']);
+        unset($dataRequest['originName']);
+        unset($dataRequest['article_id']);
+
+        return $dataRequest;
+    }
+
+    /**
+     * Store istay.
+     * @param Request $request
+     * @param $landingType
+     * @return $this|\Illuminate\Database\Eloquent\Model|string
+     */
+    public function storeIstay($request, $landingType)
+    {
+        $data = $request->all();
+
+        if (empty($data['article_id'])) {
+            // set user
+            $data['user_id'] = \Auth::user()->id;
+            // set system type.
+            $data['system_link_type_id'] = $landingType;
+            // set landing type is istay.
+            $data['landing_type'] = 1;
+
+            if ($request->hasFile('image')) {
+                // delete old image if exist.
+                if (isset($request->old_image) && $request->old_image) {
+                    $this->imageServices->deleteImage($request->old_image);
+                }
+
+                // upload image to folder.
+                $fileName = $this->imageServices->uploads($request->file('image'), 'posts');
+
+                if (empty($fileName)) {
+                    return 'Fail';
+                }
+
+                $data['image'] = $fileName;
+            }
+
+            // create article.
+            $istay = Article::create($data);
+        } else {
+            // code here if translate.
+            $istay = Article::find($data['article_id']);
+        }
+
+        $istayContent = $istay->articleContent()->create($data);
+
+        // save article services.
+        if ($request->services) {
+            $istay->services()->attach($request->services);
+        }
+
+        return $istayContent;
     }
 
     /**

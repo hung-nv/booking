@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\ArticleContent;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LandingUpdate extends FormRequest
@@ -23,12 +24,20 @@ class LandingUpdate extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|unique:articles,name,' . $this->segment(3) . '|max:255',
-            'slug' => 'required|unique:articles,slug,' . $this->segment(3) . '|max:255',
-            'feature3-image' => 'image|max:10240',
-            'feature2-image' => 'image|max:10240',
-            'feature1-image' => 'image|max:10240',
-        ];
+        $rules = [];
+
+        if (isset($this->slug)) {
+            $articleContent = ArticleContent::find($this->segment(3));
+
+            $rules['slug'] = 'required|unique:articles,slug,' . $articleContent->article_id . '|max:255';
+        }
+
+        if (empty($this->old_image)) {
+            $rules['image'] = 'required|image|max:10240';
+        } else {
+            $rules['image'] = 'image|max:10240';
+        }
+
+        return $rules;
     }
 }

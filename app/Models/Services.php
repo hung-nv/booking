@@ -57,4 +57,18 @@ class Services extends \Eloquent
             ->where('b.id', $servicesContentId)
             ->first();
     }
+
+    public static function getServicesDefault()
+    {
+        return self::select([
+            'a.name',
+            'b.id',
+        ])
+            ->from('services_content AS a')
+            ->join('services AS b', function ($join) {
+                $join->on('a.services_id', '=', 'b.id');
+            })
+            ->where('a.lang', config('const.lang.en.alias'))
+            ->get();
+    }
 }

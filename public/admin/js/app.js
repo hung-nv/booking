@@ -247,7 +247,7 @@ module.exports = function (it) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var rules_1 = __webpack_require__(97);
-var helpers_1 = __webpack_require__(31);
+var helpers_1 = __webpack_require__(30);
 var ui = {
     metaCsrfToken: 'meta[name="_token"]',
 };
@@ -602,183 +602,6 @@ module.exports = function (TYPE, $create) {
 
 /***/ }),
 /* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- *
- * @param file
- * @return {Promise<any>}
- */
-function getBase64(file) {
-    return new Promise(function (resolve, reject) {
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () { return resolve(reader.result); };
-        reader.onerror = function (error) { return reject(error); };
-    });
-}
-exports.getBase64 = getBase64;
-/**
- * New input image preview.
- * @param inputImage
- */
-function newInputImage(inputImage) {
-    $(inputImage).fileinput({
-        allowedFileExtensions: ["jpg", "png"],
-        browseLabel: "Select Image",
-        showCaption: false,
-        autoReplace: true,
-        maxFileCount: 1,
-        maxFileSize: 1024,
-        showClose: false
-    });
-}
-exports.newInputImage = newInputImage;
-/**
- * New input multi image preview.
- * @param inputImage
- */
-function newInputMultiImage(inputImage) {
-    $(inputImage).fileinput({
-        allowedFileExtensions: ["jpg", "png"],
-        browseLabel: "Select Image",
-        maxFileSize: 1048,
-        maxFilePreviewSize: 10240,
-        uploadUrl: '/file-upload',
-        showCaption: false,
-        showUpload: false,
-        initialPreviewConfig: [],
-        fileActionSettings: {
-            "showUpload": false,
-        }
-    });
-}
-exports.newInputMultiImage = newInputMultiImage;
-/**
- * Init input image preview.
- * @param oldImage: id of element old image.
- * @param newInputImage: id of element input to init image preview.
- * @param urlDelete: url submit delete file.
- * @param option: extractName and maxSize config.
- */
-function initInputImage(oldImage, newInputImage, urlDelete, option) {
-    if (option === void 0) { option = {}; }
-    var url, pathname, imgUrl, oldImageValue, port;
-    port = '';
-    url = window.location;
-    if (url.port) {
-        port = ':' + url.port;
-    }
-    // check input length.
-    if (!$(oldImage).length || !$(newInputImage).length) {
-        return;
-    }
-    oldImageValue = $(oldImage).val();
-    // get image url.
-    if (oldImageValue !== undefined && oldImageValue !== '') {
-        imgUrl = url.protocol + '//' + url.hostname + port + oldImageValue;
-        pathname = oldImageValue.replace(/^.*[\\\/]/, '');
-    }
-    if (typeof option.extractName === "undefined") {
-        option.extractName = null;
-    }
-    if (typeof option.maxSize === "undefined") {
-        option.maxSize = 1024;
-    }
-    $(newInputImage).fileinput({
-        allowedFileExtensions: ["jpg", "png"],
-        browseLabel: "Select Image",
-        showCaption: false,
-        autoReplace: true,
-        maxFileCount: 1,
-        maxFileSize: option.maxSize,
-        uploadAsync: false,
-        initialPreview: [
-            imgUrl
-        ],
-        showClose: false,
-        initialPreviewAsData: true,
-        initialPreviewFileType: 'image',
-        initialPreviewConfig: [
-            {
-                caption: pathname,
-                width: "120px",
-                downloadUrl: false,
-                key: $(oldImage).data('id'),
-                extra: { name: option.extractName }
-            }
-        ],
-        deleteUrl: urlDelete,
-        purifyHtml: true
-    });
-}
-exports.initInputImage = initInputImage;
-/**
- * Init input multi image preview.
- * @param oldImage
- * @param newInputImage
- * @param urlDelete
- * @param option
- */
-function initInputMultiImage(oldImage, newInputImage, urlDelete, option) {
-    if (option === void 0) { option = {}; }
-    var imgName, imgObject, oldImageValue, imgPreview = [], imgPreviewConfig = [];
-    // check input length.
-    if (!$(oldImage).length || !$(newInputImage).length) {
-        return;
-    }
-    oldImageValue = $(oldImage).val();
-    if (oldImageValue !== undefined && oldImageValue !== '') {
-        // set array imgPreview and array previewConfig
-        $.each(oldImageValue.split('|'), function (index, img) {
-            imgObject = img.split(':'); // filename.jpg|id
-            if (imgObject.length) {
-                // push imageUrl to array of image preview.
-                imgPreview.push(imgObject[0]);
-                // get image name.
-                imgName = imgObject[0].replace(/^.*[\\\/]/, '');
-                // set image config.
-                imgPreviewConfig.push({ caption: imgName, width: "120px", downloadUrl: false, key: imgObject[1] });
-            }
-        });
-    }
-    if (typeof option.maxSize === "undefined") {
-        // set default maxSize.
-        option.maxSize = 1024;
-    }
-    if (typeof option.maxFile === "undefined") {
-        // set default maxSize.
-        option.maxFile = 6;
-    }
-    $(newInputImage).fileinput({
-        uploadUrl: '/file-upload',
-        allowedFileExtensions: ["jpg", "png"],
-        browseLabel: "Select Image",
-        showCaption: false,
-        overwriteInitial: false,
-        maxFileCount: option.maxFile,
-        maxFileSize: option.maxSize,
-        initialPreview: imgPreview,
-        showClose: false,
-        initialPreviewAsData: true,
-        showUpload: false,
-        initialPreviewFileType: 'image',
-        initialPreviewConfig: imgPreviewConfig,
-        deleteUrl: urlDelete,
-        fileActionSettings: {
-            "showUpload": false,
-        },
-        purifyHtml: true
-    });
-}
-exports.initInputMultiImage = initInputMultiImage;
-
-
-/***/ }),
-/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1265,7 +1088,7 @@ if (__webpack_require__(6)) {
 
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Map = __webpack_require__(120);
@@ -1322,7 +1145,7 @@ module.exports = {
 
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1424,6 +1247,183 @@ function changeLanguage(lang) {
     window.location.href = '/?lang=' + lang;
 }
 exports.changeLanguage = changeLanguage;
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ *
+ * @param file
+ * @return {Promise<any>}
+ */
+function getBase64(file) {
+    return new Promise(function (resolve, reject) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () { return resolve(reader.result); };
+        reader.onerror = function (error) { return reject(error); };
+    });
+}
+exports.getBase64 = getBase64;
+/**
+ * New input image preview.
+ * @param inputImage
+ */
+function newInputImage(inputImage) {
+    $(inputImage).fileinput({
+        allowedFileExtensions: ["jpg", "png"],
+        browseLabel: "Select Image",
+        showCaption: false,
+        autoReplace: true,
+        maxFileCount: 1,
+        maxFileSize: 1024,
+        showClose: false
+    });
+}
+exports.newInputImage = newInputImage;
+/**
+ * New input multi image preview.
+ * @param inputImage
+ */
+function newInputMultiImage(inputImage) {
+    $(inputImage).fileinput({
+        allowedFileExtensions: ["jpg", "png"],
+        browseLabel: "Select Image",
+        maxFileSize: 1048,
+        maxFilePreviewSize: 10240,
+        uploadUrl: '/file-upload',
+        showCaption: false,
+        showUpload: false,
+        initialPreviewConfig: [],
+        fileActionSettings: {
+            "showUpload": false,
+        }
+    });
+}
+exports.newInputMultiImage = newInputMultiImage;
+/**
+ * Init input image preview.
+ * @param oldImage: id of element old image.
+ * @param newInputImage: id of element input to init image preview.
+ * @param urlDelete: url submit delete file.
+ * @param option: extractName and maxSize config.
+ */
+function initInputImage(oldImage, newInputImage, urlDelete, option) {
+    if (option === void 0) { option = {}; }
+    var url, pathname, imgUrl, oldImageValue, port;
+    port = '';
+    url = window.location;
+    if (url.port) {
+        port = ':' + url.port;
+    }
+    // check input length.
+    if (!$(oldImage).length || !$(newInputImage).length) {
+        return;
+    }
+    oldImageValue = $(oldImage).val();
+    // get image url.
+    if (oldImageValue !== undefined && oldImageValue !== '') {
+        imgUrl = url.protocol + '//' + url.hostname + port + oldImageValue;
+        pathname = oldImageValue.replace(/^.*[\\\/]/, '');
+    }
+    if (typeof option.extractName === "undefined") {
+        option.extractName = null;
+    }
+    if (typeof option.maxSize === "undefined") {
+        option.maxSize = 1024;
+    }
+    $(newInputImage).fileinput({
+        allowedFileExtensions: ["jpg", "png"],
+        browseLabel: "Select Image",
+        showCaption: false,
+        autoReplace: true,
+        maxFileCount: 1,
+        maxFileSize: option.maxSize,
+        uploadAsync: false,
+        initialPreview: [
+            imgUrl
+        ],
+        showClose: false,
+        initialPreviewAsData: true,
+        initialPreviewFileType: 'image',
+        initialPreviewConfig: [
+            {
+                caption: pathname,
+                width: "120px",
+                downloadUrl: false,
+                key: $(oldImage).data('id'),
+                extra: { name: option.extractName }
+            }
+        ],
+        deleteUrl: urlDelete,
+        purifyHtml: true
+    });
+}
+exports.initInputImage = initInputImage;
+/**
+ * Init input multi image preview.
+ * @param oldImage
+ * @param newInputImage
+ * @param urlDelete
+ * @param option
+ */
+function initInputMultiImage(oldImage, newInputImage, urlDelete, option) {
+    if (option === void 0) { option = {}; }
+    var imgName, imgObject, oldImageValue, imgPreview = [], imgPreviewConfig = [];
+    // check input length.
+    if (!$(oldImage).length || !$(newInputImage).length) {
+        return;
+    }
+    oldImageValue = $(oldImage).val();
+    if (oldImageValue !== undefined && oldImageValue !== '') {
+        // set array imgPreview and array previewConfig
+        $.each(oldImageValue.split('|'), function (index, img) {
+            imgObject = img.split(':'); // filename.jpg|id
+            if (imgObject.length) {
+                // push imageUrl to array of image preview.
+                imgPreview.push(imgObject[0]);
+                // get image name.
+                imgName = imgObject[0].replace(/^.*[\\\/]/, '');
+                // set image config.
+                imgPreviewConfig.push({ caption: imgName, width: "120px", downloadUrl: false, key: imgObject[1] });
+            }
+        });
+    }
+    if (typeof option.maxSize === "undefined") {
+        // set default maxSize.
+        option.maxSize = 1024;
+    }
+    if (typeof option.maxFile === "undefined") {
+        // set default maxSize.
+        option.maxFile = 6;
+    }
+    $(newInputImage).fileinput({
+        uploadUrl: '/file-upload',
+        allowedFileExtensions: ["jpg", "png"],
+        browseLabel: "Select Image",
+        showCaption: false,
+        overwriteInitial: false,
+        maxFileCount: option.maxFile,
+        maxFileSize: option.maxSize,
+        initialPreview: imgPreview,
+        showClose: false,
+        initialPreviewAsData: true,
+        showUpload: false,
+        initialPreviewFileType: 'image',
+        initialPreviewConfig: imgPreviewConfig,
+        deleteUrl: urlDelete,
+        fileActionSettings: {
+            "showUpload": false,
+        },
+        purifyHtml: true
+    });
+}
+exports.initInputMultiImage = initInputMultiImage;
 
 
 /***/ }),
@@ -4545,8 +4545,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var page_1 = __webpack_require__(11);
-var helpers_1 = __webpack_require__(31);
-var image_1 = __webpack_require__(28);
+var helpers_1 = __webpack_require__(30);
+var image_1 = __webpack_require__(31);
 var ui = {
     inputImage: '#image',
     inputOldImage: '#old-image',
@@ -4640,7 +4640,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var page_1 = __webpack_require__(11);
-var image_1 = __webpack_require__(28);
+var image_1 = __webpack_require__(31);
 var ui = {
     inputImage: '#avatar',
     inputOldImage: '#old-avatar',
@@ -4722,18 +4722,30 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var page_1 = __webpack_require__(11);
-var helpers_1 = __webpack_require__(31);
-var image_1 = __webpack_require__(28);
+var helpers_1 = __webpack_require__(30);
+var image_1 = __webpack_require__(31);
 var ui = {
-    inputImage: '#feature1-image',
-    nameImage: 'feature1-image',
-    inputImage2: '#feature2-image',
-    nameImage2: 'feature2-image',
-    inputImage3: '#feature3-image',
-    nameImage3: 'feature3-image',
-    inputOldImage: '#old-feature1-image',
-    inputOldImage2: '#old-feature2-image',
-    inputOldImage3: '#old-feature3-image',
+    inputThumbnail: '#image',
+    nameThumbnail: 'image',
+    inputOldThumbnail: '#old-image',
+    inputImage: '#gallery-image-1',
+    nameImage: 'gallery-image-1',
+    inputImage2: '#gallery-image-2',
+    nameImage2: 'gallery-image-2',
+    inputImage3: '#gallery-image-3',
+    nameImage3: 'gallery-image-3',
+    inputImage4: '#gallery-image-4',
+    nameImage4: 'gallery-image-4',
+    inputImage5: '#gallery-image-5',
+    nameImage5: 'gallery-image-5',
+    inputImage6: '#gallery-image-6',
+    nameImage6: 'gallery-image-6',
+    inputOldImage: '#old-gallery-image-1',
+    inputOldImage2: '#old-gallery-image-2',
+    inputOldImage3: '#old-gallery-image-3',
+    inputOldImage4: '#old-gallery-image-4',
+    inputOldImage5: '#old-gallery-image-5',
+    inputOldImage6: '#old-gallery-image-6',
     urlDeleteImage: '/api/landing/delete-image',
     inputRemoveInitPreview: '.kv-file-remove',
     tablePages: '#datatable-page'
@@ -4773,6 +4785,22 @@ var Landing = /** @class */ (function (_super) {
      * Set input image preview.
      */
     Landing.prototype.setInputImage = function () {
+        if ($(ui.inputThumbnail).length) {
+            if ($(ui.inputOldThumbnail).length) {
+                image_1.initInputImage(ui.inputOldThumbnail, ui.inputThumbnail, ui.urlDeleteImage, { extractName: ui.nameThumbnail });
+            }
+            else {
+                $(ui.inputThumbnail).fileinput({
+                    allowedFileExtensions: ["jpg", "png"],
+                    browseLabel: "Select Image",
+                    showCaption: false,
+                    autoReplace: true,
+                    maxFileCount: 1,
+                    maxFileSize: 1024,
+                    showClose: false
+                });
+            }
+        }
         if ($(ui.inputImage).length) {
             if ($(ui.inputOldImage).length) {
                 image_1.initInputImage(ui.inputOldImage, ui.inputImage, ui.urlDeleteImage, { extractName: ui.nameImage });
@@ -4821,6 +4849,54 @@ var Landing = /** @class */ (function (_super) {
                 });
             }
         }
+        if ($(ui.inputImage4).length) {
+            if ($(ui.inputOldImage4).length) {
+                image_1.initInputImage(ui.inputOldImage4, ui.inputImage4, ui.urlDeleteImage, { extractName: ui.nameImage4 });
+            }
+            else {
+                $(ui.inputImage4).fileinput({
+                    allowedFileExtensions: ["jpg", "png"],
+                    browseLabel: "Select Image",
+                    showCaption: false,
+                    autoReplace: true,
+                    maxFileCount: 1,
+                    maxFileSize: 1024,
+                    showClose: false
+                });
+            }
+        }
+        if ($(ui.inputImage5).length) {
+            if ($(ui.inputOldImage5).length) {
+                image_1.initInputImage(ui.inputOldImage5, ui.inputImage5, ui.urlDeleteImage, { extractName: ui.nameImage5 });
+            }
+            else {
+                $(ui.inputImage5).fileinput({
+                    allowedFileExtensions: ["jpg", "png"],
+                    browseLabel: "Select Image",
+                    showCaption: false,
+                    autoReplace: true,
+                    maxFileCount: 1,
+                    maxFileSize: 1024,
+                    showClose: false
+                });
+            }
+        }
+        if ($(ui.inputImage6).length) {
+            if ($(ui.inputOldImage6).length) {
+                image_1.initInputImage(ui.inputOldImage6, ui.inputImage6, ui.urlDeleteImage, { extractName: ui.nameImage6 });
+            }
+            else {
+                $(ui.inputImage6).fileinput({
+                    allowedFileExtensions: ["jpg", "png"],
+                    browseLabel: "Select Image",
+                    showCaption: false,
+                    autoReplace: true,
+                    maxFileCount: 1,
+                    maxFileSize: 1024,
+                    showClose: false
+                });
+            }
+        }
     };
     return Landing;
 }(page_1.default));
@@ -4845,7 +4921,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var page_1 = __webpack_require__(11);
-var helpers_1 = __webpack_require__(31);
+var helpers_1 = __webpack_require__(30);
 var ui = {
     urlCreateMenu: '/api/create-menu',
     urlGetAllMenu: '/api/get-list-menu',
@@ -5077,8 +5153,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var page_1 = __webpack_require__(11);
-var helpers_1 = __webpack_require__(31);
-var image_1 = __webpack_require__(28);
+var helpers_1 = __webpack_require__(30);
+var image_1 = __webpack_require__(31);
 var ui = {
     inputImage: '#image',
     inputOldImage: '#old-image',
@@ -5164,8 +5240,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var page_1 = __webpack_require__(11);
-var helpers_1 = __webpack_require__(31);
-var image_1 = __webpack_require__(28);
+var helpers_1 = __webpack_require__(30);
+var image_1 = __webpack_require__(31);
 var ui = {
     inputImage: '#image',
     inputOldImage: '#old-image',
@@ -5313,8 +5389,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var page_1 = __webpack_require__(11);
-var helpers_1 = __webpack_require__(31);
-var image_1 = __webpack_require__(28);
+var helpers_1 = __webpack_require__(30);
+var image_1 = __webpack_require__(31);
 var ui = {
     inputImage: '#product_image',
     inputOldImage: '#old_product_image',
@@ -5526,7 +5602,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var page_1 = __webpack_require__(11);
-var image_1 = __webpack_require__(28);
+var image_1 = __webpack_require__(31);
 var ui = {
     inputFavico: '#favico',
     inputOldFavico: '#old_favico',
@@ -8763,7 +8839,7 @@ $export($export.G + $export.W + $export.F * !__webpack_require__(63).ABV, {
 /* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Int8', 1, function (init) {
+__webpack_require__(28)('Int8', 1, function (init) {
   return function Int8Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8774,7 +8850,7 @@ __webpack_require__(29)('Int8', 1, function (init) {
 /* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Uint8', 1, function (init) {
+__webpack_require__(28)('Uint8', 1, function (init) {
   return function Uint8Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8785,7 +8861,7 @@ __webpack_require__(29)('Uint8', 1, function (init) {
 /* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Uint8', 1, function (init) {
+__webpack_require__(28)('Uint8', 1, function (init) {
   return function Uint8ClampedArray(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8796,7 +8872,7 @@ __webpack_require__(29)('Uint8', 1, function (init) {
 /* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Int16', 2, function (init) {
+__webpack_require__(28)('Int16', 2, function (init) {
   return function Int16Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8807,7 +8883,7 @@ __webpack_require__(29)('Int16', 2, function (init) {
 /* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Uint16', 2, function (init) {
+__webpack_require__(28)('Uint16', 2, function (init) {
   return function Uint16Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8818,7 +8894,7 @@ __webpack_require__(29)('Uint16', 2, function (init) {
 /* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Int32', 4, function (init) {
+__webpack_require__(28)('Int32', 4, function (init) {
   return function Int32Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8829,7 +8905,7 @@ __webpack_require__(29)('Int32', 4, function (init) {
 /* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Uint32', 4, function (init) {
+__webpack_require__(28)('Uint32', 4, function (init) {
   return function Uint32Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8840,7 +8916,7 @@ __webpack_require__(29)('Uint32', 4, function (init) {
 /* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Float32', 4, function (init) {
+__webpack_require__(28)('Float32', 4, function (init) {
   return function Float32Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8851,7 +8927,7 @@ __webpack_require__(29)('Float32', 4, function (init) {
 /* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Float64', 8, function (init) {
+__webpack_require__(28)('Float64', 8, function (init) {
   return function Float64Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -9900,7 +9976,7 @@ $export($export.S, 'Promise', { 'try': function (callbackfn) {
 /* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(30);
+var metadata = __webpack_require__(29);
 var anObject = __webpack_require__(1);
 var toMetaKey = metadata.key;
 var ordinaryDefineOwnMetadata = metadata.set;
@@ -9914,7 +9990,7 @@ metadata.exp({ defineMetadata: function defineMetadata(metadataKey, metadataValu
 /* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(30);
+var metadata = __webpack_require__(29);
 var anObject = __webpack_require__(1);
 var toMetaKey = metadata.key;
 var getOrCreateMetadataMap = metadata.map;
@@ -9935,7 +10011,7 @@ metadata.exp({ deleteMetadata: function deleteMetadata(metadataKey, target /* , 
 /* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(30);
+var metadata = __webpack_require__(29);
 var anObject = __webpack_require__(1);
 var getPrototypeOf = __webpack_require__(18);
 var ordinaryHasOwnMetadata = metadata.has;
@@ -9960,7 +10036,7 @@ metadata.exp({ getMetadata: function getMetadata(metadataKey, target /* , target
 
 var Set = __webpack_require__(122);
 var from = __webpack_require__(131);
-var metadata = __webpack_require__(30);
+var metadata = __webpack_require__(29);
 var anObject = __webpack_require__(1);
 var getPrototypeOf = __webpack_require__(18);
 var ordinaryOwnMetadataKeys = metadata.keys;
@@ -9983,7 +10059,7 @@ metadata.exp({ getMetadataKeys: function getMetadataKeys(target /* , targetKey *
 /* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(30);
+var metadata = __webpack_require__(29);
 var anObject = __webpack_require__(1);
 var ordinaryGetOwnMetadata = metadata.get;
 var toMetaKey = metadata.key;
@@ -9998,7 +10074,7 @@ metadata.exp({ getOwnMetadata: function getOwnMetadata(metadataKey, target /* , 
 /* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(30);
+var metadata = __webpack_require__(29);
 var anObject = __webpack_require__(1);
 var ordinaryOwnMetadataKeys = metadata.keys;
 var toMetaKey = metadata.key;
@@ -10012,7 +10088,7 @@ metadata.exp({ getOwnMetadataKeys: function getOwnMetadataKeys(target /* , targe
 /* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(30);
+var metadata = __webpack_require__(29);
 var anObject = __webpack_require__(1);
 var getPrototypeOf = __webpack_require__(18);
 var ordinaryHasOwnMetadata = metadata.has;
@@ -10034,7 +10110,7 @@ metadata.exp({ hasMetadata: function hasMetadata(metadataKey, target /* , target
 /* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(30);
+var metadata = __webpack_require__(29);
 var anObject = __webpack_require__(1);
 var ordinaryHasOwnMetadata = metadata.has;
 var toMetaKey = metadata.key;
@@ -10049,7 +10125,7 @@ metadata.exp({ hasOwnMetadata: function hasOwnMetadata(metadataKey, target /* , 
 /* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $metadata = __webpack_require__(30);
+var $metadata = __webpack_require__(29);
 var anObject = __webpack_require__(1);
 var aFunction = __webpack_require__(10);
 var toMetaKey = $metadata.key;
@@ -21849,8 +21925,8 @@ var map = {
 	"./systems/PageModuleParser.ts": 95,
 	"./systems/page": 11,
 	"./systems/page.ts": 11,
-	"./utilities/common/helpers": 31,
-	"./utilities/common/helpers.ts": 31,
+	"./utilities/common/helpers": 30,
+	"./utilities/common/helpers.ts": 30,
 	"./utilities/dialog/DialogOptionInterface": 146,
 	"./utilities/dialog/DialogOptionInterface.ts": 146,
 	"./utilities/dialog/dialog": 98,
@@ -21861,8 +21937,8 @@ var map = {
 	"./utilities/form_watcher/form_watcher.ts": 148,
 	"./utilities/formater/formater": 149,
 	"./utilities/formater/formater.ts": 149,
-	"./utilities/image/image": 28,
-	"./utilities/image/image.ts": 28,
+	"./utilities/image/image": 31,
+	"./utilities/image/image.ts": 31,
 	"./utilities/mixins/mixins": 150,
 	"./utilities/mixins/mixins.ts": 150,
 	"./utilities/validate_rule/rules": 97,

@@ -23,12 +23,16 @@ class LandingStore extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|unique:articles,name|max:255',
-            'slug' => 'required|unique:articles,slug|max:255',
-            'feature3-image' => 'image|max:10240',
-            'feature2-image' => 'image|max:10240',
-            'feature1-image' => 'image|max:10240'
-        ];
+        $rules = [];
+
+        if (isset($this->slug)) {
+            $rules['slug'] = 'required|unique:articles,slug|max:255';
+        }
+
+        if (isset($this->image)) {
+            $rules['image'] = 'required|image|max:10240';
+        }
+
+        return $rules;
     }
 }

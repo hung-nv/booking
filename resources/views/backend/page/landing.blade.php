@@ -3,7 +3,7 @@
     'oldSlug' => $slug
 ]])
 
-@section('title', 'Create Landing Page')
+@section('title', 'Create iStay')
 
 @section('pageId', 'landing')
 
@@ -22,13 +22,10 @@
                 <div class="portlet light bordered">
                     <div class="portlet-title">
                         <div class="caption">
-                            <span class="caption-subject font-red-mint sbold">Create Landing Page</span>
+                            <span class="caption-subject font-red-mint sbold">Create iStay</span>
                         </div>
 
                         <div class="actions btn-set">
-                            <button type="button" name="back" class="btn btn-secondary-outline">
-                                <i class="fa fa-angle-left"></i> Back to list
-                            </button>
                             <button class="btn btn-secondary-outline" type="reset">
                                 <i class="fa fa-reply"></i> Reset
                             </button>
@@ -40,6 +37,8 @@
 
                     <div class="portlet-body">
                         {{ csrf_field() }}
+
+                        <input name="lang" value="{{ $lang }}" type="hidden">
 
                         @include('backend.blocks.errors')
 
@@ -55,7 +54,7 @@
                                     <a href="#tab_3" data-toggle="tab" aria-expanded="false"> About</a>
                                 </li>
                                 <li class="">
-                                    <a href="#tab_4" data-toggle="tab" aria-expanded="false"> Price</a>
+                                    <a href="#tab_4" data-toggle="tab" aria-expanded="false"> Galery</a>
                                 </li>
                             </ul>
 
@@ -64,13 +63,13 @@
                                     @include('backend.page.partial._form_landing')
                                 </div>
                                 <div class="tab-pane" id="tab_2">
-                                    @include('backend.page.partial._meta_field')
+                                    @include('backend.page.partial._features')
                                 </div>
                                 <div class="tab-pane" id="tab_3">
                                     @include('backend.page.partial._about')
                                 </div>
                                 <div class="tab-pane" id="tab_4">
-                                    @include('backend.page.partial._price')
+                                    @include('backend.page.partial._galery')
                                 </div>
                             </div>
                         </div>

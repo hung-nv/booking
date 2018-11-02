@@ -68,21 +68,5 @@
                       rows="4">{{ $field['about4-description'] or old('about4-description') }}</textarea>
             </div>
         </div>
-
-        <div class="col-md-8">
-            <div class="form-group">
-                <label>About Title 5</label>
-                <input type="text" name="about5-title" class="form-control"
-                       value="{{ $field['about5-title'] or old('about5-title') }}"/>
-            </div>
-        </div>
-
-        <div class="col-md-8">
-            <div class="form-group">
-                <label>About Description 5</label>
-                <textarea name="about5-description" class="form-control"
-                      rows="4">{{ $field['about5-description'] or old('about5-description') }}</textarea>
-            </div>
-        </div>
     </div>
 </div>

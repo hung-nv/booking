@@ -50,17 +50,29 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'auth', 'namespace' =
         // route resource services
         Route::resource('services', 'ServicesController', ['except' => ['show']]);
 
-        // route create landing page.
+        // route create landing page of istay.
         Route::get('page/landing', ['as' => 'page.landing', 'uses' => 'PageController@landing']);
 
-        // route store landing page.
+        // route store landing page of istay.
         Route::post('page/landing', ['as' => 'page.storeLanding', 'uses' => 'PageController@storeLanding']);
 
+        // route create landing page of room.
+        Route::get('page/room', ['as' => 'page.room', 'uses' => 'PageController@room']);
+
+        // route store landing page of room.
+        Route::post('page/room', ['as' => 'page.storeRoom', 'uses' => 'PageController@storeRoom']);
+
         // route edit landing page.
-        Route::get('page/{id}/editLanding', ['as' => 'page.editLanding', 'uses' => 'PageController@editLanding']);
+        Route::get('page/{page}/editLanding', ['as' => 'page.editLanding', 'uses' => 'PageController@editLanding']);
 
         // route update landing page.
-        Route::put('page/{id}/updateLanding', ['as' => 'page.updateLanding', 'uses' => 'PageController@updateLanding']);
+        Route::put('page/{page}/updateLanding', ['as' => 'page.updateLanding', 'uses' => 'PageController@updateLanding']);
+
+        // route edit landing page.
+        Route::get('page/{page}/editRoom', ['as' => 'page.editRoom', 'uses' => 'PageController@editRoom']);
+
+        // route update landing page.
+        Route::put('page/{page}/updateRoom', ['as' => 'page.updateRoom', 'uses' => 'PageController@updateRoom']);
 
         // route for product.
         Route::resource('product', 'ProductController', ['except' => ['show']]);

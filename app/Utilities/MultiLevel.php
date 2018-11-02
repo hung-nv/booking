@@ -41,6 +41,28 @@ trait MultiLevel
         return implode('', $template);
     }
 
+    public function getTemplateCheckbox($collection, $selectedId = null, $name = 'parent', &$template = [])
+    {
+        if (!empty($collection)) {
+
+            foreach ($collection as $key => $item) {
+                $template[] = view('backend.post.partial._checkboxCategory', [
+                    'item' => $item,
+                    'selectedId' => $selectedId,
+                    'level' => 0,
+                    'name' => $name
+                ])->render();
+
+                unset($collection[$key]);
+
+                $this->getTemplateCheckboxCategory($collection, $selectedId, $name, $template);
+
+            }
+        }
+
+        return implode('', $template);
+    }
+
     /**
      * Get template nestable menu.
      * @param $dataMenus
