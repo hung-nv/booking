@@ -76,6 +76,29 @@ class PageController extends Controller
         ]);
     }
 
+    public function room(Request $request)
+    {
+        // get origin category (english version)
+        $originArticle = $this->articleServices->getCurrentPage($request->all());
+
+        if (!(empty($request->all()) || ($request->has(['lang', 'article_id']) && $originArticle))) {
+            abort(404);
+        }
+
+        $name = $request->old('name') ? $request->old('name') : '';
+
+        $slug = $request->old('slug') ? $request->old('slug') : '';
+
+        $lang = $request->lang ? $request->lang : 'en';
+
+        return view('backend.page.room', [
+            'name' => $name,
+            'slug' => $slug,
+            'lang' => $lang,
+            'originArticle' => $originArticle
+        ]);
+    }
+
     /**
      * Create landing page.
      * @param Request $request

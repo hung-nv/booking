@@ -21,8 +21,13 @@ class CreateArticlesTable extends Migration
             $table->string('image')->nullable();
             $table->integer('price');
             $table->integer('view')->default(0);
+
+            $table->integer('parent_id')->nullable()->unsigned();
+            $table->foreign('parent_id')->references('id')->on('articles')->onDelete('cascade');
+
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+
             $table->tinyInteger('system_link_type_id');
             $table->tinyInteger('landing_type')->nullable()->comment('1.istay 2.room');
             $table->boolean('status')->default(true);

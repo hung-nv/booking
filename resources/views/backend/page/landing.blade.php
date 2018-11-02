@@ -60,7 +60,7 @@
 
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
-                                    @include('backend.page.partial._form_landing')
+                                    @include('backend.page.partial._istay_general')
                                 </div>
                                 <div class="tab-pane" id="tab_2">
                                     @include('backend.page.partial._features')

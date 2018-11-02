@@ -14,6 +14,7 @@ class Article extends \Eloquent
         'slug',
         'image',
         'price',
+        'parent_id',
         'user_id',
         'system_link_type_id',
         'landing_type',

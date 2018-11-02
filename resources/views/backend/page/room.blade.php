@@ -3,7 +3,7 @@
     'oldSlug' => $slug
 ]])
 
-@section('title', 'Update Landing Page')
+@section('title', 'Create iStay')
 
 @section('pageId', 'landing')
 
@@ -17,21 +17,15 @@
 
     <div class="row">
         <div class="col-md-12">
-            <form action="{{ route('page.updateLanding', ['id' => $page['id']]) }}" class="horizontal-form" role="form"
+            <form action="{{ route('page.storeLanding') }}" class="horizontal-form" role="form"
                   method="post" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                {{ method_field('PUT') }}
-
                 <div class="portlet light bordered">
                     <div class="portlet-title">
                         <div class="caption">
-                            <span class="caption-subject font-red-mint sbold">Update Landing Page</span>
+                            <span class="caption-subject font-red-mint sbold">Create Room</span>
                         </div>
 
                         <div class="actions btn-set">
-                            <button type="button" name="back" class="btn btn-secondary-outline">
-                                <i class="fa fa-angle-left"></i> Back to list
-                            </button>
                             <button class="btn btn-secondary-outline" type="reset">
                                 <i class="fa fa-reply"></i> Reset
                             </button>
@@ -42,6 +36,9 @@
                     </div>
 
                     <div class="portlet-body">
+                        {{ csrf_field() }}
+
+                        <input name="lang" value="{{ $lang }}" type="hidden">
 
                         @include('backend.blocks.errors')
 
@@ -49,9 +46,6 @@
                             <ul class="nav nav-tabs nav-tabs-lg">
                                 <li class="active">
                                     <a href="#tab_1" data-toggle="tab" aria-expanded="true"> General </a>
-                                </li>
-                                <li class="">
-                                    <a href="#tab_2" data-toggle="tab" aria-expanded="false"> Features</a>
                                 </li>
                                 <li class="">
                                     <a href="#tab_3" data-toggle="tab" aria-expanded="false"> About</a>
@@ -63,10 +57,7 @@
 
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
-                                    @include('backend.page.partial._istay_general')
-                                </div>
-                                <div class="tab-pane" id="tab_2">
-                                    @include('backend.page.partial._features')
+                                    @include('backend.page.partial._room_general')
                                 </div>
                                 <div class="tab-pane" id="tab_3">
                                     @include('backend.page.partial._about')
@@ -95,6 +86,7 @@
 @push('script')
     <script src="{{ asset('/admin/assets/global/plugins/select2/js/select2.full.min.js') }}"
             type="text/javascript"></script>
+    <script src="{{ asset('/admin/assets/global/plugins/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
 
     <script src="{{ asset('/admin/assets/global/plugins/fileinput.min.js') }}"
             type="text/javascript"></script>
