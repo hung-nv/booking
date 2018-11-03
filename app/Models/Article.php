@@ -117,6 +117,7 @@ class Article extends \Eloquent
         return self::select([
             'a.*',
             'b.slug',
+            'b.image',
             'b.status'
         ])
             ->from('article_content AS a')

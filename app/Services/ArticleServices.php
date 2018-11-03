@@ -170,14 +170,6 @@ class ArticleServices
         $data['user_id'] = \Auth::user()->id;
         $data['system_link_type_id'] = $postType;
 
-        if (empty($data['article_id'])) {
-            // create article.
-            $article = Article::create($data);
-        } else {
-            // code here if translate.
-            $article = Article::find($data['article_id']);
-        }
-
         if ($request->hasFile('image')) {
             // upload image to folder.
             $fileName = $this->imageServices->uploads($request->file('image'), 'posts');
@@ -187,6 +179,14 @@ class ArticleServices
             }
 
             $data['image'] = $fileName;
+        }
+
+        if (empty($data['article_id'])) {
+            // create article.
+            $article = Article::create($data);
+        } else {
+            // code here if translate.
+            $article = Article::find($data['article_id']);
         }
 
         $article->articleContent()->create($data);
@@ -319,18 +319,11 @@ class ArticleServices
      */
     public function updatePostPackage($request, $id, $updateMenu)
     {
+        $data = $request->all();
+
         $articleContent = ArticleContent::find($id);
 
         $article = $articleContent->article;
-
-        // update category if edit version english.
-        if ($request->has(['slug'])) {
-            $article->update([
-                'slug' => $request->slug
-            ]);
-        }
-
-        $data = $request->all();
 
         if ($request->hasFile('image')) {
             // delete old image if exist.
@@ -348,10 +341,18 @@ class ArticleServices
             $data['image'] = $fileName;
         }
 
-        // update menu if page.
-        if ($updateMenu) {
-            $this->menuServices->updatePageToMenu($article->slug, $request->name, $request->slug);
+        // update category if edit version english.
+        if ($request->has(['slug'])) {
+            $article->update([
+                'slug' => $request->slug,
+                'image' => $data['image']
+            ]);
         }
+
+        // update menu if page.
+//        if ($updateMenu) {
+//            $this->menuServices->updatePageToMenu($article->slug, $request->name, $request->slug);
+//        }
 
         $articleContent->update($data);
 
