@@ -45,16 +45,18 @@
 
         <div class="col-md-3">
             <div class="form-group">
-                <label>Status</label>
-                <select class="form-control" name="status">
-                    <option value="1" selected="selected">Yes</option>
-                    <option value="0">No</option>
+                <label>Select iStay</label>
+                <select class="form-control" name="parent_id" required>
+                    <option value="">Select iStay...</option>
+                    @foreach($istays as $istay)
+                        <option value="{{ $istay->id }}">{{ $istay->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Price</label>
-                <input type="text" name="price" class="form-control"
+                <input type="number" name="price" class="form-control"
                        value="{{ $page->price or old('price') }}"/>
             </div>
 

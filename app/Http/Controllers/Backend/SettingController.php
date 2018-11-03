@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Requests\SettingRequest;
+use App\Services\ArticleServices;
 use App\Services\Common\ImageServices;
 use App\Services\MenuServices;
 use App\Services\OptionServices;
-use App\Services\PostServices;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SettingController extends Controller
 {
-    protected $image, $menuServices, $optionServices, $postServices;
+    protected $image, $menuServices, $optionServices, $articleServices;
 
     public function __construct(
         ImageServices $imageServices,
         MenuServices $menuServices,
         OptionServices $optionServices,
-        PostServices $postServices
+        ArticleServices $articleServices
     )
     {
         parent::__construct();
@@ -29,7 +29,7 @@ class SettingController extends Controller
 
         $this->optionServices = $optionServices;
 
-        $this->postServices = $postServices;
+        $this->articleServices = $articleServices;
     }
 
     /**
@@ -58,37 +58,42 @@ class SettingController extends Controller
 
     /**
      * Page index setting.
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Throwable
      */
-    public function index(Request $request)
+    public function index()
     {
-        $dataSetting = $this->optionServices->getDataSetting($this->landingType);
+        $lang = config('const.lang.en.alias');
 
-        $checkedCatalog = isset($dataSetting['options']['mainCatalog']) ?
-            explode(',', $dataSetting['options']['mainCatalog']) : $request->old('mainCatalog');
-
-        $templateCatalog = $this->postServices->getCheckboxCategory(
-            $this->catalogType,
-            $checkedCatalog
-        );
-
-        $checkedSubCatalog = isset($dataSetting['options']['selectedCatalog']) ?
-            explode(',', $dataSetting['options']['selectedCatalog']) : $request->old('selectedCatalog');
-
-        $templateSubCatalog = $this->postServices->getCheckboxCategory(
-            $this->catalogType,
-            $checkedSubCatalog,
-            'selectedCatalog'
-        );
+        $dataSetting = $this->optionServices->getDataSetting($lang);
 
         return view('backend.theme.setting', [
             'option' => $dataSetting['options'],
-            'pages' => $dataSetting['pages'],
-            'menus' => $dataSetting['menus'],
-            'templateCatalog' => $templateCatalog,
-            'templateSubCatalog' => $templateSubCatalog
+            'lang' => $lang
+        ]);
+    }
+
+    public function korea()
+    {
+        $lang = config('const.lang.ko.alias');
+
+        $dataSetting = $this->optionServices->getDataSetting($lang);
+
+        return view('backend.theme.setting', [
+            'option' => $dataSetting['options'],
+            'lang' => $lang
+        ]);
+    }
+
+    public function vietnam()
+    {
+        $lang = config('const.lang.vi.alias');
+
+        $dataSetting = $this->optionServices->getDataSetting($lang);
+
+        return view('backend.theme.setting', [
+            'option' => $dataSetting['options'],
+            'lang' => $lang
         ]);
     }
 

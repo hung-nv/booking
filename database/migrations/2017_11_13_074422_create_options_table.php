@@ -18,6 +18,7 @@ class CreateOptionsTable extends Migration
             $table->increments('id');
             $table->string('key');
             $table->text('value');
+            $table->string('lang', '5')->default('en');
         });
     }
 

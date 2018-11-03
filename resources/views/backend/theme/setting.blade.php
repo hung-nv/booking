@@ -18,10 +18,12 @@
                   method="post" enctype="multipart/form-data" novalidate>
                 {{ csrf_field() }}
 
+                <input type="hidden" name="lang" value="{{ $lang }}">
+
                 <div class="portlet">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-shopping-cart"></i>Setting
+                            <i class="fa fa-shopping-cart"></i>Setting {{ config('const.lang.'.$lang.'.label') }}
                         </div>
                         <div class="actions btn-set">
                             <button type="button" name="back" class="btn btn-secondary-outline">
@@ -42,13 +44,16 @@
                                     <a href="#tab_general" data-toggle="tab"> General </a>
                                 </li>
                                 <li>
-                                    <a href="#tab_widget_banner" data-toggle="tab"> Widget Banner </a>
+                                    <a href="#tab_promotion" data-toggle="tab"> Widget Promotion </a>
                                 </li>
                                 <li>
-                                    <a href="#tab_meta" data-toggle="tab"> Meta Tag </a>
+                                    <a href="#tab_widget_banner" data-toggle="tab"> Widget Search </a>
                                 </li>
                                 <li>
-                                    <a href="#tab_infor" data-toggle="tab"> Information </a>
+                                    <a href="#tab_meta" data-toggle="tab"> Widget iStay </a>
+                                </li>
+                                <li>
+                                    <a href="#tab_infor" data-toggle="tab"> Widget Comment </a>
                                 </li>
                                 <li>
                                     <a href="#tab_social" data-toggle="tab"> Social & Google Tool </a>
@@ -56,19 +61,22 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_general">
-                                    @include("backend.theme._tab_general", ['option' => $option])
+                                    @include("backend.theme._tab_general")
+                                </div>
+                                <div class="tab-pane" id="tab_promotion">
+                                    @include("backend.theme._tab_widget_promotion")
                                 </div>
                                 <div class="tab-pane" id="tab_widget_banner">
-                                    @include("backend.theme._tab_widget_banner", ['option' => $option])
+                                    @include("backend.theme._tab_widget_search")
                                 </div>
                                 <div class="tab-pane" id="tab_meta">
-                                    @include("backend.theme._tab_meta", ['option' => $option])
+                                    @include("backend.theme._tab_widget_istay")
                                 </div>
                                 <div class="tab-pane" id="tab_infor">
-                                    @include("backend.theme._tab_infor", ['option' => $option])
+                                    @include("backend.theme._tab_widget_comment")
                                 </div>
                                 <div class="tab-pane" id="tab_social">
-                                    @include("backend.theme._tab_social", ['option' => $option])
+                                    @include("backend.theme._tab_social")
                                 </div>
                             </div>
                         </div>

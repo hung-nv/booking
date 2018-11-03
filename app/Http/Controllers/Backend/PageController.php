@@ -6,6 +6,7 @@ use App\Http\Requests\LandingStore;
 use App\Http\Requests\LandingUpdate;
 use App\Http\Requests\PostStore;
 use App\Http\Requests\PostUpdate;
+use App\Models\Article;
 use App\Services\ArticleServices;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -85,18 +86,15 @@ class PageController extends Controller
             abort(404);
         }
 
+        $istays = $this->articleServices->getAllIstay($this->landingType);
+
         $name = $request->old('name') ? $request->old('name') : '';
 
         $slug = $request->old('slug') ? $request->old('slug') : '';
 
         $lang = $request->lang ? $request->lang : 'en';
 
-        return view('backend.page.room', [
-            'name' => $name,
-            'slug' => $slug,
-            'lang' => $lang,
-            'originArticle' => $originArticle
-        ]);
+        return view('backend.page.room', compact('name', 'slug', 'lang', 'originArticle', 'istays'));
     }
 
     /**
@@ -124,12 +122,18 @@ class PageController extends Controller
 
         $templateFeatures = $this->articleServices->getTemplateCheckboxServices($features, 'services');
 
-        return view('backend.page.landing', [
-            'name' => $name,
-            'slug' => $slug,
-            'lang' => $lang,
-            'templateFeatures' => $templateFeatures,
-            'originArticle' => $originArticle
+        return view(
+            'backend.page.landing',
+            compact('name', 'slug', 'lang', 'templateFeatures', 'originArticle')
+        );
+    }
+
+    public function storeRoom(LandingStore $request)
+    {
+        $response = $this->articleServices->createIstay($request, $this->landingType, Article::ROOM_TYPE);
+
+        return redirect()->route('page.index')->with([
+            'success' => $response
         ]);
     }
 
@@ -212,6 +216,11 @@ class PageController extends Controller
         } catch (\Exception $exception) {
             return abort(404);
         }
+    }
+
+    public function editRoom(Request $request)
+    {
+
     }
 
     /**

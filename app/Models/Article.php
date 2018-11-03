@@ -129,7 +129,10 @@ class Article extends \Eloquent
 
     public static function getIstay($landingType)
     {
-        return self::select()
+        return self::select([
+            'a.name',
+            'b.id'
+        ])
             ->from('article_content AS a')
             ->join('articles AS b', function ($join) {
                 $join->on('a.article_id', '=', 'b.id');

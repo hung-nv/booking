@@ -78,6 +78,12 @@ export default class Landing extends Page {
                     ui.urlDeleteThumbnailLanding,
                     {extractName: ui.nameThumbnail}
                 );
+
+                $(ui.inputThumbnail).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
             } else {
                 $(ui.inputThumbnail).fileinput({
                     allowedFileExtensions: ["jpg", "png"],

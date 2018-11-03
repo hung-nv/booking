@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Http\Requests\SettingRequest;
-use App\Models\Post;
-use App\Models\MenuGroup;
 use App\Models\Option;
 use App\Services\Common\ImageServices;
 use Illuminate\Support\Facades\DB;
@@ -22,18 +20,13 @@ class OptionServices extends BaseServices
 
     /**
      * Get all option to setup site.
-     * @param $landingType
      * @return array
      */
-    public function getDataSetting($landingType)
+    public function getDataSetting($lang)
     {
-        $options = Option::select(['key', 'value'])->pluck('value', 'key');
+        $options = Option::select(['key', 'value'])->where('lang', $lang)->pluck('value', 'key');
 
-        $pages = Post::getAllPages([$landingType]);
-
-        $menus = MenuGroup::all();
-
-        return ['options' => $options, 'pages' => $pages, 'menus' => $menus];
+        return ['options' => $options];
     }
 
     /**
@@ -65,10 +58,13 @@ class OptionServices extends BaseServices
     {
         $dataRequest = $request->all();
 
+        $lang = $request->lang;
+
         unset($dataRequest['_token']);
+        unset($dataRequest['lang']);
 
         foreach ($dataRequest as $k => $v) {
-            $option = Option::where('key', $k)->get()->first();
+            $option = Option::findOptionByKeyAndLang($k, $lang);
 
             if (!$v) {
                 if ($option) {
@@ -87,10 +83,6 @@ class OptionServices extends BaseServices
                 $value = $this->imageServices->uploads($request->file($k), 'setting');
             } else {
                 $value = $v;
-
-                if (is_array($v)) {
-                    $value = implode(',', $v);
-                }
             }
 
             if ($option) {
@@ -102,7 +94,7 @@ class OptionServices extends BaseServices
 
                 $option->save();
             } else {
-                Option::create(['key' => $k, 'value' => $value]);
+                Option::create(['key' => $k, 'value' => $value, 'lang' => $lang]);
             }
         }
     }

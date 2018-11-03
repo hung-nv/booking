@@ -17,7 +17,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <form action="{{ route('page.storeLanding') }}" class="horizontal-form" role="form"
+            <form action="{{ route('page.storeRoom') }}" class="horizontal-form" role="form"
                   method="post" enctype="multipart/form-data">
                 <div class="portlet light bordered">
                     <div class="portlet-title">

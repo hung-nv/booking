@@ -34,15 +34,15 @@ class MenuSystemTableSeeder extends Seeder
             ['label' => 'Menu', 'icon' => 'icon-diamond', 'route' => 'setting.menu', 'parent_id' => '15', 'sort' => 1, 'show' => '1,2'],
             ['label' => 'Setting', 'icon' => 'icon-settings', 'route' => 'setting.index', 'parent_id' => '15', 'sort' => 2, 'show' => '1,2'],
 
-            ['label' => 'Comment', 'icon' => 'icon-globe', 'route' => 'comment', 'parent_id' => '0', 'sort' => 3, 'show' => '1,2'],
+            ['label' => 'Comment', 'icon' => 'icon-bubble', 'route' => 'comment', 'parent_id' => '0', 'sort' => 3, 'show' => '1,2'],
             ['label' => 'Create comment', 'icon' => 'icon-plus', 'route' => 'comment.create', 'parent_id' => '18', 'sort' => 1, 'show' => '1,2'],
             ['label' => 'All', 'icon' => 'icon-list', 'route' => 'comment.index', 'parent_id' => '18', 'sort' => 2, 'show' => '1,2'],
 
-            ['label' => 'Services', 'icon' => 'icon-globe', 'route' => 'services', 'parent_id' => '0', 'sort' => 4, 'show' => '1,2'],
+            ['label' => 'Services', 'icon' => 'icon-badge', 'route' => 'services', 'parent_id' => '0', 'sort' => 4, 'show' => '1,2'],
             ['label' => 'Create Services', 'icon' => 'icon-plus', 'route' => 'services.create', 'parent_id' => '21', 'sort' => 1, 'show' => '1,2'],
             ['label' => 'All', 'icon' => 'icon-list', 'route' => 'services.index', 'parent_id' => '21', 'sort' => 2, 'show' => '1,2'],
 
-            ['label' => 'Contact', 'icon' => 'icon-globe', 'route' => 'contact.index', 'parent_id' => '0', 'sort' => 5, 'show' => '1,2']
+            ['label' => 'Contact', 'icon' => 'icon-envelope-open', 'route' => 'contact.index', 'parent_id' => '0', 'sort' => 5, 'show' => '1,2']
         ]);
     }
 }

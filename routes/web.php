@@ -100,6 +100,12 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'auth', 'namespace' =
         // route resource setting.
         Route::resource('setting', 'SettingController', ['only' => ['index', 'store']]);
 
+        // route setting for language korea.
+        Route::get('setting/korea', ['as' => 'setting.korea', 'uses' => 'SettingController@korea']);
+
+        // route setting for language vietnam.
+        Route::get('setting/vietnam', ['as' => 'setting.vietnam', 'uses' => 'SettingController@vietnam']);
+
         // route setting menu.
         Route::get('menu', ['as' => 'setting.menu', 'uses' => 'SettingController@menu']);
     });

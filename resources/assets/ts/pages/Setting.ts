@@ -9,16 +9,11 @@ const ui = {
     inputOldFavico: '#old_favico',
     inputLogo: '#company_logo',
     inputOldLogo: '#old_company_logo',
-    inputWidgetImage1: '#banner_image_1',
-    inputOldWidgetImage1: '#old_banner_image_1',
-    inputWidgetImage2: '#banner_image_2',
-    inputOldWidgetImage2: '#old_banner_image_2',
-    inputWidgetImage3: '#banner_image_3',
-    inputOldWidgetImage3: '#old_banner_image_3',
-    inputWidgetImage4: '#banner_image_4',
-    inputOldWidgetImage4: '#old_banner_image_4',
-    urlDeleteFileSetting: '/api/delete-file-setting',
-    inputRemoveInitPreview: '.kv-file-remove'
+    inputPromotionBg: '#promotion_background',
+    inputOldPromotionBg: '#old_promotion_background',
+    inputSearchBg: '#search_background',
+    inputOldSearchBg: '#old_search_background',
+    urlDeleteFileSetting: '/api/delete-file-setting'
 };
 
 export default class Setting extends Page {
@@ -40,6 +35,12 @@ export default class Setting extends Page {
                     ui.urlDeleteFileSetting,
                     {extractName: 'favico'}
                 );
+
+                $(ui.inputFavico).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
             } else {
                 newInputImage(ui.inputFavico);
             }
@@ -54,66 +55,55 @@ export default class Setting extends Page {
                     ui.urlDeleteFileSetting,
                     {extractName: 'company_logo'}
                 );
+
+                $(ui.inputOldLogo).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
             } else {
                 newInputImage(ui.inputLogo);
             }
         }
 
-        // init logo.
-        if ($(ui.inputWidgetImage1).length) {
-            if ($(ui.inputOldWidgetImage1).length) {
+        // init promotion background.
+        if ($(ui.inputPromotionBg).length) {
+            if ($(ui.inputOldPromotionBg).length) {
                 initInputImage(
-                    ui.inputOldWidgetImage1,
-                    ui.inputWidgetImage1,
+                    ui.inputOldPromotionBg,
+                    ui.inputPromotionBg,
                     ui.urlDeleteFileSetting,
-                    {extractName: 'banner_image_1'}
+                    {extractName: 'promotion_background'}
                 );
+
+                $(ui.inputPromotionBg).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
             } else {
-                newInputImage(ui.inputWidgetImage1);
+                newInputImage(ui.inputPromotionBg);
             }
         }
 
-        if ($(ui.inputWidgetImage2).length) {
-            if ($(ui.inputOldWidgetImage2).length) {
+        // init search background.
+        if ($(ui.inputSearchBg).length) {
+            if ($(ui.inputOldSearchBg).length) {
                 initInputImage(
-                    ui.inputOldWidgetImage2,
-                    ui.inputWidgetImage2,
+                    ui.inputOldSearchBg,
+                    ui.inputSearchBg,
                     ui.urlDeleteFileSetting,
-                    {extractName: 'banner_image_2'}
+                    {extractName: 'search_background'}
                 );
+
+                $(ui.inputSearchBg).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
             } else {
-                newInputImage(ui.inputWidgetImage2);
+                newInputImage(ui.inputSearchBg);
             }
         }
-
-        if ($(ui.inputWidgetImage3).length) {
-            if ($(ui.inputOldWidgetImage3).length) {
-                initInputImage(
-                    ui.inputOldWidgetImage3,
-                    ui.inputWidgetImage3,
-                    ui.urlDeleteFileSetting,
-                    {extractName: 'banner_image_3'}
-                );
-            } else {
-                newInputImage(ui.inputWidgetImage3);
-            }
-        }
-
-        if ($(ui.inputWidgetImage4).length) {
-            if ($(ui.inputOldWidgetImage4).length) {
-                initInputImage(
-                    ui.inputOldWidgetImage4,
-                    ui.inputWidgetImage4,
-                    ui.urlDeleteFileSetting,
-                    {extractName: 'banner_image_4'}
-                );
-            } else {
-                newInputImage(ui.inputWidgetImage4);
-            }
-        }
-
-        $(ui.inputFavico).on('fileclear', function (event) {
-            $(ui.inputRemoveInitPreview).trigger("click");
-        });
     }
 }

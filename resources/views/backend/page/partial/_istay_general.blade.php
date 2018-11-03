@@ -44,14 +44,6 @@
         </div>
 
         <div class="col-md-3">
-            <div class="form-group">
-                <label>Status</label>
-                <select class="form-control" name="status">
-                    <option value="1" selected="selected">Yes</option>
-                    <option value="0">No</option>
-                </select>
-            </div>
-
             @if ($lang === 'en' || (!empty($page) && $page->lang === 'en'))
                 <div class="form-group">
                     <label>Thumbnail</label>

@@ -100,6 +100,14 @@ class ArticleServices
     }
 
     /**
+     * Get all istay to select parent for room.
+     */
+    public function getAllIstay($systemLinkType)
+    {
+        return Article::getIstay($systemLinkType);
+    }
+
+    /**
      * Get template checkbox category.
      * @param $categoryType
      * @param $parent
@@ -355,16 +363,17 @@ class ArticleServices
     /**
      * Create landing page.
      * @param $request
-     * @param int $landingType
+     * @param int $systemLinkType
+     * @param int $landingType: default is istay.
      * @return string
      * @throws \Exception
      */
-    public function createIstay($request, $landingType)
+    public function createIstay($request, $systemLinkType, $landingType = Article::ISTAY_TYPE)
     {
         try {
             DB::beginTransaction();
 
-            $response = $this->storeIstayPackage($request, $landingType);
+            $response = $this->storeIstayPackage($request, $systemLinkType, $landingType);
 
             DB::commit();
 
@@ -379,13 +388,13 @@ class ArticleServices
     /**
      * Store landing page package.
      * @param Request $request
-     * @param int $landingType
+     * @param int $systemLinkType
      * @return string
      * @throws \Exception
      */
-    public function storeIstayPackage($request, $landingType)
+    public function storeIstayPackage($request, $systemLinkType, $landingType)
     {
-        $istayContent = $this->storeIstay($request, $landingType);
+        $istayContent = $this->storeIstay($request, $systemLinkType, $landingType);
 
         $data = $request->all();
 
@@ -447,12 +456,13 @@ class ArticleServices
 
     /**
      * Store istay.
-     * @param $request
+     * @param Request $request
+     * @param $systemLinkType
      * @param $landingType
      * @return string
      * @throws \Exception
      */
-    public function storeIstay($request, $landingType)
+    public function storeIstay($request, $systemLinkType, $landingType)
     {
         $data = $request->all();
 
@@ -460,9 +470,9 @@ class ArticleServices
             // set user
             $data['user_id'] = \Auth::user()->id;
             // set system type.
-            $data['system_link_type_id'] = $landingType;
+            $data['system_link_type_id'] = $systemLinkType;
             // set landing type is istay.
-            $data['landing_type'] = 1;
+            $data['landing_type'] = $landingType;
 
             if ($request->hasFile('image')) {
                 // delete old image if exist.
