@@ -25,6 +25,20 @@ class ArticleServices
         $this->menuServices = $menuServices;
     }
 
+    public function getAllIstayByLang($lang, $systemLinkType)
+    {
+        $result = [];
+
+        $istays = Article::getIstay($systemLinkType, $lang)->toArray();
+
+        foreach ($istays as $istay) {
+            $iStayField = MetaField::getDataLandingById($istay['id_content'])->toArray();
+            $result[] = array_merge($istay, $iStayField);
+        }
+
+        return $result;
+    }
+
     /**
      * Get index posts.
      * @param $request

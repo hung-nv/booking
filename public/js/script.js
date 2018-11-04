@@ -1,40 +1,85 @@
 $(function () {
-    var inputMainSearch = $('input[name="main-input-search"]'),
-        pageHome = $('#homepage'),
-        btnSearchHome = $('.main-search-button');
+    var inputDaterange = $('input[name="stay_when"]');
+    var pageHome = $('#homepage');
+    var pageSearch = $('#search');
+    var btnSearchHome = $('.main-search-button');
+    var inputRangeSlider = $('.range-slider');
 
-    btnSearchHome.on('click', function () {
-        window.location.href = '/category';
-    });
-
-    inputMainSearch.daterangepicker({
+    inputDaterange.daterangepicker({
         autoUpdateInput: false
     });
 
-    inputMainSearch.on('apply.daterangepicker', function (ev, picker) {
+    inputDaterange.on('apply.daterangepicker', function (ev, picker) {
         $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
     });
 
-    if (pageHome.length) {
-        var availableTags = [
-            "iStay1",
-            "iStay2",
-            "iStay3",
-            "iStay4",
-            "iStay5"
-        ];
+    if (pageSearch.length || pageHome.length) {
+        var viewData = $('#viewData');
+        var inputWhere = $('#autocompleteid2');
+        var istays = viewData.data('istays');
 
-        $("#autocompleteid2").autocomplete({
-            source: availableTags,
+        // auto complete istay.
+        inputWhere.autocomplete({
+            source: _.map(istays, 'name'),
             minLength: 0
         }).focus(function () {
-            // $(this).autocomplete("search");
             $(this).keydown();
         }).autocomplete("instance")._renderItem = function (ul, item) {
             return $("<li>")
                 .append("<div><i class='fal fa-map-marker'></i>" + item.value + "</div>")
                 .appendTo(ul);
         };
+
+        // validate input where.
+        inputWhere.on('blur', function () {
+            if (!_.find(istays, {name: inputWhere.val()})) {
+                $(this).val('');
+            }
+        });
+
+        // validate input date range.
+        inputDaterange.on('blur', function () {
+            var dateRange = $(this).val(),
+                reg = /^\d{1,2}\/\d{1,2}\/\d{4}$/,
+                valid = false;
+
+            if (dateRange) {
+                dateRange = dateRange.split('-');
+
+                if (dateRange.length > 1 && reg.test(_.trim(dateRange[0])) && reg.test(_.trim(dateRange[1]))) {
+                    if (!isNaN(Date.parse(_.trim(dateRange[0]))) && !isNaN(_.trim(Date.parse(dateRange[1])))) {
+                        valid = true;
+                    }
+                }
+            }
+
+            if (!valid) {
+                $(this).val('');
+            }
+        });
+
+        // on click button search.
+        btnSearchHome.on('click', function () {
+            var dateRange, where, slider, params;
+
+            if (inputRangeSlider.length) {
+                slider = inputRangeSlider.data("ionRangeSlider");
+            }
+
+            dateRange = inputDaterange.val() ? inputDaterange.val() : '';
+
+            if (inputWhere.val() && _.find(istays, {name: inputWhere.val()})) {
+                where = _.find(istays, {name: inputWhere.val()}).id;
+            }
+
+            if (slider) {
+                params = $.param({dateRange: dateRange, where: where, min: slider.result.from, max: slider.result.to});
+            } else {
+                params = $.param({dateRange: dateRange, where: where});
+            }
+
+            window.location.href = '/search?' + params;
+        });
     }
 
     //   scroll to------------------
@@ -98,6 +143,7 @@ $(function () {
         loop: false,
         counter: false
     });
+
     function initHiddenGal() {
         $(".dynamic-gal").on('click', function () {
             var dynamicgal = eval($(this).attr("data-dynamicPath"));
@@ -112,6 +158,7 @@ $(function () {
 
         });
     }
+
     initHiddenGal();
 
 
@@ -123,7 +170,7 @@ $(function () {
         infinite: true,
         speed: 600,
         slidesToShow: 1,
-        centerMode:false,
+        centerMode: false,
         arrows: false,
         variableWidth: true
     });
@@ -364,6 +411,7 @@ $(function () {
     if ($("footer.main-footer").hasClass("fixed-footer")) {
         $('<div class="height-emulator fl-wrap"></div>').appendTo("#main");
     }
+
     function csselem() {
         $(".height-emulator").css({
             height: $(".fixed-footer").outerHeight(true)
@@ -378,10 +426,11 @@ $(function () {
             height: $(window).outerHeight(true) - 110 + "px"
         });
     }
+
     csselem();
 
 
-    $(".range-slider").ionRangeSlider({
+    inputRangeSlider.ionRangeSlider({
         type: "double",
         keyboard: true
     });
@@ -410,5 +459,17 @@ $(function () {
         }
     });
 
-    $('<div class="quantity-nav"><div class="quantity-button quantity-up">+</div><div class="quantity-button quantity-down">-</div></div>').insertAfter(".quantity input"),$(".quantity").each(function(){var t=jQuery(this),i=t.find('input[type="number"]'),n=t.find(".quantity-up"),a=t.find(".quantity-down"),u=i.attr("min"),r=i.attr("max");n.click(function(){var n=parseFloat(i.val());if(n>=r)var a=n;else a=n+1;t.find("input").val(a),t.find("input").trigger("change")}),a.click(function(){var n=parseFloat(i.val());if(n<=u)var a=n;else a=n-1;t.find("input").val(a),t.find("input").trigger("change")})});
+    $('<div class="quantity-nav"><div class="quantity-button quantity-up">+</div><div class="quantity-button quantity-down">-</div></div>').insertAfter(".quantity input"), $(".quantity").each(function () {
+        var t = jQuery(this), i = t.find('input[type="number"]'), n = t.find(".quantity-up"),
+            a = t.find(".quantity-down"), u = i.attr("min"), r = i.attr("max");
+        n.click(function () {
+            var n = parseFloat(i.val());
+            if (n >= r) var a = n; else a = n + 1;
+            t.find("input").val(a), t.find("input").trigger("change")
+        }), a.click(function () {
+            var n = parseFloat(i.val());
+            if (n <= u) var a = n; else a = n - 1;
+            t.find("input").val(a), t.find("input").trigger("change")
+        })
+    });
 });

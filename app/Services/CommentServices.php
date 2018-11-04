@@ -17,6 +17,11 @@ class CommentServices
         $this->imageServices = $imageServices;
     }
 
+    public function getCommentsByLang($lang)
+    {
+        return CommentContent::withLang($lang)->get();
+    }
+
     public function getCurrentComment($dataRequest)
     {
         if (empty($dataRequest) || empty($dataRequest['comment_id'])) {

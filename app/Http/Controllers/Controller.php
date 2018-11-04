@@ -37,7 +37,7 @@ class Controller extends BaseController
 
         $this->getSettingSite();
 
-        $this->getMenu();
+//        $this->getMenu();
     }
 
     public function setType()
@@ -59,7 +59,13 @@ class Controller extends BaseController
      */
     public function getSettingSite()
     {
-        $this->option = Option::all()->pluck('value', 'key');
+        if(request()->get('lang') and array_key_exists(request()->get('lang'), config('const.lang'))) {
+            $lang = request()->get('lang');
+        } else {
+            $lang = config('const.lang.en.alias');
+        }
+
+        $this->option = Option::getConfigByLang($lang);
 
         View::share('option', $this->option);
     }

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageId', 'search')
+
 @section('content')
     <div class="content">
         @include('homepage.partial._sectionBanner')
@@ -15,5 +17,7 @@
         </div>
 
         @include('article._sectionSearch')
+
+        <input type="hidden" id="viewData" data-istays="{{ json_encode($istays) }}">
     </div>
 @endsection

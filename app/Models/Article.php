@@ -128,18 +128,30 @@ class Article extends \Eloquent
             ->first();
     }
 
-    public static function getIstay($landingType)
+    /**
+     * Get all istay english version.
+     * @param $systemLinkType
+     * @param string $lang .
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public static function getIstay($systemLinkType, $lang = null)
     {
+        if (empty($lang)) {
+            $lang = config('const.lang.en.alias');
+        }
+
         return self::select([
             'a.name',
-            'b.id'
+            'b.id',
+            'b.image',
+            'a.id AS id_content'
         ])
             ->from('article_content AS a')
             ->join('articles AS b', function ($join) {
                 $join->on('a.article_id', '=', 'b.id');
             })
-            ->where('a.lang', config('const.lang.en.alias'))
-            ->where('b.system_link_type_id', $landingType)
+            ->where('a.lang', $lang)
+            ->where('b.system_link_type_id', $systemLinkType)
             ->where('b.landing_type', self::ISTAY_TYPE)
             ->get();
     }

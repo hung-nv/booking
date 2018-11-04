@@ -26,7 +26,7 @@
 <body>
 @include('layouts.header')
 
-<div id="wrapper @yield('pageId')">
+<div id="@yield('pageId')">
     @yield('content')
     <div class="clearfix"></div>
 </div>
@@ -35,6 +35,7 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset('/js/lodash.js') }}"></script>
 <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 {{--<script src="{{ asset('/js/owl.carousel.min.js') }}"></script>--}}
 {{--<script src="{{ asset('/js/bootstrap-slider.min.js') }}"></script>--}}

@@ -8,7 +8,7 @@ Route::group(['namespace' => 'Frontend'], function () {
     // route homepage.
     Route::get('/', ['as' => 'homepage', 'uses' => 'HomepageController@index']);
     // route list posts.
-    Route::get('category', ['as' => 'post.list', 'uses' => 'PostController@index']);
+    Route::get('search', ['as' => 'post.list', 'uses' => 'ArticleController@index']);
 
     Route::get('single', ['as' => 'post.details', 'uses' => 'PostController@details']);
 });

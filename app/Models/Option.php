@@ -19,4 +19,13 @@ class Option extends \Eloquent
             ->get()
             ->first();
     }
+
+    public static function getConfigByLang($lang)
+    {
+        return self::where('lang', $lang)
+            ->orWhere('key', 'LIKE', '%background%')
+            ->orWhere('key', 'LIKE', '%logo%')
+            ->get()
+            ->pluck('value', 'key');
+    }
 }

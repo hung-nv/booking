@@ -2,38 +2,32 @@
 
 namespace App\Http\Controllers\Frontend;
 
-
 use App\Http\Controllers\Controller;
-use App\Services\ProductServices;
+use App\Services\ArticleServices;
+use App\Services\CommentServices;
+use Illuminate\Http\Request;
 
 class HomepageController extends Controller
 {
-    private $productServices;
+    private $commentServices, $articleServices;
 
-    public function __construct(ProductServices $productServices)
+    public function __construct(CommentServices $commentServices, ArticleServices $articleServices)
     {
         parent::__construct();
 
-        $this->productServices = $productServices;
+        $this->commentServices = $commentServices;
+
+        $this->articleServices = $articleServices;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $widgetCatalogs = [];
+        $lang = $request->lang ? $request->lang : config('const.lang.en.alias');
 
-        $selectedCatalogs = [];
+        $comments = $this->commentServices->getCommentsByLang($lang);
 
-        if (!empty($this->option['mainCatalog'])) {
-            $widgetCatalogs = $this->productServices->getWidgetCatalogsWithProducts($this->option['mainCatalog'], 8);
-        }
+        $istays = $this->articleServices->getAllIstayByLang($lang, $this->landingType);
 
-        if (!empty($this->option['selectedCatalog'])) {
-            $selectedCatalogs = $this->productServices->getWidgetCatalogsWithProducts($this->option['selectedCatalog'], 6);
-        }
-
-        return view('homepage.index', [
-            'widgetCatalogs' => $widgetCatalogs,
-            'selectedCatalogs' => $selectedCatalogs
-        ]);
+        return view('homepage.index', compact('comments', 'istays'));
     }
 }

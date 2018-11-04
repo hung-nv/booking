@@ -16,4 +16,9 @@ class CommentContent extends \Eloquent
         'avatar',
         'content'
     ];
+
+    public function scopeWithLang($query, $lang)
+    {
+        return $query->where('lang', $lang);
+    }
 }

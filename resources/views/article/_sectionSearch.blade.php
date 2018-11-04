@@ -28,7 +28,7 @@
                                     <label>Date In-Out </label>
                                     <span class="header-search-input-item-icon"><i
                                                 class="fal fa-calendar-check"></i></span>
-                                    <input type="text" placeholder="When" name="dates" value=""/>
+                                    <input type="text" placeholder="When" name="stay_when" value=""/>
                                 </div>
                             </div>
                             <!-- col-list-search-input-item end -->
@@ -37,15 +37,15 @@
                                 <div class="search-input-item">
                                     <div class="range-slider-title">Price range</div>
                                     <div class="range-slider-wrap fl-wrap">
-                                        <input class="range-slider" data-from="300" data-to="1200" data-step="50"
-                                               data-min="50" data-max="2000" data-prefix="$">
+                                        <input class="range-slider" data-from="300" data-to="500" data-step="50"
+                                               data-min="50" data-max="1000" data-prefix="$">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-2">
                                 <div class="col-list-search-input-item fl-wrap">
-                                    <button class="header-search-button">
+                                    <button class="header-search-button main-search-button">
                                         Search <i class="far fa-search"></i></button>
                                 </div>
                             </div>

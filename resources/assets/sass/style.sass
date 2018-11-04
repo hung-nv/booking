@@ -47,13 +47,16 @@ body
   width: 100%
   z-index: 100
   height: 80px
-  background: #fefeff
+  background: #633716
   -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1)
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1)
   .header-logo
     max-width: 200px
     line-height: 5em
     display: block
+    img
+      max-height: 50px
+      margin-top: 10px
 
 /*-------------accordion---------------------------------------
 
@@ -144,7 +147,7 @@ body
   visibility: visible
   margin-top: 0
 
-.header-search-input-item label, .range-slider-title, .col-list-search-input-item label, .leave-rating-holder .leave-rating-title
+.range-slider-title, .col-list-search-input-item label, .leave-rating-holder .leave-rating-title
   float: left
   width: 100%
   text-align: left
@@ -154,7 +157,7 @@ body
   font-weight: 600
   text-transform: uppercase
 
-.header-search-input-item input[type="text"], .col-list-search-input-item input[type="text"]
+.col-list-search-input-item input[type="text"]
   float: left
   width: 100%
   border: 1px solid #eee
@@ -164,37 +167,25 @@ body
   height: 42px
   line-height: 42px
 
-.header-search-input-item input[type="text"]:focus, .col-list-search-input-item input[type="text"]:focus
+.col-list-search-input-item input[type="text"]:focus
   background: #fff
-
-.header-search-input-item.in-loc-dec:before, .col-list-search-input-item.in-loc-dec:before, .header-search-input-item.date-parent:before
-  font-family: Font Awesome\ 5 Pro
-  content: "\f107"
-  position: absolute
-  color: #fff
-  bottom: 10px
-  font-size: 15px
-  right: 14px
-  font-weight: 500
-  z-index: 120
-  transition: all .2s ease-in-out
 
 .not-vis-arrow
   z-index: 520
   &:before
     display: none
 
-.header-search-input-item input[type="number"], .col-list-search-input-item input[type="number"]
+.col-list-search-input-item input[type="number"]
   border-radius: 6px
   background: #fff
 
-.header-search-input-item .quantity-item, .col-list-search-input-item .quantity-item
+.col-list-search-input-item .quantity-item
   float: left
   width: 33.3%
 
 .header-search-input-item-icon
   position: absolute
-  bottom: 14px
+  bottom: 12px
   left: 13px
   z-index: 100
   font-weight: 600
@@ -217,7 +208,7 @@ body
   i
     padding-left: 10px
 
-.header-search-input-item.location a, .col-list-search-input-item.location a
+.col-list-search-input-item.location a
   position: absolute
   bottom: 12px
   right: 16px
@@ -290,6 +281,8 @@ section
     width: 100%
     height: 100%
     overflow: hidden
+  &.parallax-section
+    padding: 180px 0
 
 .small-padding
   padding: 30px 0
@@ -494,7 +487,11 @@ section.parallax-section,
       i
         margin-right: 10px
         color: #3AACED
-
+#homepage
+  .hero-section
+    padding: 50px 0
+#search
+  padding-top: 80px
 /*------ Breadcrumbs--------------------------
 .breadcrumbs.inline-breadcrumbs
   margin-bottom: 20px
