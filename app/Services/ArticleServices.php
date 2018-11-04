@@ -39,6 +39,47 @@ class ArticleServices
         return $result;
     }
 
+    public function getSearchInformation($dataRequest)
+    {
+        $isIstay = true;
+        $isValidPrice = true;
+        $params = [];
+
+        if (!empty($dataRequest['where'])) {
+            $isIstay = Article::findIstayById($dataRequest['where']);
+
+            $params['where'] = $dataRequest['where'];
+        }
+
+        if (!empty($dataRequest['min']) and !empty($dataRequest['max'])) {
+            if (!is_numeric($dataRequest['min']) || !is_numeric($dataRequest['max'])) {
+                $isValidPrice = false;
+            }
+
+            $params['min'] = $dataRequest['min'];
+            $params['max'] = $dataRequest['max'];
+        }
+
+        if (!empty($dataRequest['dateRange'])) {
+            $params['dateRange'] = $dataRequest['dateRange'];
+        }
+
+        if (!empty($dataRequest['lang']) and $dataRequest['lang'] !== config('const.lang.en.alias')) {
+            $params['lang'] = $dataRequest['lang'];
+        }
+
+        $valid = $isIstay and $isValidPrice;
+
+        return ['valid' => $valid, 'params' => $params];
+    }
+
+    public function getRooms($search)
+    {
+        $rooms = Article::getAllRooms($search);
+
+        return $rooms;
+    }
+
     /**
      * Get index posts.
      * @param $request
@@ -379,7 +420,7 @@ class ArticleServices
      * Create landing page.
      * @param $request
      * @param int $systemLinkType
-     * @param int $landingType: default is istay.
+     * @param int $landingType : default is istay.
      * @return string
      * @throws \Exception
      */

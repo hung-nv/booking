@@ -9,14 +9,15 @@
         <div class="breadcrumbs-fs fl-wrap">
             <div class="container">
                 <div class="breadcrumbs fl-wrap">
-                    <a href="/">Home</a>
-                    <a href="#">Listings</a>
+                    <a href="/">{{ trans('labels.home') }}</a>
                     <span>Search</span>
                 </div>
             </div>
         </div>
 
         @include('article._sectionSearch')
+
+        @include('homepage.partial._sectionPromotion')
 
         <input type="hidden" id="viewData" data-istays="{{ json_encode($istays) }}">
     </div>

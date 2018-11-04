@@ -2,7 +2,7 @@ $(function () {
     var inputDaterange = $('input[name="stay_when"]');
     var pageHome = $('#homepage');
     var pageSearch = $('#search');
-    var btnSearchHome = $('.main-search-button');
+    var btnSearch = $('.main-search-button, .header-search-button');
     var inputRangeSlider = $('.range-slider');
 
     inputDaterange.daterangepicker({
@@ -59,8 +59,8 @@ $(function () {
         });
 
         // on click button search.
-        btnSearchHome.on('click', function () {
-            var dateRange, where, slider, params;
+        btnSearch.on('click', function () {
+            var dateRange, where, slider, params = {};
 
             if (inputRangeSlider.length) {
                 slider = inputRangeSlider.data("ionRangeSlider");
@@ -72,13 +72,20 @@ $(function () {
                 where = _.find(istays, {name: inputWhere.val()}).id;
             }
 
-            if (slider) {
-                params = $.param({dateRange: dateRange, where: where, min: slider.result.from, max: slider.result.to});
-            } else {
-                params = $.param({dateRange: dateRange, where: where});
+            if (dateRange) {
+                params['dateRange'] = dateRange;
             }
 
-            window.location.href = '/search?' + params;
+            if (where) {
+                params['where'] = where;
+            }
+
+            if (slider) {
+                params['min'] = slider.result.from;
+                params['max'] = slider.result.to;
+            }
+
+            window.location.href = '/search?' + $.param(params);
         });
     }
 

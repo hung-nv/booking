@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Article extends \Eloquent
 {
@@ -154,5 +155,61 @@ class Article extends \Eloquent
             ->where('b.system_link_type_id', $systemLinkType)
             ->where('b.landing_type', self::ISTAY_TYPE)
             ->get();
+    }
+
+    /**
+     * Find istay by id.
+     * @param $istayId
+     * @return bool
+     */
+    public static function findIstayById($istayId)
+    {
+        return self::where('id', $istayId)
+            ->where('landing_type', self::ISTAY_TYPE)
+            ->exists();
+    }
+
+    public static function getAllRooms($search)
+    {
+        $lang = !empty($search['lang']) ? $search['lang'] : config('const.lang.en.alias');
+
+        $istays = self::select([
+            'a.*',
+            'b.image',
+            'b.price',
+            'b.slug',
+            'c.name AS istay_name',
+            'd.key_value AS address'
+        ])
+            ->from('article_content AS a')
+            ->join('articles AS b', function ($join) {
+                $join->on('a.article_id', '=', 'b.id');
+            })
+            ->leftJoin('article_content AS c', function ($join) {
+                $join->on('c.article_id', '=', 'b.parent_id');
+            })
+            ->leftJoin('meta_field AS d', function ($join) {
+                $join->on('d.article_content_id', '=', 'c.id');
+                $join->where('key_name', '=', 'address');
+            })
+            ->where('a.lang', $lang)
+            ->where('b.landing_type', self::ROOM_TYPE);
+
+        // search with istay.
+        if (!empty($search['where'])) {
+            $istays->where('b.parent_id', $search['where']);
+        }
+
+        // search with min price
+        if (!empty($search['min'])) {
+            $istays->where('b.price', '>=', $search['min']);
+        }
+
+        // search with max price
+        if (!empty($search['max'])) {
+            $istays->where('b.price', '<=', $search['max']);
+        }
+
+        return $istays->paginate(9);
     }
 }

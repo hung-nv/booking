@@ -33,7 +33,7 @@
                         </div>
                         <div class="main-search-input-item main-date-parent main-search-input-item_small">
                             <span class="inpt_dec"><i class="fal fa-calendar-check"></i></span>
-                            <input type="text" placeholder="When" name="stay_when" value="">
+                            <input type="text" placeholder="{{ $option['search_when_label'] or '' }}" name="stay_when" value="">
                         </div>
 
                         <button class="main-search-button color2-bg">

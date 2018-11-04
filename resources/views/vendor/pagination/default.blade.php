@@ -1,17 +1,13 @@
 @if ($paginator->hasPages())
-    <ul class="list-inline list-unstyled">
+    <div class="pagination">
         @if ($paginator->onFirstPage())
-            <li class="prev">
-                <a href="javascript: void();" rel="prev">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-            </li>
+            <a href="javascript: void();" class="prevposts-link">
+                <i class="fa fa-caret-left"></i>
+            </a>
         @else
-            <li class="prev">
-                <a href="{{ $paginator->previousPageUrl() }}" rel="prev">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-            </li>
+            <a href="{{ $paginator->previousPageUrl() }}" class="prevposts-link">
+                <i class="fa fa-caret-left"></i>
+            </a>
         @endif
 
         @foreach ($elements as $element)
@@ -22,18 +18,18 @@
             @if (is_array($element))
                 @foreach ($element as $page => $url)
                     @if ($page == $paginator->currentPage())
-                        <li class="active"><a href="#">{{ $page }}</a></li>
+                        <a href="#" class="current-page">{{ $page }}</a>
                     @else
-                        <li><a href="{{ $url }}">{{ $page }}</a></li>
+                        <a href="{{ $url }}">{{ $page }}</a>
                     @endif
                 @endforeach
             @endif
         @endforeach
 
         @if ($paginator->hasMorePages())
-            <li class="next"><a href="{{ $paginator->nextPageUrl() }}" rel="next"><i class="fa fa-angle-right"></i> </a></li>
+            <a href="{{ $paginator->nextPageUrl() }}" class="nextposts-link"><i class="fa fa-caret-right"></i></a>
         @else
-            <li class="next"><a href="javascript: void();" rel="next"><i class="fa fa-angle-right"></i> </a></li>
+            <a href="javascript: void();" class="nextposts-link"><i class="fa fa-caret-right"></i></a>
         @endif
-    </ul>
+    </div>
 @endif

@@ -1060,6 +1060,10 @@ section.parallax-section .bg,
   padding-top: 80px;
 }
 
+#search .parallax-section {
+  padding: 110px 0;
+}
+
 /*------ Breadcrumbs-------------------------- */
 
 .breadcrumbs.inline-breadcrumbs {
@@ -1197,17 +1201,6 @@ section.parallax-section .section-title.big-title h2 {
   padding-right: 15px;
   color: #878C9F;
   font-size: 12px;
-}
-
-.breadcrumbs-fs .breadcrumbs:before {
-  font-family: Font Awesome\ 5 Pro;
-  content: "\F14C";
-  position: absolute;
-  right: 0;
-  top: -4px;
-  font-size: 22px;
-  font-weight: 100;
-  color: #ADC7DD;
 }
 
 .breadcrumbs-hero-buttom {
@@ -1938,7 +1931,6 @@ section.color-bg .section-title .breadcrumbs a:before {
   width: 900px;
   float: left;
   background: #ECF6F8;
-  min-height: 100vh;
   z-index: 50;
   left: 0;
   -webkit-box-shadow: 0px 0px 90px 0px rgba(0, 0, 0, 0.17);
@@ -2574,7 +2566,6 @@ section.color-bg .section-title .breadcrumbs a:before {
   text-align: left;
   color: #999;
   font-weight: 600;
-  text-transform: uppercase;
   font-size: 11px;
 }
 
