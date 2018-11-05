@@ -43,8 +43,33 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function details($room)
+    public function details(Request $request, $room)
     {
-        return view('article.details');
+        $lang = $request->lang ? $request->lang : config('const.lang.en.alias');
+
+        if (\App::getLocale() !== $lang) {
+            \App::setLocale($lang);
+        }
+
+        $room = $this->articleServices->getInformationRoom($room, $lang);
+
+        $istay = $this->articleServices->getInformationIstayById($room['parent_id'], $lang);
+
+        $services = $this->articleServices->getServicesByIstay($room['parent_id'], $lang);
+
+        if (!$room) {
+            return redirect('/');
+        }
+
+        return view('article.details', [
+            'room' => $room,
+            'istay' => $istay,
+            'services' => $services
+        ]);
+    }
+
+    public function istay(Request $request, $slug)
+    {
+
     }
 }

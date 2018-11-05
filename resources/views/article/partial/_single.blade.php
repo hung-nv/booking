@@ -1,152 +1,24 @@
 <section class="grey-blue-bg small-padding scroll-nav-container" id="sec2">
-    <!--  scroll-nav-wrapper  -->
-    <div class="scroll-nav-wrapper fl-wrap" style="z-index: 100; position: absolute; top: 0px;">
-        <div class="hidden-map-container fl-wrap">
-            <div class="map-container">
-                <div id="singleMap" data-latitude="40.7427837" data-longitude="-73.11445617675781"
-                     style="position: relative; overflow: hidden;">
-                    <div style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
-                        <div style="overflow: hidden;"></div>
-                        <div class="gm-style"
-                             style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px;">
-                            <div tabindex="0"
-                                 style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; cursor: url(&quot;https://maps.gstatic.com/mapfiles/openhand_8_8.cur&quot;), default; touch-action: none;">
-                                <div style="z-index: 1; position: absolute; left: 50%; top: 50%; width: 100%; transform: translate(0px, 0px);">
-                                    <div style="position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;">
-                                        <div style="position: absolute; left: 0px; top: 0px; z-index: 0;">
-                                            <div style="position: absolute; z-index: 986; transform: matrix(1, 0, 0, 1, -123, -69);">
-                                                <div style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px;">
-                                                    <div style="width: 256px; height: 256px;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="position: absolute; left: 0px; top: 0px; z-index: 101; width: 100%;"></div>
-                                    <div style="position: absolute; left: 0px; top: 0px; z-index: 102; width: 100%;"></div>
-                                    <div style="position: absolute; left: 0px; top: 0px; z-index: 103; width: 100%;">
-                                        <div style="position: absolute; left: 0px; top: 0px; z-index: -1;">
-                                            <div style="position: absolute; z-index: 986; transform: matrix(1, 0, 0, 1, -123, -69);">
-                                                <div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 0px; top: 0px;"></div>
-                                            </div>
-                                        </div>
-                                        <div style="width: 50px; height: 50px; overflow: hidden; position: absolute; left: -25px; top: -50px; z-index: 0;">
-                                            <img alt="" src="images/marker2.png" draggable="false"
-                                                 style="position: absolute; left: 0px; top: 0px; user-select: none; width: 50px; height: 50px; border: 0px; padding: 0px; margin: 0px; max-width: none;">
-                                        </div>
-                                    </div>
-                                    <div style="position: absolute; left: 0px; top: 0px; z-index: 0;">
-                                        <div style="position: absolute; z-index: 986; transform: matrix(1, 0, 0, 1, -123, -69);"></div>
-                                    </div>
-                                </div>
-                                <div class="gm-style-pbc"
-                                     style="z-index: 2; position: absolute; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; left: 0px; top: 0px; opacity: 0;">
-                                    <p class="gm-style-pbt"></p></div>
-                                <div style="z-index: 3; position: absolute; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; left: 0px; top: 0px; touch-action: pan-x pan-y;">
-                                    <div style="z-index: 4; position: absolute; left: 50%; top: 50%; width: 100%; transform: translate(0px, 0px);">
-                                        <div style="position: absolute; left: 0px; top: 0px; z-index: 104; width: 100%;"></div>
-                                        <div style="position: absolute; left: 0px; top: 0px; z-index: 105; width: 100%;"></div>
-                                        <div style="position: absolute; left: 0px; top: 0px; z-index: 106; width: 100%;">
-                                            <div title="Location"
-                                                 style="width: 50px; height: 50px; overflow: hidden; position: absolute; opacity: 0; cursor: pointer; touch-action: none; left: -25px; top: -50px; z-index: 0;">
-                                                <img alt="" src="images/marker2.png" draggable="false"
-                                                     style="position: absolute; left: 0px; top: 0px; user-select: none; width: 50px; height: 50px; border: 0px; padding: 0px; margin: 0px; max-width: none;">
-                                            </div>
-                                        </div>
-                                        <div style="position: absolute; left: 0px; top: 0px; z-index: 107; width: 100%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <iframe aria-hidden="true" frameborder="0"
-                                    style="z-index: -1; position: absolute; width: 100%; height: 100%; top: 0px; left: 0px; border: none;"
-                                    src="about:blank"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-    <!--  scroll-nav-wrapper end  -->
-    <!--   container  -->
     <div class="container">
-        <!--   row  -->
         <div class="row">
-            <!--   datails -->
             <div class="col-md-8">
                 <div class="list-single-main-container ">
-
                     <div class="list-single-main-media fl-wrap">
-                        <!-- gallery-items   -->
-                        <div class="gallery-items grid-small-pad  list-single-gallery three-coulms lightgallery"
-                             style="position: relative; height: 497.718px;">
-                            <!-- 1 -->
-                            <div class="gallery-item " style="position: absolute; left: 0px; top: 0px;">
-                                <div class="grid-item-holder">
-                                    <div class="box-item">
-                                        <img src="images/gal/9.jpg" alt="">
-                                        <a href="images/gal/9.jpg" class="gal-link popup-image"><i
-                                                    class="fa fa-search"></i></a>
+                        <div class="gallery-items grid-small-pad  list-single-gallery three-coulms lightgallery">
+
+                            @for($i = 1; $i <= 6; $i++)
+                                @if(!empty($room['gallery-image-'.$i]))
+                                    <div class="gallery-item @if($i == 3) gallery-item-second @endif">
+                                        <div class="grid-item-holder">
+                                            <div class="box-item">
+                                                <img src="{{ $room['gallery-image-'.$i] }}">
+                                                <a href="{{ $room['gallery-image-'.$i] }}" class="gal-link popup-image"><i
+                                                            class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- 1 end -->
-                            <!-- 2 -->
-                            <div class="gallery-item" style="position: absolute; left: 248px; top: 0px;">
-                                <div class="grid-item-holder">
-                                    <div class="box-item">
-                                        <img src="images/gal/7.jpg" alt="">
-                                        <a href="images/gal/7.jpg" class="gal-link popup-image"><i
-                                                    class="fa fa-search"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 2 end -->
-                            <!-- 3 -->
-                            <div class="gallery-item gallery-item-second"
-                                 style="position: absolute; left: 0px; top: 165px;">
-                                <div class="grid-item-holder">
-                                    <div class="box-item">
-                                        <img src="images/gal/3.jpg" alt="">
-                                        <a href="images/gal/3.jpg" class="gal-link popup-image"><i
-                                                    class="fa fa-search"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 3 end -->
-                            <!-- 4 -->
-                            <div class="gallery-item" style="position: absolute; left: 496px; top: 0px;">
-                                <div class="grid-item-holder">
-                                    <div class="box-item">
-                                        <img src="images/gal/4.jpg" alt="">
-                                        <a href="images/gal/4.jpg" class="gal-link popup-image"><i
-                                                    class="fa fa-search"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 4 end -->
-                            <!-- 5 -->
-                            <div class="gallery-item" style="position: absolute; left: 496px; top: 165px;">
-                                <div class="grid-item-holder">
-                                    <div class="box-item">
-                                        <img src="images/gal/5.jpg" alt="">
-                                        <a href="images/gal/5.jpg" class="gal-link popup-image"><i
-                                                    class="fa fa-search"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 5 end -->
-                            <!-- 7 -->
-                            <div class="gallery-item" style="position: absolute; left: 496px; top: 331px;">
-                                <div class="grid-item-holder">
-                                    <div class="box-item">
-                                        <img src="images/gal/6.jpg" alt="">
-                                        <div class="more-photos-button dynamic-gal"
-                                             data-dynamicpath="[{'src': 'images/gal/2.jpg'}, {'src': 'images/gal/8.jpg'},{'src': 'images/gal/1.jpg'}]">
-                                            Other <span>4 photos</span><i class="far fa-long-arrow-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 7 end -->
+                                @endif
+                            @endfor
                         </div>
                         <!-- end gallery items -->
                     </div>

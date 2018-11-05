@@ -212,4 +212,37 @@ class Article extends \Eloquent
 
         return $istays->paginate(9);
     }
+
+    public static function findRoom($slug, $lang)
+    {
+        return self::select([
+            'a.*',
+            'b.price',
+            'b.parent_id'
+        ])
+            ->from('article_content AS a')
+            ->join('articles AS b', function ($join) {
+                $join->on('a.article_id', '=', 'b.id');
+            })
+            ->where('b.slug', $slug)
+            ->where('a.lang', $lang)
+            ->where('b.landing_type', self::ROOM_TYPE)
+            ->first();
+    }
+
+    public static function findIstayInformation($istayId, $lang)
+    {
+        return self::select([
+            'a.*',
+            'b.slug'
+        ])
+            ->from('article_content AS a')
+            ->join('articles AS b', function ($join) {
+                $join->on('a.article_id', '=', 'b.id');
+            })
+            ->where('b.id', $istayId)
+            ->where('a.lang', $lang)
+            ->where('b.landing_type', self::ISTAY_TYPE)
+            ->first();
+    }
 }

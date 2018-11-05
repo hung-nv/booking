@@ -71,4 +71,22 @@ class Services extends \Eloquent
             ->where('a.lang', config('const.lang.en.alias'))
             ->get();
     }
+
+    public static function getServices($istayId, $lang)
+    {
+        return self::select([
+            'a.name',
+            'b.icon'
+        ])
+            ->from('services_content AS a')
+            ->join('services AS b', function ($join) {
+                $join->on('a.services_id', '=', 'b.id');
+            })
+            ->join('article_services AS c', function ($join) use ($istayId) {
+                $join->on('b.id', '=', 'c.services_id');
+                $join->where('c.article_id', $istayId);
+            })
+            ->where('a.lang', $lang)
+            ->get();
+    }
 }

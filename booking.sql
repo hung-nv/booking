@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : utf-8
 
- Date: 11/02/2018 07:00:58 AM
+ Date: 11/05/2018 07:00:59 AM
 */
 
 SET NAMES utf8mb4;
@@ -47,13 +47,13 @@ CREATE TABLE `article_content` (
   PRIMARY KEY (`id`),
   KEY `article_content_article_id_foreign` (`article_id`),
   CONSTRAINT `article_content_article_id_foreign` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 --  Records of `article_content`
 -- ----------------------------
 BEGIN;
-INSERT INTO `article_content` VALUES ('5', '5', 'en', 'ISTAY SERVICED APARTMENT 1', null, '', null, null, null), ('6', '5', 'ko', 'istay serviced apartment 1 korea', null, '', 'meta istay serviced apartment 1 korea', 'description istay serviced apartment 1 korea', null), ('7', '5', 'vi', 'Khach san istay1', null, '', 'title Khach san istay1', 'desc Khach san istay1', null);
+INSERT INTO `article_content` VALUES ('1', '1', 'en', 'Istay Services Apartment 1', null, '', 'Meta title', 'meta desc', null), ('2', '2', 'en', 'Room 1 - istay1', null, '', null, null, null), ('3', '3', 'en', 'Room 2 istay 1', null, '', null, null, null), ('4', '4', 'en', 'Room 3 - istay1', null, '', null, null, null), ('5', '5', 'en', 'Istay Services Apartment 2', null, '', null, null, null);
 COMMIT;
 
 -- ----------------------------
@@ -73,7 +73,7 @@ CREATE TABLE `article_services` (
 --  Records of `article_services`
 -- ----------------------------
 BEGIN;
-INSERT INTO `article_services` VALUES ('5', '1'), ('5', '2'), ('5', '3'), ('5', '4'), ('5', '5'), ('5', '6'), ('5', '7'), ('5', '8');
+INSERT INTO `article_services` VALUES ('1', '1'), ('1', '2'), ('1', '3'), ('1', '4'), ('1', '5'), ('1', '6'), ('1', '7'), ('1', '8'), ('5', '1'), ('5', '2'), ('5', '4'), ('5', '6'), ('5', '7'), ('5', '8');
 COMMIT;
 
 -- ----------------------------
@@ -86,6 +86,7 @@ CREATE TABLE `articles` (
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` int(11) NOT NULL,
   `view` int(11) NOT NULL DEFAULT '0',
+  `parent_id` int(10) unsigned DEFAULT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `system_link_type_id` tinyint(4) NOT NULL,
   `landing_type` tinyint(4) DEFAULT NULL COMMENT '1.istay 2.room',
@@ -94,7 +95,9 @@ CREATE TABLE `articles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `articles_slug_unique` (`slug`),
+  KEY `articles_parent_id_foreign` (`parent_id`),
   KEY `articles_user_id_foreign` (`user_id`),
+  CONSTRAINT `articles_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `articles` (`id`) ON DELETE CASCADE,
   CONSTRAINT `articles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -102,7 +105,7 @@ CREATE TABLE `articles` (
 --  Records of `articles`
 -- ----------------------------
 BEGIN;
-INSERT INTO `articles` VALUES ('5', 'istay-serviced-apartment-1', '/uploads/posts/2018/11/20181101230049-7.jpg', '0', '0', '1', '4', '1', '1', '2018-11-01 23:00:49', '2018-11-01 23:00:49');
+INSERT INTO `articles` VALUES ('1', 'istay-services-apartment-1', '/uploads/posts/2018/11/20181103080014-7.jpg', '0', '0', null, '1', '4', '1', '1', '2018-11-02 20:57:30', '2018-11-03 08:00:47'), ('2', 'room-1-istay1', '/uploads/posts/2018/11/20181102211033-2.jpg', '244', '0', '1', '1', '4', '2', '1', '2018-11-02 21:10:33', '2018-11-02 21:10:33'), ('3', 'room-2-istay-1', '/uploads/posts/2018/11/20181102212541-4.jpg', '300', '0', '1', '1', '4', '2', '1', '2018-11-02 21:25:41', '2018-11-02 21:25:41'), ('4', 'room-3-istay1', '/uploads/posts/2018/11/20181102212714-3.jpg', '350', '0', '1', '1', '4', '2', '1', '2018-11-02 21:27:14', '2018-11-02 21:27:14'), ('5', 'istay-services-apartment-2', '/uploads/posts/2018/11/20181103080340-3.jpg', '0', '0', null, '1', '4', '1', '1', '2018-11-03 08:03:40', '2018-11-03 08:03:40');
 COMMIT;
 
 -- ----------------------------
@@ -155,7 +158,14 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`id`),
   KEY `comment_user_id_foreign` (`user_id`),
   CONSTRAINT `comment_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+--  Records of `comment`
+-- ----------------------------
+BEGIN;
+INSERT INTO `comment` VALUES ('1', '1', '2018-11-03 07:15:06', '2018-11-03 07:15:06'), ('2', '1', '2018-11-03 07:15:18', '2018-11-03 07:15:18'), ('3', '1', '2018-11-03 07:15:40', '2018-11-03 07:15:40'), ('4', '1', '2018-11-03 07:16:00', '2018-11-03 07:16:00');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `comment_content`
@@ -171,7 +181,14 @@ CREATE TABLE `comment_content` (
   PRIMARY KEY (`id`),
   KEY `comment_content_comment_id_foreign` (`comment_id`),
   CONSTRAINT `comment_content_comment_id_foreign` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+--  Records of `comment_content`
+-- ----------------------------
+BEGIN;
+INSERT INTO `comment_content` VALUES ('1', 'en', '1', 'Mary Leona', '/uploads/comment/2018/11/20181103071506-1.jpg', 'In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mimagna. Etiam suscipit commodo gravida. Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.'), ('2', 'en', '2', 'Harry Potter', '/uploads/comment/2018/11/20181103071518-2.jpg', 'In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mimagna. Etiam suscipit commodo gravida. Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.'), ('3', 'en', '3', 'Lione Messi', '/uploads/comment/2018/11/20181103071540-4.jpg', 'In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mimagna. Etiam suscipit commodo gravida. Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.'), ('4', 'en', '4', 'Herrmione', '/uploads/comment/2018/11/20181103071600-2.jpg', 'In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mimagna. Etiam suscipit commodo gravida. Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `contact`
@@ -236,13 +253,13 @@ CREATE TABLE `menu_system` (
   `show` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1,2',
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 --  Records of `menu_system`
 -- ----------------------------
 BEGIN;
-INSERT INTO `menu_system` VALUES ('1', 'Category', 'icon-grid', 'category', '0', '0', '1,2', '1'), ('2', 'Create Category', 'icon-plus', 'category.create', '1', '1', '1,2', '1'), ('3', 'All Category', 'icon-list', 'category.index', '1', '2', '1,2', '1'), ('4', 'Post', 'icon-book-open', 'post', '0', '1', '1,2', '1'), ('5', 'Create Post', 'icon-plus', 'post.create', '4', '1', '1,2', '1'), ('6', 'All Posts', 'icon-list', 'post.index', '4', '2', '1,2', '1'), ('7', 'Page', 'icon-notebook', 'page', '0', '2', '1,2', '1'), ('8', 'Create Page', 'icon-plus', 'page.create', '7', '1', '1,2', '1'), ('9', 'Create iStay', 'icon-note', 'page.landing', '7', '1', '1,2', '1'), ('10', 'Create Room', 'icon-note', 'page.room', '7', '1', '1,2', '1'), ('11', 'All Pages', 'icon-list', 'page.index', '7', '2', '1,2', '1'), ('12', 'Users', 'icon-user', 'user', '0', '6', '1', '1'), ('13', 'Create User', 'icon-user-follow', 'user.create', '12', '1', '1', '1'), ('14', 'All User', 'icon-users', 'user.index', '12', '2', '1', '1'), ('15', 'Themes', 'icon-globe', 'setting', '0', '7', '1,2', '1'), ('16', 'Menu', 'icon-diamond', 'setting.menu', '15', '1', '1,2', '1'), ('17', 'Setting', 'icon-settings', 'setting.index', '15', '2', '1,2', '1'), ('18', 'Comment', 'icon-globe', 'comment', '0', '3', '1,2', '1'), ('19', 'Create comment', 'icon-plus', 'comment.create', '18', '1', '1,2', '1'), ('20', 'All', 'icon-list', 'comment.index', '18', '2', '1,2', '1'), ('21', 'Services', 'icon-globe', 'services', '0', '4', '1,2', '1'), ('22', 'Create Services', 'icon-plus', 'services.create', '21', '1', '1,2', '1'), ('23', 'All', 'icon-list', 'services.index', '21', '2', '1,2', '1'), ('24', 'Contact', 'icon-globe', 'contact.index', '0', '5', '1,2', '1');
+INSERT INTO `menu_system` VALUES ('1', 'Category', 'icon-grid', 'category', '0', '0', '1,2', '1'), ('2', 'Create Category', 'icon-plus', 'category.create', '1', '1', '1,2', '1'), ('3', 'All Category', 'icon-list', 'category.index', '1', '2', '1,2', '1'), ('4', 'Post', 'icon-book-open', 'post', '0', '1', '1,2', '1'), ('5', 'Create Post', 'icon-plus', 'post.create', '4', '1', '1,2', '1'), ('6', 'All Posts', 'icon-list', 'post.index', '4', '2', '1,2', '1'), ('7', 'Page', 'icon-notebook', 'page', '0', '2', '1,2', '1'), ('8', 'Create Page', 'icon-plus', 'page.create', '7', '1', '1,2', '1'), ('9', 'Create iStay', 'icon-note', 'page.landing', '7', '1', '1,2', '1'), ('10', 'Create Room', 'icon-note', 'page.room', '7', '1', '1,2', '1'), ('11', 'All Pages', 'icon-list', 'page.index', '7', '2', '1,2', '1'), ('12', 'Users', 'icon-user', 'user', '0', '6', '1', '1'), ('13', 'Create User', 'icon-user-follow', 'user.create', '12', '1', '1', '1'), ('14', 'All User', 'icon-users', 'user.index', '12', '2', '1', '1'), ('15', 'Themes', 'icon-globe', 'setting', '0', '7', '1,2', '1'), ('16', 'Menu', 'icon-diamond', 'setting.menu', '15', '1', '1,2', '0'), ('17', 'Setting English', 'icon-settings', 'setting.index', '15', '2', '1,2', '1'), ('18', 'Comment', 'icon-bubble', 'comment', '0', '3', '1,2', '1'), ('19', 'Create comment', 'icon-plus', 'comment.create', '18', '1', '1,2', '1'), ('20', 'All', 'icon-list', 'comment.index', '18', '2', '1,2', '1'), ('21', 'Services', 'icon-badge', 'services', '0', '4', '1,2', '1'), ('22', 'Create Services', 'icon-plus', 'services.create', '21', '1', '1,2', '1'), ('23', 'All', 'icon-list', 'services.index', '21', '2', '1,2', '1'), ('24', 'Contact', 'icon-envelope-open', 'contact.index', '0', '5', '1,2', '1'), ('25', 'Setting Korea', 'icon-settings', 'setting.korea', '15', '3', '1,2', '1'), ('26', 'Setting VN', 'icon-settings', 'setting.vietnam', '15', '4', '1,2', '1');
 COMMIT;
 
 -- ----------------------------
@@ -257,13 +274,13 @@ CREATE TABLE `meta_field` (
   PRIMARY KEY (`id`),
   KEY `meta_field_article_content_id_foreign` (`article_content_id`),
   CONSTRAINT `meta_field_article_content_id_foreign` FOREIGN KEY (`article_content_id`) REFERENCES `article_content` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 --  Records of `meta_field`
 -- ----------------------------
 BEGIN;
-INSERT INTO `meta_field` VALUES ('6', 'range-price', '100 - 200$', '5'), ('7', 'address', '0981688118', '5'), ('8', 'overview-title', 'Overview', '5'), ('9', 'overview-content', 'Located in the central business district and crowded residential area of The Manor, Me Tri - My Dinh, Istay 1 Serviced Apartment is always an ideal stopover for your vacation and business trip in Hanoi. Located in a prime location, with luxury furnitures and friendly staffs, Istay 1 Serviced Apeartment offers a comfortable living space like in your own home.\r\nIstay 1 offers serviced apartments with an area of 25m2 to 45m2, at reasonable rents ranging from $400 - $620 per month, $25 - $30 per day.', '5'), ('10', 'feature-heading', 'Features', '5'), ('11', 'about1-title', 'iStay  Bath', '5'), ('12', 'about1-description', 'Towel wamer and fog- free mirrors.\r\nIstay toiletries', '5'), ('13', 'about2-title', 'iStay Sleep', '5'), ('14', 'about2-description', 'Blanket and drap Everon Korea\r\nFeather down pillows\r\nPremier simmons mattress Everon Korea\r\nBaby soft slippers', '5'), ('15', 'gallery-heading', 'Gallery', '5'), ('16', 'gallery-image-1', '/uploads/fields/2018/11/20181101230049-1.jpg', '5'), ('17', 'gallery-image-4', '/uploads/fields/2018/11/20181101230049-5.jpg', '5'), ('18', 'gallery-image-2', '/uploads/fields/2018/11/20181101230049-2.jpg', '5'), ('19', 'gallery-image-5', '/uploads/fields/2018/11/20181101230049-5.jpg', '5'), ('20', 'gallery-image-3', '/uploads/fields/2018/11/20181101230049-3.jpg', '5'), ('21', 'gallery-image-6', '/uploads/fields/2018/11/20181101230049-6.jpg', '5'), ('25', 'range-price', '도와주세요', '6'), ('26', 'overview-title', '안녕하새요!', '6'), ('27', 'overview-content', '당신의 전화기를 빌릴수 있을까요?당신의 전화기를 빌릴수 있을까요?당신의 전화기를 빌릴수 있을까요?당신의 전화기를 빌릴수 있을까요?당신의 전화기를 빌릴수 있을까요?\r\n당신의 전화기를 빌릴수 있을까요?당신의 전화기를 빌릴수 있을까요?당신의 전화기를 빌릴수 있을까요?', '6'), ('28', 'feature-heading', '도와주세요', '6'), ('29', 'about1-title', '대사관이 어디에 있어요?', '6'), ('30', 'about1-description', '지갑을 잃어 버렸어요 지갑을 잃어 버렸어요지갑을 잃어 버렸어요지갑을 잃어 버렸어요지갑을 잃어 버렸어요', '6'), ('31', 'about2-title', '대사관이 어디에 있어요?', '6'), ('32', 'about2-description', '지갑을 잃어 버렸어요 지갑을 잃어 버렸어요지갑을 잃어 버렸어요지갑을 잃어 버렸어요지갑을 잃어 버렸어요', '6'), ('33', 'about3-title', '대사관이 어디에 있어요?', '6'), ('34', 'about3-description', '지갑을 잃어 버렸어요 지갑을 잃어 버렸어요지갑을 잃어 버렸어요지갑을 잃어 버렸어요지갑을 잃어 버렸어요', '6'), ('35', 'about4-title', '대사관이 어디에 있어요?', '6'), ('36', 'about4-description', '지갑을 잃어 버렸어요 지갑을 잃어 버렸어요지갑을 잃어 버렸어요지갑을 잃어 버렸어요지갑을 잃어 버렸어요', '6'), ('37', 'gallery-heading', '물 좀 주세요', '6'), ('38', 'range-price', '5tr - 10tr', '7'), ('39', 'overview-title', 'Overview Title vn', '7'), ('40', 'overview-content', 'Overview Content vn', '7'), ('41', 'feature-heading', 'heading vn', '7'), ('42', 'gallery-heading', 'Gallery Heading vn', '7');
+INSERT INTO `meta_field` VALUES ('1', 'range-price', '100$ - 200$', '1'), ('2', 'address', 'No.32, Lane 2, Tran Van Lai Str., Nam Tu Liem dtr., Hanoi', '1'), ('3', 'hotline', '098 168 8118', '1'), ('4', 'google-map', 'Google Map', '1'), ('5', 'overview-title', 'Overview Title', '1'), ('6', 'overview-content', 'Overview Content', '1'), ('7', 'feature-heading', 'Feature Heading', '1'), ('8', 'about1-title', 'About Title 1', '1'), ('9', 'about1-description', 'About Description 1', '1'), ('10', 'about2-title', 'About Title 2', '1'), ('11', 'about2-description', 'About Description 2', '1'), ('12', 'gallery-heading', 'Gallery Heading', '1'), ('13', 'gallery-image-1', '/uploads/fields/2018/11/20181102205730-6.jpg', '1'), ('14', 'gallery-image-4', '/uploads/fields/2018/11/20181102205730-3.jpg', '1'), ('15', 'gallery-image-2', '/uploads/fields/2018/11/20181102205730-1.jpg', '1'), ('16', 'gallery-image-5', '/uploads/fields/2018/11/20181102205730-4.jpg', '1'), ('17', 'gallery-image-3', '/uploads/fields/2018/11/20181102205730-2.jpg', '1'), ('18', 'gallery-image-6', '/uploads/fields/2018/11/20181102205730-5.jpg', '1'), ('19', 'overview-title', 'Overview Title room 1', '2'), ('20', 'overview-content', 'Overview Content room 1', '2'), ('21', 'about1-title', 'About Title 1 room 1', '2'), ('22', 'about1-description', 'About Description 1 room 1', '2'), ('23', 'gallery-heading', 'Gallery Heading room 1', '2'), ('24', 'gallery-image-1', '/uploads/fields/2018/11/20181102211033-9.jpg', '2'), ('25', 'gallery-image-4', '/uploads/fields/2018/11/20181102211033-6.jpg', '2'), ('26', 'gallery-image-2', '/uploads/fields/2018/11/20181102211033-8.jpg', '2'), ('27', 'gallery-image-5', '/uploads/fields/2018/11/20181102211033-5.jpg', '2'), ('28', 'gallery-image-3', '/uploads/fields/2018/11/20181102211033-7.jpg', '2'), ('29', 'gallery-image-6', '/uploads/fields/2018/11/20181102211033-4.jpg', '2'), ('30', 'gallery-heading', 'Gallery Heading room 2', '3'), ('31', 'gallery-image-1', '/uploads/fields/2018/11/20181102212541-1.jpg', '3'), ('32', 'gallery-image-4', '/uploads/fields/2018/11/20181102212541-4.jpg', '3'), ('33', 'gallery-image-2', '/uploads/fields/2018/11/20181102212541-2.jpg', '3'), ('34', 'gallery-image-5', '/uploads/fields/2018/11/20181102212541-5.jpg', '3'), ('35', 'gallery-image-3', '/uploads/fields/2018/11/20181102212541-3.jpg', '3'), ('36', 'gallery-image-6', '/uploads/fields/2018/11/20181102212541-7.jpg', '3'), ('37', 'gallery-heading', 'Gallery Heading 3', '4'), ('38', 'gallery-image-1', '/uploads/fields/2018/11/20181102212714-5.jpg', '4'), ('39', 'gallery-image-2', '/uploads/fields/2018/11/20181102212714-8.jpg', '4'), ('40', 'gallery-image-3', '/uploads/fields/2018/11/20181102212714-6.jpg', '4'), ('41', 'range-price', '200 - 300$', '5'), ('42', 'address', 'Add: No.12 alley 39 Dinh Thon, My Dinh, Nam Tu Liem', '5'), ('43', 'hotline', '0981688118', '5'), ('44', 'feature-heading', 'Feature Heading', '5'), ('45', 'about1-title', 'About Title 1', '5'), ('46', 'about1-description', 'About Description 1', '5'), ('47', 'gallery-heading', 'Gallery Heading', '5'), ('48', 'gallery-image-1', '/uploads/fields/2018/11/20181103080340-1.jpg', '5'), ('49', 'gallery-image-4', '/uploads/fields/2018/11/20181103080340-4.jpg', '5'), ('50', 'gallery-image-2', '/uploads/fields/2018/11/20181103080340-2.jpg', '5'), ('51', 'gallery-image-5', '/uploads/fields/2018/11/20181103080340-5.jpg', '5'), ('52', 'gallery-image-3', '/uploads/fields/2018/11/20181103080340-3.jpg', '5'), ('53', 'gallery-image-6', '/uploads/fields/2018/11/20181103080340-8.jpg', '5');
 COMMIT;
 
 -- ----------------------------
@@ -275,13 +292,13 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=225 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 --  Records of `migrations`
 -- ----------------------------
 BEGIN;
-INSERT INTO `migrations` VALUES ('177', '2014_10_12_000000_create_users_table', '1'), ('178', '2014_10_12_100000_create_password_resets_table', '1'), ('179', '2016_06_01_000001_create_oauth_auth_codes_table', '1'), ('180', '2016_06_01_000002_create_oauth_access_tokens_table', '1'), ('181', '2016_06_01_000003_create_oauth_refresh_tokens_table', '1'), ('182', '2016_06_01_000004_create_oauth_clients_table', '1'), ('183', '2016_06_01_000005_create_oauth_personal_access_clients_table', '1'), ('184', '2017_08_16_045421_create_menu_system_table', '1'), ('185', '2017_09_10_220943_create_articles_table', '1'), ('186', '2017_09_10_221006_create_category_table', '1'), ('187', '2017_09_10_221017_create_article_category_table', '1'), ('188', '2017_09_24_212525_create_menu_table', '1'), ('189', '2017_09_24_214045_create_menu_group_table', '1'), ('190', '2017_11_13_074422_create_options_table', '1'), ('191', '2018_08_09_042738_create_system_link_type_table', '1'), ('192', '2018_10_21_021921_create_article_content_table', '1'), ('193', '2018_10_21_022942_create_category_content_table', '1'), ('194', '2018_10_22_224317_create_meta_field_table', '1'), ('195', '2018_10_29_021127_create_comment_table', '1'), ('196', '2018_10_29_021152_create_comment_content_table', '1'), ('197', '2018_10_29_021230_create_services_table', '1'), ('198', '2018_10_29_021250_create_services_content_table', '1'), ('199', '2018_10_29_022115_create_contact_table', '1'), ('200', '2018_11_01_202932_create_article_services_table', '1');
+INSERT INTO `migrations` VALUES ('201', '2014_10_12_000000_create_users_table', '1'), ('202', '2014_10_12_100000_create_password_resets_table', '1'), ('203', '2016_06_01_000001_create_oauth_auth_codes_table', '1'), ('204', '2016_06_01_000002_create_oauth_access_tokens_table', '1'), ('205', '2016_06_01_000003_create_oauth_refresh_tokens_table', '1'), ('206', '2016_06_01_000004_create_oauth_clients_table', '1'), ('207', '2016_06_01_000005_create_oauth_personal_access_clients_table', '1'), ('208', '2017_08_16_045421_create_menu_system_table', '1'), ('209', '2017_09_10_220943_create_articles_table', '1'), ('210', '2017_09_10_221006_create_category_table', '1'), ('211', '2017_09_10_221017_create_article_category_table', '1'), ('212', '2017_09_24_212525_create_menu_table', '1'), ('213', '2017_09_24_214045_create_menu_group_table', '1'), ('214', '2017_11_13_074422_create_options_table', '1'), ('215', '2018_08_09_042738_create_system_link_type_table', '1'), ('216', '2018_10_21_021921_create_article_content_table', '1'), ('217', '2018_10_21_022942_create_category_content_table', '1'), ('218', '2018_10_22_224317_create_meta_field_table', '1'), ('219', '2018_10_29_021127_create_comment_table', '1'), ('220', '2018_10_29_021152_create_comment_content_table', '1'), ('221', '2018_10_29_021230_create_services_table', '1'), ('222', '2018_10_29_021250_create_services_content_table', '1'), ('223', '2018_10_29_022115_create_contact_table', '1'), ('224', '2018_11_01_202932_create_article_services_table', '1');
 COMMIT;
 
 -- ----------------------------
@@ -369,8 +386,16 @@ CREATE TABLE `options` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+--  Records of `options`
+-- ----------------------------
+BEGIN;
+INSERT INTO `options` VALUES ('2', 'hotline', '0981688118', 'en'), ('3', 'email', 'contact@isay.vn', 'en'), ('4', 'company_name', 'iStay Hotel Apartment', 'en'), ('5', 'company_description', 'Istay Serviced Apartment - High quality serviced apartment, customised to suit the needs and distinct tastes of today’s modern travellers, \r\nand have been a market leader in developing and operating innovative urban living spaces in Hanoi since 2016.\r\n\r\niStay1: No.34 alley 2 Tran Van Lai, My Dinh 1, Nam Tu Liem\r\niStay2: No.12 alley 39 Dinh Thon, My Dinh, Nam Tu Liem\r\niStay3: No.156 Dinh Thon, My Dinh 1, Nam Tu Liem\r\niStay5: No.45 alley 4 Dong Me street, Me Tri, Nam Tu Liem\r\niStay6: No. 3 alley 148 Tran Duy Hung, Cau Giay\r\nEmail: info@istay.vn', 'en'), ('6', 'meta_title', 'He thong khach san istay', 'en'), ('7', 'meta_description', 'He thong khach san istay', 'en'), ('8', 'promotion_heading', 'The owner of the hotel or business ?', 'en'), ('9', 'promotion_description', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar.', 'en'), ('10', 'promotion_booking_label', 'Booking now', 'en'), ('11', 'company_logo', '/uploads/setting/2018/11/20181103032317-xuyen-1-1.png', 'en'), ('12', 'search_heading', 'EasyBook Hotel Booking System', 'en'), ('13', 'search_description', 'Let\'s start exploring the world together with EasyBook', 'en'), ('14', 'search_when_label', 'When', 'en'), ('15', 'search_where_label', 'Where', 'en'), ('16', 'search_label_direct', 'Search', 'en'), ('17', 'about_heading', 'About iStay Services Apartment', 'en'), ('18', 'about_description', 'Istay Serviced Apartment - High quality serviced apartment,  customised to suit the needs and distinct tastes of today’s modern travellers, \r\nand have been a market leader in developing and operating innovative urban living spaces in Hanoi since 2016.', 'en'), ('19', 'comment_heading', 'Feedback', 'en'), ('20', 'comment_description', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar.', 'en'), ('21', 'promotion_background', '/uploads/setting/2018/11/20181103033001-14.jpg', 'en'), ('22', 'search_background', '/uploads/setting/2018/11/20181103033001-22.jpg', 'en'), ('23', 'hotline', '0981.645.688', 'vi'), ('24', 'email', 'hungnv234@gmail.com', 'vi'), ('25', 'company_name', 'Công ty test', 'vi'), ('26', 'company_description', 'desc test', 'vi'), ('27', 'meta_title', 'Công ty test', 'vi'), ('28', 'meta_description', 'Công ty test', 'vi'), ('29', 'promotion_heading', 'Khuyến mại hấp dẫn tháng 12', 'vi'), ('30', 'promotion_description', 'Đăng ký ngay để nhận được chuyến du lịch miễn phí', 'vi');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `password_resets`
@@ -468,7 +493,7 @@ CREATE TABLE `users` (
 --  Records of `users`
 -- ----------------------------
 BEGIN;
-INSERT INTO `users` VALUES ('1', 'hung.nguyen', 'admin', '$2y$10$Zd2SjvmZF.CczZHX1iFWieypPXXUvoElECHcn3Lg9VhrxQ3LltB3K', '1', null, null, null);
+INSERT INTO `users` VALUES ('1', 'hung.nguyen', 'admin', '$2y$10$Rs2F8rk3erptBEnoGPCiMe8ciwCFrKC6CVLapx/p3ex5PcSunx0tG', '1', null, null, null);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

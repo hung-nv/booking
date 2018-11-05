@@ -11,6 +11,8 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('search', ['as' => 'article.list', 'uses' => 'ArticleController@index']);
 
     Route::get('room/{room}', ['as' => 'article.details', 'uses' => 'ArticleController@details']);
+
+    Route::get('istay/{istay}', ['as' => 'article.istay', 'uses' => 'ArticleController@istay']);
 });
 
 Route::group(['prefix' => 'administrator', 'namespace' => 'Backend'], function () {

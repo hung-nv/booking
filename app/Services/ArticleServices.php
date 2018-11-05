@@ -80,6 +80,33 @@ class ArticleServices
         return $rooms;
     }
 
+    public function getInformationRoom($room, $lang)
+    {
+        $roomInformation = Article::findRoom($room, $lang)->toArray();
+
+        $roomOption = MetaField::getDataLandingById($roomInformation['id'])->toArray();
+
+        $roomDetails = array_merge($roomInformation, $roomOption);
+
+        return $roomDetails;
+    }
+
+    public function getInformationIstayById($istayId, $lang)
+    {
+        $istayInformation = Article::findIstayInformation($istayId, $lang)->toArray();
+
+        $iStayOption = MetaField::getDataLandingById($istayId)->toArray();
+
+        $istayDetails = array_merge($istayInformation, $iStayOption);
+
+        return $istayDetails;
+    }
+
+    public function getServicesByIstay($istayId, $lang)
+    {
+        return Services::getServices($istayId, $lang);
+    }
+
     /**
      * Get index posts.
      * @param $request
