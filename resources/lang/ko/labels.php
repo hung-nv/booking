@@ -11,5 +11,8 @@ return [
     'your_name' => 'Your Name',
     'mobile' => 'Mobile',
     'similar_room' => 'Similar Rooms',
-    'book_now' => 'Book Now'
+    'book_now' => 'Book Now',
+    'available_rooms' => 'Available Rooms',
+    'view_gallery' => 'View Gallery',
+    'photos' => 'Photos'
 ];

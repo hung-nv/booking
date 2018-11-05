@@ -118,9 +118,24 @@ class ArticleServices
         return Services::getServices($istayId, $lang);
     }
 
-    public function getSimilarRooms($istayId, $lang, $roomId = null)
+    public function getSimilarRooms($istayId, $lang, $roomIds = [])
     {
-        return Article::getSimilarRooms($istayId, $lang, $roomId);
+        return Article::getSimilarRooms($istayId, $lang, $roomIds);
+    }
+
+    public function getRoomsWithOptions($istayId, $lang)
+    {
+        $result = [];
+
+        $rooms = Article::getSimilarRooms($istayId, $lang)->toArray();
+
+        foreach ($rooms as $room) {
+            $roomOption = MetaField::getDataLandingById($room['id'])->toArray();
+
+            $result[] = array_merge($room, $roomOption);
+        }
+
+        return $result;
     }
 
     /**

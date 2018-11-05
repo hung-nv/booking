@@ -263,7 +263,7 @@ class Article extends \Eloquent
             ->first();
     }
 
-    public static function getSimilarRooms($istayId, $lang, $exceptRoomId = null)
+    public static function getSimilarRooms($istayId, $lang, $exceptRoomId = [])
     {
         $model = self::select([
             'a.*',
@@ -280,7 +280,7 @@ class Article extends \Eloquent
             ->where('b.landing_type', self::ROOM_TYPE);
 
         if($exceptRoomId) {
-            $model->where('a.id', '<>', $exceptRoomId);
+            $model->whereNotIn('a.id', $exceptRoomId);
         }
 
         return $model->get();

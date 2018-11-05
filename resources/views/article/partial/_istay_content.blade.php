@@ -76,29 +76,33 @@
         </div>
 
 
-        @if($similarRooms)
+        @if($roomsAvailable)
             <div class="list-single-main-item fl-wrap" id="sec4">
                 <div class="list-single-main-item-title fl-wrap">
-                    <h3>Available Rooms</h3>
+                    <h3>{{ trans('labels.available_rooms') }}</h3>
                 </div>
                 <div class="rooms-container fl-wrap">
-                    @foreach($similarRooms as $room)
+                    @foreach($roomsAvailable as $room)
                         <div class="rooms-item fl-wrap">
                             <div class="rooms-media">
-                                <img src="/images/gal/5.jpg" alt="">
+                                <img src="{{ $room['image'] }}" alt="">
                                 <div class="dynamic-gal more-photos-button"
-                                     data-dynamicPath="[{'src': 'images/gal/slider/1.jpg'}, {'src': 'images/gal/slider/2.jpg'},{'src': 'images/gal/slider/3.jpg'}]">
-                                    View Gallery <span>3 photos</span> <i class="far fa-long-arrow-right"></i></div>
+                                     data-dynamicPath="[{'src': '{{ $room['gallery-image-1'] }}'}, {'src': '{{ $room['gallery-image-2'] }}'},{'src': '{{ $room['gallery-image-3'] }}'}]">
+                                    {{ trans('labels.view_gallery') }} <span>3 {{ trans('labels.photos') }}</span> <i class="far fa-long-arrow-right"></i></div>
                             </div>
                             <div class="rooms-details">
                                 <div class="rooms-details-header fl-wrap">
-                                    <span class="rooms-price">${{ $room->price }}</span>
-                                    <h3>{{ $room->name }}</h3>
+                                    <span class="rooms-price">${{ $room['price'] }}</span>
+                                    <h3>{{ $room['name'] }}</h3>
                                 </div>
-                                <p>Morbi varius, nulla sit amet rutrum elementum, est elit finibus tellus, ut tristique
-                                    elit risus at metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <p>
+                                    @if(!empty($room['overview-content']))
+                                        {!! str_replace("\n", "<br />", str_limit($room['overview-content'], 150)) !!}
+                                    @endif
+                                </p>
                                 <div class="facilities-list fl-wrap">
-                                    <a href="{{ route('article.details', ['room' => $room->slug, 'lang' => $lang]) }}" class="btn color-bg ajax-link">
+                                    <a href="{{ route('article.details', ['room' => $room['slug'], 'lang' => $lang]) }}"
+                                       class="btn color-bg ajax-link">
                                         Details
                                         <i class="fas fa-caret-right"></i>
                                     </a>
