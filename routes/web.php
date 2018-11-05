@@ -13,6 +13,8 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('room/{room}', ['as' => 'article.details', 'uses' => 'ArticleController@details']);
 
     Route::get('istay/{istay}', ['as' => 'article.istay', 'uses' => 'ArticleController@istay']);
+
+    Route::post('contact/book', 'ContactController@book');
 });
 
 Route::group(['prefix' => 'administrator', 'namespace' => 'Backend'], function () {

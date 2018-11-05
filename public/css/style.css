@@ -4799,7 +4799,7 @@ article.post-article .list-single-main-item:last-child {
   border: 1px solid #eee;
   background: #F7F9FB;
   width: 100%;
-  padding: 14px 20px 14px 45px;
+  padding: 14px 20px 14px 15px;
   border-radius: 6px;
   color: #666;
   font-size: 13px;
@@ -5206,7 +5206,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .book-form .bookdate-container label i {
-  top: 42px;
+  top: 44px;
 }
 
 .book-form .bookdate-container input {
@@ -5221,6 +5221,15 @@ input[type=number]::-webkit-outer-spin-button {
 
 .book-form .book-infor input[type="text"] {
   padding-left: 15px;
+}
+
+.book-form .cal-item .error {
+  color: red;
+}
+
+.book-form .response-booking {
+  color: red;
+  font-weight: bold;
 }
 
 .bookdate-container-dayscounter {

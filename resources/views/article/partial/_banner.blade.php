@@ -22,8 +22,8 @@
                 <div class="col-md-5">
                     <div class="list-single-hero-details fl-wrap">
                         <div class="list-single-hero-links">
-                            <a class="lisd-link" href="#"><i class="fal fa-bookmark"></i> Book Now</a>
-                            <a class="custom-scroll-link lisd-link" href="#sec6"><i
+                            <a class="lisd-link" href="#sec2"><i class="fal fa-bookmark"></i> {{ trans('labels.book_now') }}</a>
+                            <a class="custom-scroll-link lisd-link hidden" href="#sec6"><i
                                         class="fal fa-comment-alt-check"></i> On The Map</a>
                         </div>
                     </div>

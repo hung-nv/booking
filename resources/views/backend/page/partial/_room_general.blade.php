@@ -49,7 +49,8 @@
                 <select class="form-control" name="parent_id" required>
                     <option value="">Select iStay...</option>
                     @foreach($istays as $istay)
-                        <option value="{{ $istay->id }}">{{ $istay->name }}</option>
+                        <option value="{{ $istay->id }}"
+                                @if($page->article->parent_id === $istay->id) selected @endif>{{ $istay->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -57,7 +58,7 @@
             <div class="form-group">
                 <label>Price</label>
                 <input type="number" name="price" class="form-control"
-                       value="{{ $page->price or old('price') }}"/>
+                       value="{{ $page->article->price or old('price') }}"/>
             </div>
 
             @if ($lang === 'en' || (!empty($page) && $page->lang === 'en'))

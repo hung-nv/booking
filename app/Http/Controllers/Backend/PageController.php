@@ -218,9 +218,40 @@ class PageController extends Controller
         }
     }
 
-    public function editRoom(Request $request)
+    public function editRoom(Request $request, $id)
     {
+        try {
+            $dataPage = $this->articleServices->getLandingInformationById($request, $id);
 
+            $istays = $this->articleServices->getAllIstay($this->landingType);
+
+            return view('backend.page.updateRoom', [
+                'lang' => $dataPage['page']->lang,
+                'page' => $dataPage['page'],
+                'name' => $dataPage['name'],
+                'slug' => $dataPage['slug'],
+                'field' => $dataPage['dataLanding'],
+                'istays' => $istays
+            ]);
+        } catch (\Exception $exception) {
+            return abort(404);
+        }
+    }
+
+    /**
+     * Update room.
+     * @param LandingUpdate $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function updateRoom(LandingUpdate $request, $id)
+    {
+        $response = $this->articleServices->updateLanding($request, $id);
+
+        return redirect()->route('page.index')->with([
+            'success' => $response
+        ]);
     }
 
     /**

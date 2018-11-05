@@ -245,4 +245,23 @@ class Article extends \Eloquent
             ->where('b.landing_type', self::ISTAY_TYPE)
             ->first();
     }
+
+    public static function getSimilarRooms($istayId, $exceptRoomId, $lang)
+    {
+        return self::select([
+            'a.*',
+            'b.price',
+            'b.slug',
+            'b.image'
+        ])
+            ->from('article_content AS a')
+            ->join('articles AS b', function ($join) {
+                $join->on('a.article_id', '=', 'b.id');
+            })
+            ->where('a.id', '<>', $exceptRoomId)
+            ->where('b.parent_id', $istayId)
+            ->where('a.lang', $lang)
+            ->where('b.landing_type', self::ROOM_TYPE)
+            ->get();
+    }
 }

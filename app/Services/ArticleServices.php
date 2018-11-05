@@ -107,6 +107,11 @@ class ArticleServices
         return Services::getServices($istayId, $lang);
     }
 
+    public function getSimilarRooms($istayId, $roomId, $lang)
+    {
+        return Article::getSimilarRooms($istayId, $roomId, $lang);
+    }
+
     /**
      * Get index posts.
      * @param $request

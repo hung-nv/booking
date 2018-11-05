@@ -7,14 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="robots" content="all">
+    <meta name="_token" content="{!! csrf_token() !!}"/>
     <title>Hệ thống khách sạn iStay</title>
 
     <link rel="stylesheet" href="{{ asset('/css/reset.css') }}">
 
     <link rel="stylesheet" href="{{ asset('/css/plugins.css') }}">
     <!-- Bootstrap Core CSS -->
-{{--<link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">--}}
-<!-- Icons/Glyphs -->
+{{--    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">--}}
+    <!-- Icons/Glyphs -->
     {{--<link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">--}}
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
@@ -35,8 +36,9 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="{{ asset('/js/lodash.js') }}"></script>
 <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/js/lodash.js') }}"></script>
+<script src="{{ asset('/js/jquery.validate.min.js') }}"></script>
 {{--<script src="{{ asset('/js/owl.carousel.min.js') }}"></script>--}}
 {{--<script src="{{ asset('/js/bootstrap-slider.min.js') }}"></script>--}}
 {{--<script src="{{ asset('/js/bootstrap-select.min.js') }}"></script>--}}

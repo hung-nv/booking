@@ -1,9 +1,10 @@
 $(function () {
-    var inputDaterange = $('input[name="stay_when"]');
+    var inputDaterange = $('input[name="stay_when"], input[name="bookdates"]');
     var pageHome = $('#homepage');
     var pageSearch = $('#search');
     var btnSearch = $('.main-search-button, .header-search-button');
     var inputRangeSlider = $('.range-slider');
+    var btnBookNow = $('#book-room');
 
     inputDaterange.daterangepicker({
         autoUpdateInput: false
@@ -86,6 +87,54 @@ $(function () {
             }
 
             window.location.href = '/search?' + $.param(params);
+        });
+    }
+
+    if (btnBookNow.length) {
+        var formBook = $('.book-form'),
+            inputDateRange = $('input[name="bookdates"]');
+        inputNumberAdult = $('input[name="qty3"]'),
+            inputNumberChild = $('input[name="qty2"]'),
+            inputEmail = $('input[name="email"]'),
+            inputName = $('input[name="name"]'),
+            inputMobile = $('input[name="mobile"]');
+
+        formBook.validate({
+            rules: {
+                bookdates: 'required',
+                name: "required",
+                email: "email",
+                mobile: {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 11,
+                    digits: true
+                }
+            }
+        });
+
+        btnBookNow.on('click', function (e) {
+            e.preventDefault();
+
+            if (formBook.valid()) {
+                $.ajax({
+                    url: '/contact/book',
+                    method: 'post',
+                    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')},
+                    data: {
+                        date: inputDateRange.val(),
+                        numberAdult: inputNumberAdult.val(),
+                        numberChild: inputNumberChild.val(),
+                        email: inputEmail.val(),
+                        name: inputName.val(),
+                        mobile: inputMobile.val()
+                    }
+                }).done(respon => {
+                    $('.response-booking').text(respon);
+                }).fail(xhr => {
+                    $('.response-booking').text('Something wrong. Please try again');
+                });
+            }
         });
     }
 

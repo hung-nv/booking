@@ -57,6 +57,8 @@ class ArticleController extends Controller
 
         $services = $this->articleServices->getServicesByIstay($room['parent_id'], $lang);
 
+        $similarRooms = $this->articleServices->getSimilarRooms($room['parent_id'], $room['id'], $lang);
+
         if (!$room) {
             return redirect('/');
         }
@@ -64,7 +66,8 @@ class ArticleController extends Controller
         return view('article.details', [
             'room' => $room,
             'istay' => $istay,
-            'services' => $services
+            'services' => $services,
+            'similarRooms' => $similarRooms
         ]);
     }
 
