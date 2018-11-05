@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('title')
+    {{ $option['meta_title'] or '' }}
+@endsection
+
+@section('description')
+    {{ $option['meta_description'] or '' }}
+@endsection
+
 @section('pageId', 'search')
 
 @section('content')

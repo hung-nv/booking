@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('title')
+    {{ $istay['meta_title'] or $istay['name'] }}
+@endsection
+
+@section('description')
+    {{ $istay['meta_description'] or '' }}
+@endsection
+
 @section('content')
     <div class="content">
         @include('article.partial._banner_istay')

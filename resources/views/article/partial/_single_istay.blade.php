@@ -5,9 +5,7 @@
 
             <div class="col-md-4">
                 <div class="box-widget-wrap">
-                    @include('article.partial._book_form')
-
-                    {{--@include('article.partial._similar_room')--}}
+                    @include('article.partial._similar_room')
                 </div>
             </div>
         </div>

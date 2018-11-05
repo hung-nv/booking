@@ -6,12 +6,14 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-md-2 control-label">Email</label>
-        <div class="col-md-5">
-            <input type="email" name="email" class="form-control" value="{{ $option['email'] or old('email') }}"/>
+    @if($lang === config('const.lang.en.alias'))
+        <div class="form-group">
+            <label class="col-md-2 control-label">Email</label>
+            <div class="col-md-5">
+                <input type="email" name="email" class="form-control" value="{{ $option['email'] or old('email') }}"/>
+            </div>
         </div>
-    </div>
+    @endif
 
     <div class="form-group">
         <label class="col-md-2 control-label">Company Name</label>

@@ -279,10 +279,35 @@ class Article extends \Eloquent
             ->where('a.lang', $lang)
             ->where('b.landing_type', self::ROOM_TYPE);
 
-        if($exceptRoomId) {
+        if ($exceptRoomId) {
             $model->whereNotIn('a.id', $exceptRoomId);
         }
 
         return $model->get();
+    }
+
+    /**
+     * Get other rooms.
+     * @param array $exceptIds
+     * @param string $lang
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|static[]
+     */
+    public static function getOtherRooms($exceptIds, $lang)
+    {
+        return self::select([
+            'a.*',
+            'b.price',
+            'b.slug',
+            'b.image'
+        ])
+            ->from('article_content AS a')
+            ->join('articles AS b', function ($join) {
+                $join->on('a.article_id', '=', 'b.id');
+            })
+            ->whereNotIn('a.id', $exceptIds)
+            ->where('a.lang', $lang)
+            ->where('b.landing_type', self::ROOM_TYPE)
+            ->limit(6)
+            ->get();
     }
 }

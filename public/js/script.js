@@ -5,6 +5,33 @@ $(function () {
     var btnSearch = $('.main-search-button, .header-search-button');
     var inputRangeSlider = $('.range-slider');
     var btnBookNow = $('#book-room');
+    var divFlag = $('.logo-translate');
+
+    if (divFlag.length) {
+        divFlag.on('click', '.flag', function () {
+            var newLang = $(this).data('lang'),
+                currentLang = getParameterByName('lang'),
+                url = '';
+
+            if (!currentLang) {
+                currentLang = 'en';
+            }
+
+            if (newLang !== currentLang) {
+                if (_.includes(window.location.href, 'lang=' + currentLang)) {
+                    url = window.location.href.replace('lang=' + currentLang, 'lang=' + newLang);
+                } else {
+                    if (window.location.search) {
+                        url = window.location.href + '&lang=' + newLang;
+                    } else {
+                        url = window.location.href + '?lang=' + newLang;
+                    }
+                }
+
+                window.location.href = url;
+            }
+        });
+    }
 
     inputDaterange.daterangepicker({
         autoUpdateInput: false
@@ -100,12 +127,13 @@ $(function () {
 
     if (btnBookNow.length) {
         var formBook = $('.book-form'),
-            inputDateRange = $('input[name="bookdates"]');
-        inputNumberAdult = $('input[name="qty3"]'),
+            inputDateRange = $('input[name="bookdates"]'),
+            inputNumberAdult = $('input[name="qty3"]'),
             inputNumberChild = $('input[name="qty2"]'),
             inputEmail = $('input[name="email"]'),
             inputName = $('input[name="name"]'),
-            inputMobile = $('input[name="mobile"]');
+            inputMobile = $('input[name="mobile"]'),
+            inputViewData = $('#view_data');
 
         formBook.validate({
             rules: {
@@ -125,6 +153,7 @@ $(function () {
             e.preventDefault();
 
             if (formBook.valid()) {
+                $('.loading').removeClass('hidden');
                 $.ajax({
                     url: '/contact/book',
                     method: 'post',
@@ -135,10 +164,14 @@ $(function () {
                         numberChild: inputNumberChild.val(),
                         email: inputEmail.val(),
                         name: inputName.val(),
-                        mobile: inputMobile.val()
+                        mobile: inputMobile.val(),
+                        room: inputViewData.data('room'),
+                        istay: inputViewData.data('istay')
                     }
                 }).done(respon => {
                     $('.response-booking').text(respon);
+
+                    $('.loading').addClass('hidden');
                 }).fail(xhr => {
                     $('.response-booking').text('Something wrong. Please try again');
                 });

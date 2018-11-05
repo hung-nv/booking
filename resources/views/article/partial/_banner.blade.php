@@ -32,7 +32,7 @@
             <div class="breadcrumbs-hero-buttom fl-wrap">
                 <div class="breadcrumbs">
                     <a href="/">{{ trans('labels.home') }}</a>
-                    <a href="{{ route('article.istay', ['istay' => $istay['slug']]) }}">{{ $istay['name'] }}</a>
+                    <a href="{{ route('article.istay', ['istay' => $istay['slug'], 'lang' => $lang]) }}">{{ $istay['name'] }}</a>
                     <span>{{ $room['name'] }}</span>
                 </div>
                 <div class="list-single-hero-price">AWG/NIGHT<span>$ {{ $room['price'] }}</span></div>

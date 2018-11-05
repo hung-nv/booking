@@ -21,7 +21,7 @@
                             @endif
                         </p>
                         @if(!empty($option['promotion_booking_label']))
-                            <a href="{{ $option['promotion_booking_url'] or '/category' }}"
+                            <a href="{{ $option['promotion_booking_url'] or '/search?lang='.$lang }}"
                                class="btn  color-bg float-btn">
                                 {{ $option['promotion_booking_label'] }}<i class="fal fa-plus"></i>
                             </a>

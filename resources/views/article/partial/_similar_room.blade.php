@@ -3,7 +3,7 @@
         <div class="box-widget">
             <div class="box-widget-content">
                 <div class="box-widget-item-header">
-                    <h3>Similar Listings</h3>
+                    <h3>{{ trans('labels.similar_room') }}</h3>
                 </div>
                 <div class="widget-posts fl-wrap">
                     <ul>

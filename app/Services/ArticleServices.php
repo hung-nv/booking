@@ -82,7 +82,13 @@ class ArticleServices
 
     public function getInformationRoom($room, $lang)
     {
-        $roomInformation = Article::findRoom($room, $lang)->toArray();
+        $roomInformation = Article::findRoom($room, $lang);
+
+        if (!$roomInformation) {
+            return null;
+        }
+
+        $roomInformation = $roomInformation->toArray();
 
         $roomOption = MetaField::getDataLandingById($roomInformation['id'])->toArray();
 
@@ -93,7 +99,13 @@ class ArticleServices
 
     public function getInformationIstayById($istayId, $lang)
     {
-        $istayInformation = Article::findIstayInformation($istayId, $lang)->toArray();
+        $istayInformation = Article::findIstayInformation($istayId, $lang);
+
+        if (!$istayInformation) {
+            return null;
+        }
+
+        $istayInformation = $istayInformation->toArray();
 
         $iStayOption = MetaField::getDataLandingById($istayId)->toArray();
 
@@ -104,7 +116,13 @@ class ArticleServices
 
     public function getInformationIstay($slugIstay, $lang)
     {
-        $iStayInformation = Article::findIstay($slugIstay, $lang)->toArray();
+        $iStayInformation = Article::findIstay($slugIstay, $lang);
+
+        if (!$iStayInformation) {
+            return null;
+        }
+
+        $iStayInformation = $iStayInformation->toArray();
 
         $istayOption = MetaField::getDataLandingById($iStayInformation['id'])->toArray();
 
@@ -121,6 +139,11 @@ class ArticleServices
     public function getSimilarRooms($istayId, $lang, $roomIds = [])
     {
         return Article::getSimilarRooms($istayId, $lang, $roomIds);
+    }
+
+    public function getOtherRooms($exceptIds, $lang)
+    {
+        return Article::getOtherRooms($exceptIds, $lang);
     }
 
     public function getRoomsWithOptions($istayId, $lang)

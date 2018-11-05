@@ -126,6 +126,20 @@ body
   &.visible
     display: block
 
+.logo-translate
+  margin-top: 24px
+  .flag
+    cursor: pointer
+    display: inline-block
+    padding: 0 5px
+    border-radius: 3px
+    &.active
+      background: #fff
+    img
+      max-height: 30px
+  img
+    max-height: 30px
+
 /*-------------Header--------------------------------*/
 .header-search
   position: absolute
@@ -281,8 +295,6 @@ section
     width: 100%
     height: 100%
     overflow: hidden
-  &.parallax-section
-    padding: 180px 0
 
 .small-padding
   padding: 30px 0
@@ -328,7 +340,7 @@ section.parallax-section,
 .banner-parallax
   width: 100%
   background-attachment: fixed
-  background-position: center
+  background-position: bottom
   background-repeat: no-repeat
   background-size: auto
 
@@ -488,6 +500,9 @@ section.parallax-section,
         margin-right: 10px
         color: #3AACED
 #homepage
+  padding-top: 80px
+  .parallax-section
+    padding: 160px 0
   .hero-section
     padding: 50px 0
 #search
@@ -1218,3 +1233,8 @@ section.color-bg .section-title .breadcrumbs
       color: #fff
     i
       padding-left: 10px
+
+.lg-actions .lg-next, .lg-actions .lg-prev
+  text-align: center
+
+@import "mobile"
