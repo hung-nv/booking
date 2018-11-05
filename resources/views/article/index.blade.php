@@ -9,7 +9,7 @@
         <div class="breadcrumbs-fs fl-wrap">
             <div class="container">
                 <div class="breadcrumbs fl-wrap">
-                    <a href="/">{{ trans('labels.home') }}</a>
+                    <a href="/?lang={{ $lang }}">{{ trans('labels.home') }}</a>
                     <span>Search</span>
                 </div>
             </div>

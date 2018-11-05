@@ -28,7 +28,7 @@ class ArticleController extends Controller
         $searchInformation = $this->articleServices->getSearchInformation($request->all());
 
         if (!$searchInformation['valid']) {
-            return redirect('/');
+            return redirect('/?lang=' . $lang);
         }
 
         $istays = $this->articleServices->getAllIstayByLang($lang, $this->landingType);
@@ -36,6 +36,7 @@ class ArticleController extends Controller
         $rooms = $this->articleServices->getRooms($searchInformation['params']);
 
         return view('article.index', [
+            'lang' => $lang,
             'istays' => $istays,
             'rooms' => $rooms,
             'params' => $searchInformation['params'],
@@ -57,13 +58,14 @@ class ArticleController extends Controller
 
         $services = $this->articleServices->getServicesByIstay($room['parent_id'], $lang);
 
-        $similarRooms = $this->articleServices->getSimilarRooms($room['parent_id'], $room['id'], $lang);
+        $similarRooms = $this->articleServices->getSimilarRooms($room['parent_id'], $lang, $room['id']);
 
         if (!$room) {
-            return redirect('/');
+            return redirect('/?lang=' . $lang);
         }
 
         return view('article.details', [
+            'lang' => $lang,
             'room' => $room,
             'istay' => $istay,
             'services' => $services,
@@ -73,6 +75,27 @@ class ArticleController extends Controller
 
     public function istay(Request $request, $slug)
     {
+        $lang = $request->lang ? $request->lang : config('const.lang.en.alias');
 
+        if (\App::getLocale() !== $lang) {
+            \App::setLocale($lang);
+        }
+
+        $istay = $this->articleServices->getInformationIstay($slug, $lang);
+
+        if (!$istay) {
+            return redirect('/?lang=' . $lang);
+        }
+
+        $services = $this->articleServices->getServicesByIstay($istay['article_id'], $lang);
+
+        $rooms = $this->articleServices->getSimilarRooms($istay['article_id'], $lang);
+
+        return view('article.istay', [
+            'lang' => $lang,
+            'similarRooms' => $rooms,
+            'istay' => $istay,
+            'services' => $services
+        ]);
     }
 }

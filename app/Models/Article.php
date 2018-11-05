@@ -144,6 +144,7 @@ class Article extends \Eloquent
         return self::select([
             'a.name',
             'b.id',
+            'b.slug',
             'b.image',
             'a.id AS id_content'
         ])
@@ -246,9 +247,25 @@ class Article extends \Eloquent
             ->first();
     }
 
-    public static function getSimilarRooms($istayId, $exceptRoomId, $lang)
+    public static function findIstay($slug, $lang)
     {
         return self::select([
+            'a.*',
+            'b.slug'
+        ])
+            ->from('article_content AS a')
+            ->join('articles AS b', function ($join) {
+                $join->on('a.article_id', '=', 'b.id');
+            })
+            ->where('b.slug', $slug)
+            ->where('a.lang', $lang)
+            ->where('b.landing_type', self::ISTAY_TYPE)
+            ->first();
+    }
+
+    public static function getSimilarRooms($istayId, $lang, $exceptRoomId = null)
+    {
+        $model = self::select([
             'a.*',
             'b.price',
             'b.slug',
@@ -258,10 +275,14 @@ class Article extends \Eloquent
             ->join('articles AS b', function ($join) {
                 $join->on('a.article_id', '=', 'b.id');
             })
-            ->where('a.id', '<>', $exceptRoomId)
             ->where('b.parent_id', $istayId)
             ->where('a.lang', $lang)
-            ->where('b.landing_type', self::ROOM_TYPE)
-            ->get();
+            ->where('b.landing_type', self::ROOM_TYPE);
+
+        if($exceptRoomId) {
+            $model->where('a.id', '<>', $exceptRoomId);
+        }
+
+        return $model->get();
     }
 }

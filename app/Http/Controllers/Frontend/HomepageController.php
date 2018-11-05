@@ -24,10 +24,14 @@ class HomepageController extends Controller
     {
         $lang = $request->lang ? $request->lang : config('const.lang.en.alias');
 
+        if (\App::getLocale() !== $lang) {
+            \App::setLocale($lang);
+        }
+
         $comments = $this->commentServices->getCommentsByLang($lang);
 
         $istays = $this->articleServices->getAllIstayByLang($lang, $this->landingType);
 
-        return view('homepage.index', compact('comments', 'istays'));
+        return view('homepage.index', compact('comments', 'istays', 'lang'));
     }
 }

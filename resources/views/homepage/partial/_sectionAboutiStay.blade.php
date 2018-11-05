@@ -27,7 +27,7 @@
                                 <img src="{{ $istay['image'] }}" alt="">
                             @endif
                             <div class="listing-item-cat">
-                                <h3><a href="#">{{ $istay['name'] }}</a></h3>
+                                <h3><a href="{{ route('article.istay', ['istay' => $istay['slug'], 'lang' => $lang]) }}">{{ $istay['name'] }}</a></h3>
                                 <div class="clearfix"></div>
                                 <p>{{ $istay['address'] or '' }}</p>
                             </div>

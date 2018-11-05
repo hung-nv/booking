@@ -61,7 +61,15 @@ $(function () {
 
         // on click button search.
         btnSearch.on('click', function () {
-            var dateRange, where, slider, params = {};
+            var dateRange, where, slider, lang, params = {};
+
+            lang = getParameterByName('lang');
+
+            if (!lang) {
+                lang = 'en';
+            }
+
+            params['lang'] = lang;
 
             if (inputRangeSlider.length) {
                 slider = inputRangeSlider.data("ionRangeSlider");
@@ -163,6 +171,11 @@ $(function () {
         }, 800);
         return false;
     });
+
+    function getParameterByName(name) {
+        let match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
 
     //   Isotope------------------
     function initIsotope() {

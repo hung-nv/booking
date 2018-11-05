@@ -59,7 +59,7 @@
                                     <div class="listing-item">
                                         <article class="geodir-category-listing fl-wrap">
                                             <div class="geodir-category-img">
-                                                <a href="{{ route('article.details', ['room' => $room->slug]) }}"><img
+                                                <a href="{{ route('article.details', ['room' => $room->slug, 'lang' => $lang]) }}"><img
                                                             src="{{ $room->image }}" alt=""></a>
 
                                                 <div class="geodir-category-opt">
@@ -72,7 +72,7 @@
                                                 <div class="geodir-category-content-title fl-wrap">
                                                     <div class="geodir-category-content-title-item">
                                                         <h3 class="title-sin_map">
-                                                            <a href="{{ route('article.details', ['room' => $room->slug]) }}">{{ $room->name }}</a>
+                                                            <a href="{{ route('article.details', ['room' => $room->slug, 'lang' => $lang]) }}">{{ $room->name }}</a>
                                                         </h3>
                                                         <div class="geodir-category-location fl-wrap">
                                                             <a href="javascript:void()" class="map-item">

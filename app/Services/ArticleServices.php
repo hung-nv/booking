@@ -102,14 +102,25 @@ class ArticleServices
         return $istayDetails;
     }
 
+    public function getInformationIstay($slugIstay, $lang)
+    {
+        $iStayInformation = Article::findIstay($slugIstay, $lang)->toArray();
+
+        $istayOption = MetaField::getDataLandingById($iStayInformation['id'])->toArray();
+
+        $istayDetails = array_merge($iStayInformation, $istayOption);
+
+        return $istayDetails;
+    }
+
     public function getServicesByIstay($istayId, $lang)
     {
         return Services::getServices($istayId, $lang);
     }
 
-    public function getSimilarRooms($istayId, $roomId, $lang)
+    public function getSimilarRooms($istayId, $lang, $roomId = null)
     {
-        return Article::getSimilarRooms($istayId, $roomId, $lang);
+        return Article::getSimilarRooms($istayId, $lang, $roomId);
     }
 
     /**

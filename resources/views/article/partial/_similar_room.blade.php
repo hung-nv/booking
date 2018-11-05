@@ -9,12 +9,12 @@
                     <ul>
                         @foreach($similarRooms as $similarRoom)
                         <li class="clearfix">
-                            <a href="#" class="widget-posts-img">
+                            <a href="{{ route('article.istay', ['istay' => $istay['slug'], 'lang' => $lang]) }}" class="widget-posts-img">
                                 <img src="{{ $similarRoom->image }}" class="respimg" alt=""></a>
                             <div class="widget-posts-descr">
-                                <a href="#" title="">{{ $similarRoom->name }}</a>
+                                <a href="{{ route('article.istay', ['istay' => $istay['slug'], 'lang' => $lang]) }}" title="">{{ $similarRoom->name }}</a>
                                 <div class="geodir-category-location fl-wrap">
-                                    <a href="{{ route('article.istay', ['istay' => $istay['slug']]) }}">
+                                    <a href="{{ route('article.istay', ['istay' => $istay['slug'], 'lang' => $lang]) }}">
                                         <i class="fas fa-map-marker-alt"></i>
                                         {{ $istay['name'] }}
                                     </a>
