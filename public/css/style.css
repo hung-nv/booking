@@ -5995,6 +5995,14 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 @media only screen and (max-width: 768px) {
+  .modal-dialog {
+    top: 100px;
+  }
+
+  .modal-lg {
+    width: auto;
+  }
+
   #homepage .parallax-section {
     padding: 60px 0;
   }
