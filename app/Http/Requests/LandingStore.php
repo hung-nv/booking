@@ -30,7 +30,7 @@ class LandingStore extends FormRequest
         }
 
         if (isset($this->image)) {
-            $rules['image'] = 'required|image|max:10240';
+            $rules['image'] = 'required|image|max:2048';
         }
 
         return $rules;

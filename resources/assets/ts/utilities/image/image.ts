@@ -33,7 +33,7 @@ function newInputImage(inputImage) {
         showCaption: false,
         autoReplace: true,
         maxFileCount: 1,
-        maxFileSize: 1024,
+        maxFileSize: 2048,
         showClose: false
     });
 }

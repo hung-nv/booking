@@ -24,7 +24,7 @@ class SettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'company_logo' => 'image|max:10240',
+            'company_logo' => 'image|max:1024',
             'favico' => 'image|max:1024'
         ];
     }
