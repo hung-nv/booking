@@ -1335,7 +1335,7 @@ function initInputImage(oldImage, newInputImage, urlDelete, option) {
         option.extractName = null;
     }
     if (typeof option.maxSize === "undefined") {
-        option.maxSize = 1024;
+        option.maxSize = 2048;
     }
     $(newInputImage).fileinput({
         allowedFileExtensions: ["jpg", "png"],
