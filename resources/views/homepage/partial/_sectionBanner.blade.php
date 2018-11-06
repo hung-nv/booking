@@ -45,7 +45,7 @@
             @endif
         </div>
     </div>
-    <div class="header-sec-link hidden">
+    <div class="header-sec-link">
         <div class="container">
             <a href="#sec2" class="custom-scroll-link color-bg">
                 <i class="fal fa-angle-double-down"></i></a>

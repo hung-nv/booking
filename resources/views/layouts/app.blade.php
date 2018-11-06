@@ -13,6 +13,8 @@
 
     <link rel="stylesheet" href="{{ asset('/css/plugins.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
@@ -28,8 +30,8 @@
 
 @include('layouts.footer')
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset('/js/jquery-1.12.4.js') }}"></script>
+<script src="{{ asset('/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('/js/lodash.js') }}"></script>
 <script src="{{ asset('/js/jquery.validate.min.js') }}"></script>

@@ -7,6 +7,10 @@ $(function () {
     var btnBookNow = $('#book-room');
     var divFlag = $('.logo-translate');
 
+    setTimeout(function () {
+        $('#popupPromotion').modal('show');
+    }, 2000);
+
     if (divFlag.length) {
         divFlag.on('click', '.flag', function () {
             var newLang = $(this).data('lang'),

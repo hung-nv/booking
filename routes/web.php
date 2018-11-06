@@ -7,6 +7,7 @@ Route::get('/administrator', function () {
 Route::group(['namespace' => 'Frontend'], function () {
     // route homepage.
     Route::get('/', ['as' => 'homepage', 'uses' => 'HomepageController@index']);
+
     // route list posts.
     Route::get('search', ['as' => 'article.list', 'uses' => 'ArticleController@index']);
 
