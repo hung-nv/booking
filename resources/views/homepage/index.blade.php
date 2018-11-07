@@ -26,7 +26,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="img-promotion">
-                        <a href="http://gooogle.com"><img src="{{ asset('images/bg/9.jpg') }}" /></a>
+                        <a href="http://gooogle.com"><img src="{{ asset('images/promotion/cnx_promotion.png') }}" /></a>
                     </div>
                 </div>
             </div>
