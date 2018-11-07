@@ -33,6 +33,10 @@ class LandingStore extends FormRequest
             $rules['image'] = 'required|image|max:2048';
         }
 
+        if (isset($this->price)) {
+            $rules['price'] = 'required';
+        }
+
         return $rules;
     }
 }

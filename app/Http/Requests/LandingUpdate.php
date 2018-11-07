@@ -38,6 +38,10 @@ class LandingUpdate extends FormRequest
             $rules['image'] = 'image|max:2048';
         }
 
+        if (isset($this->price)) {
+            $rules['price'] = 'required';
+        }
+
         return $rules;
     }
 }
