@@ -627,6 +627,8 @@ class ArticleServices
                 $data['image'] = $fileName;
             }
 
+            $data['price'] = !empty($data['price']) ? $data['price'] : 0;
+
             // create article.
             $istay = Article::create($data);
         } else {
