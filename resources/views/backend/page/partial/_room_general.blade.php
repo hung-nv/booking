@@ -43,6 +43,7 @@
             </div>
         </div>
 
+        @php($parentId = isset($page) ? $page->article->parent_id : old('parent_id'))
         <div class="col-md-3">
             <div class="form-group">
                 <label>Select iStay</label>
@@ -50,7 +51,7 @@
                     <option value="">Select iStay...</option>
                     @foreach($istays as $istay)
                         <option value="{{ $istay->id }}"
-                                @if($page->article->parent_id === $istay->id) selected @endif>{{ $istay->name }}</option>
+                                @if($parentId === $istay->id) selected @endif>{{ $istay->name }}</option>
                     @endforeach
                 </select>
             </div>
