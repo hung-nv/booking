@@ -87,7 +87,7 @@
                             <div class="rooms-media">
                                 <img src="{{ $room['image'] }}" alt="">
                                 <div class="dynamic-gal more-photos-button"
-                                     data-dynamicPath="[{'src': '{{ $room['gallery-image-1'] }}'}, {'src': '{{ $room['gallery-image-2'] }}'},{'src': '{{ $room['gallery-image-3'] }}'}]">
+                                     data-dynamicPath="[{'src': '{{ $room['gallery-image-1'] or '' }}'}, {'src': '{{ $room['gallery-image-2'] or '' }}'},{'src': '{{ $room['gallery-image-3'] or '' }}'}]">
                                     {{ trans('labels.view_gallery') }} <span>3 {{ trans('labels.photos') }}</span> <i class="far fa-long-arrow-right"></i></div>
                             </div>
                             <div class="rooms-details">
