@@ -16,7 +16,7 @@
 
         @if(!empty($istay['google-map']))
             <div id="sec6">
-                {!! $istay['google-map'] !!}
+                {!! preg_replace('/width\=\"(.*?)\"/', 'width="100%"', $istay['google-map']) !!}
             </div>
         @endif
     </div>
