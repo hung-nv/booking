@@ -235,7 +235,8 @@ class Article extends \Eloquent
     {
         return self::select([
             'a.*',
-            'b.slug'
+            'b.slug',
+            'b.image'
         ])
             ->from('article_content AS a')
             ->join('articles AS b', function ($join) {
@@ -251,7 +252,8 @@ class Article extends \Eloquent
     {
         return self::select([
             'a.*',
-            'b.slug'
+            'b.slug',
+            'b.image'
         ])
             ->from('article_content AS a')
             ->join('articles AS b', function ($join) {

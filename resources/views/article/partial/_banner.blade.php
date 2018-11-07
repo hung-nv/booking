@@ -1,5 +1,10 @@
 <section class="list-single-hero" data-scrollax-parent="true" id="sec1">
-    <div class="bg par-elem" style="background-image: url({{ asset('images/bg/9.jpg') }})"></div>
+    @if(!empty($istay['image']))
+        <div class="bg par-elem" style="background-image: url({{ $istay['image'] }})"></div>
+    @else
+        <div class="bg par-elem" style="background-image: url({{ asset('images/bg/9.jpg') }})"></div>
+    @endif
+
     <div class="list-single-hero-title fl-wrap">
         <div class="container">
             <div class="row">

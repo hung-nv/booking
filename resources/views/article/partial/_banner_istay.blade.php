@@ -1,5 +1,9 @@
 <section class="list-single-hero" data-scrollax-parent="true" id="sec1">
-    <div class="bg par-elem" style="background-image: url({{ asset('images/bg/9.jpg') }})"></div>
+    @if($istay['image'])
+        <div class="bg par-elem" style="background-image: url({{ $istay['image'] }})"></div>
+    @else
+        <div class="bg par-elem" style="background-image: url({{ asset('images/bg/9.jpg') }})"></div>
+    @endif
     <div class="list-single-hero-title fl-wrap">
         <div class="container">
             <div class="row">
@@ -19,7 +23,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-5 hidden">
                     <div class="list-single-hero-details fl-wrap">
                         <div class="list-single-hero-links">
                             <a class="lisd-link" href="#sec2"><i class="fal fa-bookmark"></i> {{ trans('labels.book_now') }}</a>
@@ -36,7 +40,7 @@
                     <span>{{ $istay['name'] }}</span>
                 </div>
                 @if(!empty($istay['range-price']))
-                    <div class="list-single-hero-price">AWG/NIGHT<span>$ {{ $istay['range-price'] }}</span></div>
+                    <div class="list-single-hero-price">AWG/NIGHT<span>{{ $istay['range-price'] }}</span></div>
                 @endif
             </div>
         </div>

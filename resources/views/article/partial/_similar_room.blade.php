@@ -9,17 +9,17 @@
                     <ul>
                         @foreach($similarRooms as $similarRoom)
                         <li class="clearfix">
-                            <a href="{{ route('article.istay', ['istay' => $istay['slug'], 'lang' => $lang]) }}" class="widget-posts-img">
+                            <a href="{{ route('article.details', ['room' => $similarRoom['slug'], 'lang' => $lang]) }}" class="widget-posts-img">
                                 <img src="{{ $similarRoom->image }}" class="respimg" alt=""></a>
                             <div class="widget-posts-descr">
-                                <a href="{{ route('article.istay', ['istay' => $istay['slug'], 'lang' => $lang]) }}" title="">{{ $similarRoom->name }}</a>
+                                <a href="{{ route('article.details', ['room' => $similarRoom['slug'], 'lang' => $lang]) }}" title="">{{ $similarRoom->name }}</a>
+                                <span class="similar-price">${{ $similarRoom->price }} <strong> /  Awg</strong></span>
                                 <div class="geodir-category-location fl-wrap">
                                     <a href="{{ route('article.istay', ['istay' => $istay['slug'], 'lang' => $lang]) }}">
                                         <i class="fas fa-map-marker-alt"></i>
                                         {{ $istay['name'] }}
                                     </a>
                                 </div>
-                                <span class="rooms-price">${{ $similarRoom->price }} <strong> /  Awg</strong></span>
                             </div>
                         </li>
                         @endforeach
