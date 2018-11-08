@@ -8,7 +8,7 @@
                         <div class="gallery-item @if($i == 3) gallery-item-second @endif">
                             <div class="grid-item-holder">
                                 <div class="box-item">
-                                    <img src="{{ $room['gallery-image-'.$i] }}">
+                                    <img src="/img/800/530/{{ $room['gallery-image-'.$i] }}">
                                     <a href="{{ $room['gallery-image-'.$i] }}" class="gal-link popup-image"><i
                                                 class="fa fa-search"></i></a>
                                 </div>

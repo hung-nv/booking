@@ -4,6 +4,9 @@
             <div class="box-widget-item-header">
                 <h3> {{ trans('labels.book_this_room') }}</h3>
             </div>
+            <p class="notice-book">
+                {!! trans('messages.notice_book') !!}
+            </p>
             <form name="bookFormCalc" class="book-form custom-form">
                 <fieldset>
                     <div class="cal-item">

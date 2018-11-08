@@ -8,7 +8,12 @@
                     @endif
                 </a>
             </div>
-            <div class="col-md-8 col-xs-6 logo-translate">
+            <div class="col-md-4 hidden-xs">
+                <div class="contact-infor">
+                    {{ $option['email'] or '' }} - {{ $option['hotline'] or '' }}
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-6 logo-translate">
                 <div class="pull-right">
                     <div class="flag @if($lang === config('const.lang.en.alias')) active @endif"
                          data-lang="{{ config('const.lang.en.alias') }}">

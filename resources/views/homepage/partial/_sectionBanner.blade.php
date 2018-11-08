@@ -5,7 +5,7 @@
         @else
             <div class="bg banner-parallax" style="background-image: url({{ asset('images/bg/22.jpg') }})"></div>
         @endif
-        <div class="overlay op7"></div>
+        <div class="overlay op3"></div>
     </div>
     <div class="hero-section-wrap fl-wrap">
         <div class="container">
