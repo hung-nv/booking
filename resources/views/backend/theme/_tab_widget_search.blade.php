@@ -12,6 +12,19 @@
         </div>
     @endif
 
+    @if($lang === config('const.lang.en.alias'))
+        <div class="form-group">
+            <label class="col-md-2 control-label">Search Background Mobile</label>
+            <div class="col-md-5">
+                @if(isset($option['search_background_mobile']) && $option['search_background_mobile'])
+                    <input type="hidden" name="old_search_background_mobile" id="old_search_background_mobile" data-id=""
+                           value="{{ $option['search_background_mobile'] or '' }}">
+                @endif
+                <input id="search_background_mobile" name="search_background_mobile" type="file" data-show-upload="false">
+            </div>
+        </div>
+    @endif
+
     <div class="form-group">
         <label class="col-md-2 control-label">Search Heading</label>
         <div class="col-md-5">

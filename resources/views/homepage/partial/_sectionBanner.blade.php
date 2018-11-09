@@ -1,7 +1,11 @@
 <section class="hero-section" data-scrollax-parent="true" id="sec1">
     <div class="hero-parallax">
         @if(!empty($option['search_background']))
-            <div class="bg banner-parallax" style="background-image: url({{ $option['search_background'] }})"></div>
+            @if($agent->isMobile())
+                <div class="bg banner-parallax" style="background-image: url({{ $option['search_background_mobile'] }})"></div>
+            @else
+                <div class="bg banner-parallax" style="background-image: url({{ $option['search_background'] }})"></div>
+            @endif
         @else
             <div class="bg banner-parallax" style="background-image: url({{ asset('images/bg/22.jpg') }})"></div>
         @endif

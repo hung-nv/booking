@@ -5641,6 +5641,8 @@ var ui = {
     inputOldPromotionBg: '#old_promotion_background',
     inputSearchBg: '#search_background',
     inputOldSearchBg: '#old_search_background',
+    inputSearchMobileBg: '#search_background_mobile',
+    inputOldSearchMobileBg: '#old_search_background_mobile',
     urlDeleteFileSetting: '/api/delete-file-setting'
 };
 var Setting = /** @class */ (function (_super) {
@@ -5705,6 +5707,19 @@ var Setting = /** @class */ (function (_super) {
             }
             else {
                 image_1.newInputImage(ui.inputSearchBg);
+            }
+        }
+        // init search background.
+        if ($(ui.inputSearchMobileBg).length) {
+            if ($(ui.inputOldSearchMobileBg).length) {
+                image_1.initInputImage(ui.inputOldSearchMobileBg, ui.inputSearchMobileBg, ui.urlDeleteFileSetting, { extractName: 'search_background_mobile' });
+                $(ui.inputSearchMobileBg).on('fileclear', function (event) {
+                    var input = $(this).parents('.file-input').find('.kv-file-remove');
+                    input.trigger("click");
+                });
+            }
+            else {
+                image_1.newInputImage(ui.inputSearchMobileBg);
             }
         }
     };

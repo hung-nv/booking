@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\View;
+use Jenssegers\Agent\Agent;
 
 class Controller extends BaseController
 {
@@ -18,10 +19,10 @@ class Controller extends BaseController
      * Define type.
      * @var
      */
-    protected $postType,
-        $categoryType,
-        $pageType,
-        $landingType;
+    protected $postType = 2,
+        $categoryType = 1,
+        $pageType = 3,
+        $landingType = 4;
 
     /**
      * Define option setting.
@@ -30,6 +31,8 @@ class Controller extends BaseController
     protected $option;
 
     protected $mainMenu;
+
+    protected $agent;
 
     public function __construct()
     {
@@ -42,11 +45,6 @@ class Controller extends BaseController
 
     public function setType()
     {
-        $this->categoryType = 1;
-        $this->postType = 2;
-        $this->pageType = 3;
-        $this->landingType = 4;
-
         View::share('pageType', $this->pageType);
 
         View::share('landingType', $this->landingType);
@@ -66,6 +64,10 @@ class Controller extends BaseController
         }
 
         $this->option = Option::getConfigByLang($lang);
+
+        $agent = new Agent;
+
+        View::share('agent', $agent);
 
         View::share('option', $this->option);
     }

@@ -13,6 +13,8 @@ const ui = {
     inputOldPromotionBg: '#old_promotion_background',
     inputSearchBg: '#search_background',
     inputOldSearchBg: '#old_search_background',
+    inputSearchMobileBg: '#search_background_mobile',
+    inputOldSearchMobileBg: '#old_search_background_mobile',
     urlDeleteFileSetting: '/api/delete-file-setting'
 };
 
@@ -103,6 +105,26 @@ export default class Setting extends Page {
                 });
             } else {
                 newInputImage(ui.inputSearchBg);
+            }
+        }
+
+        // init search background.
+        if ($(ui.inputSearchMobileBg).length) {
+            if ($(ui.inputOldSearchMobileBg).length) {
+                initInputImage(
+                    ui.inputOldSearchMobileBg,
+                    ui.inputSearchMobileBg,
+                    ui.urlDeleteFileSetting,
+                    {extractName: 'search_background_mobile'}
+                );
+
+                $(ui.inputSearchMobileBg).on('fileclear', function (event) {
+                    let input = $(this).parents('.file-input').find('.kv-file-remove');
+
+                    input.trigger("click");
+                });
+            } else {
+                newInputImage(ui.inputSearchMobileBg);
             }
         }
     }
