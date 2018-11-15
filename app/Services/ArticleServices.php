@@ -124,9 +124,14 @@ class ArticleServices
 
         $iStayInformation = $iStayInformation->toArray();
 
+        $iStayOptionGeneral = [];
+        if ($lang !== config('const.lang.en.alias')) {
+            $iStayOptionGeneral = MetaField::getDataLandingGeneralById($iStayInformation['main_id'])->toArray();
+        }
+
         $istayOption = MetaField::getDataLandingById($iStayInformation['id'])->toArray();
 
-        $istayDetails = array_merge($iStayInformation, $istayOption);
+        $istayDetails = array_merge($iStayInformation, $istayOption, $iStayOptionGeneral);
 
         return $istayDetails;
     }

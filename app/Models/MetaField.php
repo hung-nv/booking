@@ -28,6 +28,15 @@ class MetaField extends \Eloquent
             ->pluck('key_value', 'key_name');
     }
 
+    public static function getDataLandingGeneralById($pageId)
+    {
+        return self::select(['key_name', 'key_value'])
+            ->where('article_content_id', $pageId)
+            ->where('key_name', 'LIKE', "%gallery-image%")
+            ->orWhere('key_name', 'LIKE', '%google-map%')
+            ->pluck('key_value', 'key_name');
+    }
+
     /**
      * Get Meta Field by ArticleId and KeyName.
      * @param $pageId

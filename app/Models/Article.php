@@ -250,7 +250,7 @@ class Article extends \Eloquent
 
     public static function findIstay($slug, $lang)
     {
-        return self::select([
+        $model = self::select([
             'a.*',
             'b.slug',
             'b.image'
@@ -261,8 +261,17 @@ class Article extends \Eloquent
             })
             ->where('b.slug', $slug)
             ->where('a.lang', $lang)
-            ->where('b.landing_type', self::ISTAY_TYPE)
-            ->first();
+            ->where('b.landing_type', self::ISTAY_TYPE);
+
+        if ($lang !== config('const.lang.en.alias')) {
+            $model->leftJoin('article_content AS c', function ($join) {
+                $join->on('a.article_id', '=', 'c.article_id');
+            });
+
+            $model->addSelect('c.id AS main_id');
+        }
+
+        return $model->first();
     }
 
     public static function getSimilarRooms($istayId, $lang, $exceptRoomId = [])
