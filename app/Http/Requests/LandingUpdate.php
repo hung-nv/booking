@@ -33,7 +33,9 @@ class LandingUpdate extends FormRequest
         }
 
         if (empty($this->old_image)) {
-            $rules['image'] = 'required|image|max:2048';
+            //TODO :check lai image.
+//            $rules['image'] = 'required|image|max:2048';
+            $rules['image'] = 'image|max:2048';
         } else {
             $rules['image'] = 'image|max:2048';
         }
