@@ -77,11 +77,13 @@
                        class="form-control">
             </div>
 
-            <div class="form-group">
-                <label>Google Map</label>
-                <textarea type="text" name="google-map" rows="5"
-                          class="form-control">{{ $field['google-map'] or old('google-map') }}</textarea>
-            </div>
+            @if ($lang === 'en' || (!empty($page) && $page->lang === 'en'))
+                <div class="form-group">
+                    <label>Google Map</label>
+                    <textarea type="text" name="google-map" rows="5"
+                              class="form-control">{{ $field['google-map'] or old('google-map') }}</textarea>
+                </div>
+            @endif
         </div>
     </div>
 
