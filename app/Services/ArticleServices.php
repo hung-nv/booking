@@ -131,6 +131,10 @@ class ArticleServices
 
         $istayOption = MetaField::getDataLandingById($iStayInformation['id'])->toArray();
 
+        if ($lang !== config('const.lang.en.alias')) {
+            unset($istayOption['google-map']);
+        }
+
         $istayDetails = array_merge($iStayInformation, $istayOption, $iStayOptionGeneral);
 
         return $istayDetails;
