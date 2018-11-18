@@ -2,9 +2,11 @@
     <div class="hero-parallax">
         @if(!empty($option['search_background']))
             @if($agent->isMobile())
-                <div class="bg banner-parallax" style="background-image: url({{ $option['search_background_mobile'] }})"></div>
+                <div class="bg banner-parallax"
+                     style="background-image: url({{ $option['search_background_mobile'] or asset('images/bg/22.jpg') }})"></div>
             @else
-                <div class="bg banner-parallax" style="background-image: url({{ $option['search_background'] }})"></div>
+                <div class="bg banner-parallax"
+                     style="background-image: url({{ $option['search_background'] or asset('images/bg/22.jpg') }})"></div>
             @endif
         @else
             <div class="bg banner-parallax" style="background-image: url({{ asset('images/bg/22.jpg') }})"></div>
@@ -37,7 +39,8 @@
                         </div>
                         <div class="main-search-input-item main-date-parent main-search-input-item_small">
                             <span class="inpt_dec"><i class="fal fa-calendar-check"></i></span>
-                            <input type="text" placeholder="{{ $option['search_when_label'] or '' }}" name="stay_when" value="">
+                            <input type="text" placeholder="{{ $option['search_when_label'] or '' }}" name="stay_when"
+                                   value="">
                         </div>
 
                         <button class="main-search-button color2-bg">
