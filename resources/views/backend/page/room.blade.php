@@ -3,7 +3,7 @@
     'oldSlug' => $slug
 ]])
 
-@section('title', 'Create iStay')
+@section('title', 'Create Room')
 
 @section('pageId', 'landing')
 
@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <h3 class="page-title"> Landing Page</h3>
+    <h3 class="page-title"> Room</h3>
 
     <div class="row">
         <div class="col-md-12">

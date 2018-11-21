@@ -22,15 +22,19 @@
 
         <input type="hidden" id="viewData" data-istays="{{ json_encode($istays) }}">
 
-        <div class="modal fade bs-example-modal-lg" id="popupPromotion" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="img-promotion">
-                        <a href="http://gooogle.com"><img src="{{ asset('images/promotion/cnx_promotion.png') }}" /></a>
+        @if(!empty($option['promotion_background']))
+            <div class="modal fade bs-example-modal-lg" id="popupPromotion" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="img-promotion">
+                            <a href="{{ $option['promotion_booking_url'] or '/search?lang='.$lang }}">
+                                <img src="{{ $option['promotion_background'] }}"/>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
 
     </div>
 @endsection

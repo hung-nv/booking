@@ -33,9 +33,9 @@
                                 <div class="search-input-item">
                                     <div class="range-slider-title">{{ trans('labels.price_range') }}</div>
                                     <div class="range-slider-wrap fl-wrap">
-                                        <input class="range-slider" data-from="{{ $params['min'] or '50' }}"
-                                               data-to="{{ $params['max'] or '1000' }}" data-step="50"
-                                               data-min="50" data-max="1000" data-prefix="$">
+                                        <input class="range-slider" data-from="{{ $params['min'] or '10' }}"
+                                               data-to="{{ $params['max'] or '500' }}" data-step="10"
+                                               data-min="10" data-max="500" data-prefix="$">
                                     </div>
                                 </div>
                             </div>

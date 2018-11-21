@@ -82,7 +82,7 @@
                         @endif
                     @elseif($i['landing_type'] === 2)
                         @if(!empty($i['name_'.config('const.lang.ko.alias')]))
-                            <a href="{{ route('page.editLanding', ['page' => $i['id_content_'.config('const.lang.ko.alias')]]) }}"
+                            <a href="{{ route('page.editRoom', ['page' => $i['id_content_'.config('const.lang.ko.alias')]]) }}"
                                class="btn btn-icon-only blue">
                                 <i class="fa fa-edit"></i>
                             </a>
