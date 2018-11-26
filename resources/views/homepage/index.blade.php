@@ -27,6 +27,9 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="img-promotion">
+                            <div class="close-modal">
+                                <i class="fal fa-times-circle"></i>
+                            </div>
                             <a href="{{ $option['promotion_booking_url'] or '/search?lang='.$lang }}">
                                 <img src="{{ $option['promotion_background'] }}"/>
                             </a>
