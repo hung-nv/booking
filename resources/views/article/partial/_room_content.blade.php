@@ -31,7 +31,7 @@
         @endif
         <div class="list-single-main-item fl-wrap" id="sec3">
             <div class="list-single-main-item-title fl-wrap">
-                <h3>Amenities</h3>
+                <h3>{{ $room['feature-heading'] or 'Services' }}</h3>
             </div>
             <div class="listing-features fl-wrap">
                 @if(!empty($services))

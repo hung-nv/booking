@@ -25,8 +25,6 @@
 
         @include('article._sectionSearch')
 
-        @include('homepage.partial._sectionPromotion')
-
         <input type="hidden" id="viewData" data-istays="{{ json_encode($istays) }}">
     </div>
 @endsection
