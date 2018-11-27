@@ -20,11 +20,11 @@
                     <div class="grid-item-holder">
                         <div class="listing-item-grid">
                             @if($loop->index === 1)
-                                <img src="{{ $istay['image'] }}" alt="">
+                                <img src="/img/1246/414/{{ $istay['image'] }}" alt="">
                                 <div class="listing-counter">{{ $istay['range-price'] or '' }}</div>
                             @else
                                 <div class="listing-counter">{{ $istay['range-price'] or '' }}</div>
-                                <img src="{{ $istay['image'] }}" alt="">
+                                <img src="/img/613/414/{{ $istay['image'] }}" alt="">
                             @endif
                             <div class="listing-item-cat">
                                 <h3><a href="{{ route('article.istay', ['istay' => $istay['slug'], 'lang' => $lang]) }}">{{ $istay['name'] }}</a></h3>
