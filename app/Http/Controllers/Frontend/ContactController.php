@@ -20,12 +20,12 @@ class ContactController extends Controller
 
     public function book(Request $request)
     {
-        try {
+//        try {
             $respon = $this->contactServices->createContact($request->all());
 
             return response()->json($respon);
-        } catch (\Exception $exception) {
-            return response()->json('Internal Server Error', 500);
-        }
+//        } catch (\Exception $exception) {
+//            return response()->json('Internal Server Error', 500);
+//        }
     }
 }
