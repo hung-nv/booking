@@ -61,8 +61,8 @@ class ArticleController extends Controller
         $istay = $this->articleServices->getInformationIstayById($room['parent_id'], $lang);
 
         if (!empty($istay['google-map'])) {
-            preg_replace('/width\=\"(.*?)\"/', 'width="100%"', $istay['google-map']);
-            preg_replace('/height\=\"(.*?)\"/', 'height="100%"', $istay['google-map']);
+            $istay['google-map'] = preg_replace('/width\=\"(.*?)\"/', 'width="100%"', $istay['google-map']);
+            $istay['google-map'] = preg_replace('/height\=\"(.*?)\"/', 'height="100%"', $istay['google-map']);
         }
 
         $services = $this->articleServices->getServicesByIstay($room['parent_id'], $lang);
@@ -93,8 +93,8 @@ class ArticleController extends Controller
         }
 
         if (!empty($istay['google-map'])) {
-            preg_replace('/width\=\"(.*?)\"/', 'width="100%"', $istay['google-map']);
-            preg_replace('/height\=\"(.*?)\"/', 'height="100%"', $istay['google-map']);
+            $istay['google-map'] = preg_replace('/width\=\"(.*?)\"/', 'width="100%"', $istay['google-map']);
+            $istay['google-map'] = preg_replace('/height\=\"(.*?)\"/', 'height="100%"', $istay['google-map']);
         }
 
         $services = $this->articleServices->getServicesByIstay($istay['article_id'], $lang);
