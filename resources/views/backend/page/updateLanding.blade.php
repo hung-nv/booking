@@ -95,7 +95,7 @@
 @push('script')
     <script src="{{ asset('/admin/assets/global/plugins/select2/js/select2.full.min.js') }}"
             type="text/javascript"></script>
-
+    <script src="{{ asset('/admin/assets/global/plugins/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/admin/assets/global/plugins/fileinput.min.js') }}"
             type="text/javascript"></script>
     <script src="{{ asset('/admin/assets/global/plugins/piexif.min.js') }}"

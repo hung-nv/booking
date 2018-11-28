@@ -80,8 +80,15 @@
             @if ($lang === 'en' || (!empty($page) && $page->lang === 'en'))
                 <div class="form-group">
                     <label>Google Map</label>
-                    <textarea type="text" name="google-map" rows="5"
+                    <textarea name="google-map" rows="5"
                               class="form-control">{{ $field['google-map'] or old('google-map') }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Special Location</label>
+                    <textarea name="special-location" rows="5" data-error-container="#editor2_error"
+                              class="ckeditor form-control">{{ $field['special-location'] or old('special-location') }}</textarea>
+                    <div id="editor2_error"></div>
                 </div>
             @endif
         </div>

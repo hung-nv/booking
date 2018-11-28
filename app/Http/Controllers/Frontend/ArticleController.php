@@ -60,6 +60,11 @@ class ArticleController extends Controller
 
         $istay = $this->articleServices->getInformationIstayById($room['parent_id'], $lang);
 
+        if (!empty($istay['google-map'])) {
+            preg_replace('/width\=\"(.*?)\"/', 'width="100%"', $istay['google-map']);
+            preg_replace('/height\=\"(.*?)\"/', 'height="100%"', $istay['google-map']);
+        }
+
         $services = $this->articleServices->getServicesByIstay($room['parent_id'], $lang);
 
         $similarRooms = $this->articleServices->getSimilarRooms($room['parent_id'], $lang, [$room['id']]);
@@ -85,6 +90,11 @@ class ArticleController extends Controller
 
         if (!$istay) {
             return redirect('/?lang=' . $lang);
+        }
+
+        if (!empty($istay['google-map'])) {
+            preg_replace('/width\=\"(.*?)\"/', 'width="100%"', $istay['google-map']);
+            preg_replace('/height\=\"(.*?)\"/', 'height="100%"', $istay['google-map']);
         }
 
         $services = $this->articleServices->getServicesByIstay($istay['article_id'], $lang);

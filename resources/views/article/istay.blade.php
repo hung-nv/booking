@@ -15,8 +15,13 @@
         @include('article.partial._single_istay')
 
         @if(!empty($istay['google-map']))
-            <div id="sec6">
-                {!! preg_replace('/width\=\"(.*?)\"/', 'width="100%"', $istay['google-map']) !!}
+            <div id="sec6 bottom-map">
+                <div class="google-map">
+                    {!! $istay['google-map'] !!}
+                </div>
+                <div class="special-location">
+                    {!! $istay['special-location'] or '' !!}
+                </div>
             </div>
         @endif
     </div>

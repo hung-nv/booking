@@ -6027,6 +6027,28 @@ input[type=number]::-webkit-outer-spin-button {
   font-weight: bold;
 }
 
+#bottom-map {
+  height: 550px;
+  overflow: hidden;
+}
+
+.google-map {
+  width: 50%;
+  float: left;
+  height: 550px;
+}
+
+.special-location {
+  width: 50%;
+  float: left;
+  padding: 15px 30px;
+}
+
+.special-location p {
+  margin-bottom: 0;
+  padding-bottom: 5px;
+}
+
 /*------responsive------------------------------------------------ */
 
 @media only screen and (max-width: 1224px) {
@@ -7005,6 +7027,16 @@ input[type=number]::-webkit-outer-spin-button {
 
   .error-wrap h2 {
     font-size: 74px;
+  }
+
+  .google-map {
+    width: 100%;
+    height: 320px;
+  }
+
+  .special-location {
+    width: 100%;
+    height: auto;
   }
 }
 
