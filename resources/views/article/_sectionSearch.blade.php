@@ -59,8 +59,9 @@
                                     <div class="listing-item">
                                         <article class="geodir-category-listing fl-wrap">
                                             <div class="geodir-category-img">
-                                                <a href="{{ route('article.details', ['room' => $room->slug, 'lang' => $lang]) }}"><img
-                                                            src="{{ $room->image }}" alt=""></a>
+                                                <a href="{{ route('article.details', ['room' => $room->slug, 'lang' => $lang]) }}">
+                                                    <img src="/img/380/251{{ $room->image }}" alt="">
+                                                </a>
 
                                                 <div class="geodir-category-opt">
                                                     <div class="rate-class-name">
