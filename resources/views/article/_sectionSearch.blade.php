@@ -77,7 +77,7 @@
                                                         <div class="geodir-category-location fl-wrap">
                                                             <a href="javascript:void()" class="map-item">
                                                                 <i class="fas fa-map-marker-alt"></i>
-                                                                {{ $room->address }}
+                                                                {{ $istays[$room->istay_id]['address'] }}
                                                             </a>
                                                         </div>
                                                     </div>

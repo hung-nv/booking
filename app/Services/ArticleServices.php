@@ -36,6 +36,12 @@ class ArticleServices
             $result[] = array_merge($istay, $iStayField);
         }
 
+        $result = array_reduce($result, function ($return, $item) {
+            $return[$item['id']] = $item;
+
+            return $return;
+        }, []);
+
         return $result;
     }
 

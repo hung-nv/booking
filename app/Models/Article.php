@@ -179,19 +179,11 @@ class Article extends \Eloquent
             'b.image',
             'b.price',
             'b.slug',
-            'c.name AS istay_name',
-            'd.key_value AS address'
+            'b.parent_id as istay_id'
         ])
             ->from('article_content AS a')
             ->join('articles AS b', function ($join) {
                 $join->on('a.article_id', '=', 'b.id');
-            })
-            ->leftJoin('article_content AS c', function ($join) {
-                $join->on('c.article_id', '=', 'b.parent_id');
-            })
-            ->leftJoin('meta_field AS d', function ($join) {
-                $join->on('d.article_content_id', '=', 'c.id');
-                $join->where('key_name', '=', 'address');
             })
             ->where('a.lang', $lang)
             ->where('b.landing_type', self::ROOM_TYPE);
