@@ -3042,7 +3042,7 @@ section.color-bg .section-title .breadcrumbs a:before {
 .geodir-category-opt .rate-class-name {
   float: right;
   position: relative;
-  top: -6px;
+  padding: 10px 0;
 }
 
 .geodir-category-opt .rate-class-name .score {

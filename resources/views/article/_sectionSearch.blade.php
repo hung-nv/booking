@@ -65,7 +65,7 @@
 
                                                 <div class="geodir-category-opt">
                                                     <div class="rate-class-name">
-                                                        <div class="score">{{ $room->istay_name }} </div>
+                                                        <div class="score">{{ $istays[$room->istay_id]['name'] }} </div>
                                                     </div>
                                                 </div>
                                             </div>
