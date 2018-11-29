@@ -1034,8 +1034,7 @@ body {
 }
 
 .header .header-logo img {
-  max-height: 50px;
-  margin-top: 10px;
+  max-height: 80px;
 }
 
 .header .contact-infor {

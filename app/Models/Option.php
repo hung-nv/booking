@@ -25,6 +25,7 @@ class Option extends \Eloquent
         return self::where('lang', $lang)
             ->orWhere('key', 'LIKE', '%background%')
             ->orWhere('key', 'LIKE', '%logo%')
+            ->orWhere('key', 'LIKE', '%email%')
             ->get()
             ->pluck('value', 'key');
     }
