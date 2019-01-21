@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="{{ asset('/css/color.css') }}">
 </head>
 <body>
+@if(!empty($option['script_support']))
+    {!! $option['script_support'] !!}
+@endif
 @include('layouts.header')
 
 <div id="@yield('pageId')">

@@ -7,6 +7,7 @@
                     @if(!empty($option['company_description']))
                         {!! str_replace("\n", "<br />", $option['company_description']) !!}
                     @endif
+                    <p><i class="fab fa-facebook"></i><i class="fab fa-youtube"></i></p>
                 </div>
             </div>
         </div>

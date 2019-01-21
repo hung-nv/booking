@@ -69,4 +69,12 @@
                       maxlength="255">{{ $option['meta_description'] or old('meta_description') }}</textarea>
         </div>
     </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Script Support:</label>
+        <div class="col-md-5">
+            <textarea class="form-control maxlength-handler" rows="10" name="script_support"
+                      maxlength="255">{{ $option['script_support'] or old('script_support') }}</textarea>
+        </div>
+    </div>
 </div>
