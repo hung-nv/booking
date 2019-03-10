@@ -98,7 +98,12 @@ class ArticleServices
 
         $roomOption = MetaField::getDataLandingById($roomInformation['id'])->toArray();
 
-        $roomDetails = array_merge($roomInformation, $roomOption);
+        $roomOptionGeneral = [];
+        if ($lang !== config('const.lang.en.alias')) {
+            $roomOptionGeneral = MetaField::getDataLandingGeneralById($roomInformation['main_id'])->toArray();
+        }
+
+        $roomDetails = array_merge($roomInformation, $roomOption, $roomOptionGeneral);
 
         return $roomDetails;
     }

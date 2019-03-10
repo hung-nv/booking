@@ -155,6 +155,8 @@ class Article extends \Eloquent
             ->where('a.lang', $lang)
             ->where('b.system_link_type_id', $systemLinkType)
             ->where('b.landing_type', self::ISTAY_TYPE)
+            ->orderBy('a.name')
+            ->orderBy('b.created_at')
             ->get();
     }
 
@@ -208,7 +210,7 @@ class Article extends \Eloquent
 
     public static function findRoom($slug, $lang)
     {
-        return self::select([
+        $model = self::select([
             'a.*',
             'b.price',
             'b.parent_id'
@@ -219,8 +221,18 @@ class Article extends \Eloquent
             })
             ->where('b.slug', $slug)
             ->where('a.lang', $lang)
-            ->where('b.landing_type', self::ROOM_TYPE)
-            ->first();
+            ->where('b.landing_type', self::ROOM_TYPE);
+
+        if ($lang !== config('const.lang.en.alias')) {
+            $model->leftJoin('article_content AS c', function ($join) {
+                $join->on('a.article_id', '=', 'c.article_id');
+                $join->where('c.lang', config('const.lang.en.alias'));
+            });
+
+            $model->addSelect('c.id AS main_id');
+        }
+
+        return $model->first();
     }
 
     public static function findIstayInformation($istayId, $lang)
