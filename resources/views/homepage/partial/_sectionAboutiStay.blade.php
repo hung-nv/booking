@@ -16,7 +16,7 @@
     <div class="gallery-items fl-wrap mr-bot spad home-grid">
         @if(!empty($istays))
             @foreach($istays as $istay)
-                <div class="gallery-item @if($loop->index === 1) gallery-item-second @endif">
+                <div class="gallery-item">
                     <div class="grid-item-holder">
                         <div class="listing-item-grid">
                             {{--@if($loop->index === 1)--}}

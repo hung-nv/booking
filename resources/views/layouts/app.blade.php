@@ -8,15 +8,13 @@
     <meta name="robots" content="all">
     <meta name="_token" content="{!! csrf_token() !!}"/>
     <title>@yield('title')</title>
-
-    <link rel="stylesheet" href="{{ asset('/css/reset.css') }}">
-
     <link rel="stylesheet" href="{{ asset('/css/plugins.css') }}">
 
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('/css/reset.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/color.css') }}">
 </head>
