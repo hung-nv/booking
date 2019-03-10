@@ -8,7 +8,7 @@
     <div class="list-single-hero-title fl-wrap">
         <div class="container">
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-9">
                     <div class="listing-rating-wrap">
                         <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
                     </div>
@@ -24,7 +24,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-3 hidden">
                     <div class="list-single-hero-details fl-wrap">
                         <div class="list-single-hero-links">
                             <a class="lisd-link" href="#sec2"><i class="fal fa-bookmark"></i> {{ trans('labels.book_now') }}</a>

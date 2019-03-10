@@ -2,16 +2,15 @@ footer
   .footer
     margin: 0 auto
     text-align: center
-    padding: 40px 0 1px
-    background-color: #633716
-    color: #fff
+    padding: 30px 0 1px
+    background-color: #ccc
+    color: #000
     .title
       font-size: 24px
       line-height: 24px
       margin-bottom: 10px
       letter-spacing: 0
-      color: #fff
-      font-family: "Playfair Display","Old Standard TT",serif
+      color: #000
     .sub-title
       font-size: 14px
       line-height: 14px
@@ -28,13 +27,13 @@ footer
         display: inline-block
         margin: 0 5px
         a
-          color: #fff
+          color: #000
           &:hover
-            color: #fff
+            color: #000
     a
-      color: #fff
+      color: #000
       &:hover
-        color: #fff
+        color: #000
     .footer-social
       padding-left: 0
       img
@@ -47,7 +46,7 @@ footer
         strong
           font-weight: bold
     p
-      color: #fff
+      color: #000
     .copyright
       border-top: 1px solid rgba(255, 255, 255, 0.1)
       > p
@@ -56,7 +55,15 @@ footer
         min-height: 33px
 
     .footer-information
-      margin-bottom: 20px
+      p
+        i.fa-facebook
+          font-size: 40px
+          color: #29487d
+        i.fa-youtube
+          font-size: 40px
+          color: red
+        &:last-of-type
+          margin-bottom: 0
 
 @media (max-width: 767px)
   footer .footer ul

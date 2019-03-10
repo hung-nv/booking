@@ -1,3 +1,18 @@
+@if(!empty($option['hotline']))
+    <div class="floating_btn hvr-pulse-grow">
+        <div class="hotline hidden-xs">
+            <a href="tel:+{{ $option['hotline'] }}">
+                <figure>
+                    <img src="{{ asset('images/icon/icon_phone.png') }}" alt="" class="img-responsive center-block">
+                </figure>
+                <p>
+                    {{ $option['hotline'] or '' }}
+                </p>
+            </a>
+        </div>
+    </div>
+@endif
+
 <header class="header">
     <div class="container-fluid">
         <div class="row">
@@ -11,9 +26,8 @@
             <div class="col-md-4 hidden-xs">
                 <div class="contact-infor">
                     @if(!empty($option['email']))
-                        {{ $option['email'] or '' }} -
+                        {{ $option['email'] or '' }}
                     @endif
-                    {{ $option['hotline'] or '' }}
                 </div>
             </div>
             <div class="col-md-4 col-xs-6 logo-translate">

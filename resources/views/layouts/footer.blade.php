@@ -7,7 +7,14 @@
                     @if(!empty($option['company_description']))
                         {!! str_replace("\n", "<br />", $option['company_description']) !!}
                     @endif
-                    <p><i class="fab fa-facebook"></i><i class="fab fa-youtube"></i></p>
+                    <p>
+                        @if(!empty($option['fanpage']))
+                            <a href="{{ $option['fanpage'] }}"><i class="fab fa-facebook"></i></a>
+                        @endif
+                        @if(!empty($option['youtube']))
+                            <a href="{{ $option['youtube'] }}"><i class="fab fa-youtube"></i></a>
+                        @endif
+                    </p>
                 </div>
             </div>
         </div>
@@ -22,9 +29,12 @@
      id="phonering-alo-phoneIcon">
     <div class="phonering-alo-ph-circle"></div>
     <div class="phonering-alo-ph-circle-fill"></div>
-    <div class="phonering-alo-ph-img-circle"><a href="tel:{{ $option['hotline'] or '0981688118' }}" class="pps-btn-img" title="Liên hệ"> <img
-                    src="https://i.imgur.com/v8TniL3.png" alt="Liên hệ" width="50"
-                    onmouseover="this.src='https://i.imgur.com/v8TniL3.png';"
-                    onmouseout="this.src='https://i.imgur.com/v8TniL3.png';" class="callme lazyloading"
-                    data-was-processed="true"> </a></div>
+    <div class="phonering-alo-ph-img-circle">
+        <a href="tel:{{ $option['hotline'] or '0981688118' }}" class="pps-btn-img" title="Liên hệ">
+            <img src="https://i.imgur.com/v8TniL3.png" alt="Liên hệ" width="50"
+                 onmouseover="this.src='https://i.imgur.com/v8TniL3.png';"
+                 onmouseout="this.src='https://i.imgur.com/v8TniL3.png';" class="callme lazyloading"
+                 data-was-processed="true">
+        </a>
+    </div>
 </div>

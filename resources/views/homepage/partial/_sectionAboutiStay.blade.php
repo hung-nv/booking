@@ -19,13 +19,13 @@
                 <div class="gallery-item @if($loop->index === 1) gallery-item-second @endif">
                     <div class="grid-item-holder">
                         <div class="listing-item-grid">
-                            @if($loop->index === 1)
-                                <img src="/img/1246/414{{ $istay['image'] }}">
-                                <div class="listing-counter">{{ $istay['range-price'] or '' }}</div>
-                            @else
+                            {{--@if($loop->index === 1)--}}
+                                {{--<img src="/img/1246/414{{ $istay['image'] }}">--}}
+                                {{--<div class="listing-counter">{{ $istay['range-price'] or '' }}</div>--}}
+                            {{--@else--}}
                                 <div class="listing-counter">{{ $istay['range-price'] or '' }}</div>
                                 <img src="{{ $istay['image'] }}">
-                            @endif
+                            {{--@endif--}}
                             <div class="listing-item-cat">
                                 <h3><a href="{{ route('article.istay', ['istay' => $istay['slug'], 'lang' => $lang]) }}">{{ $istay['name'] }}</a></h3>
                                 <div class="clearfix"></div>

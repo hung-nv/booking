@@ -29,7 +29,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-4 hidden">
                                 <div class="search-input-item">
                                     <div class="range-slider-title">{{ trans('labels.price_range') }}</div>
                                     <div class="range-slider-wrap fl-wrap">
